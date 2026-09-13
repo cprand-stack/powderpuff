@@ -19,7 +19,7 @@
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='a3907629d0b1';
+const BUILD='8e2a987f5ae2';
 if('serviceWorker' in navigator){
   addEventListener('load',()=>{
     /* If a NEW worker takes over, the page we are looking at is already stale -
@@ -275,6 +275,8 @@ if('serviceWorker' in navigator){
   .sday{font-weight:900; font-size:15px; white-space:nowrap}
   .stime{font-weight:800; font-size:14px; color:var(--red); white-space:nowrap; padding-right:14px !important}
   .swhere{font-size:13px; color:var(--muted)}
+  .sched tr.chg td{background:#fdf2f4}
+  .sched tr.chg .sday,.sched tr.chg .stime{color:var(--red)}
   .sched tr.brk td{background:#f2f0ed; color:var(--muted)}
   .sched tr.brk .sday,.sched tr.brk .stime{color:var(--ink)}
   .sched tr.gameday td{border-bottom:0; padding-top:18px}
@@ -506,11 +508,12 @@ if('serviceWorker' in navigator){
     <tr><td class="sday">Monday</td><td class="stime">6:45 &ndash; 7:30 a.m.</td><td class="swhere">Before school &middot; SCA field &middot; <b>doors at 7:45</b></td></tr>
     <tr><td class="sday">Wednesday</td><td class="stime">6:45 &ndash; 7:30 a.m.</td><td class="swhere">Before school &middot; SCA field &middot; <b>doors at 7:45</b></td></tr>
     <tr><td class="sday">Sunday</td><td class="stime">3:00 p.m.</td><td class="swhere">SCA field</td></tr>
+    <tr class="chg"><td class="sday">Week of Oct 5</td><td class="stime">MON &amp; THU</td><td class="swhere">This week only &mdash; <b>Monday the 5th and Thursday the 8th.</b> No Wednesday.</td></tr>
     <tr class="brk"><td class="sday">Oct 10&ndash;17</td><td class="stime">FALL BREAK</td><td class="swhere">No practice. <b>This is the week the app matters</b> &mdash; five minutes a night keeps your plays.</td></tr>
     <tr><td class="sday">Sun Oct 18</td><td class="stime">2:00 &ndash; 4:00 p.m.</td><td class="swhere">Back from break &mdash; <b>the long one.</b> Two hours.</td></tr>
     <tr class="gameday"><td class="sday">Fri Oct 30</td><td class="stime">GAME DAY</td><td class="swhere">vs the seniors first</td></tr>
   </table>
-  <p class="rnote">Two school mornings and a Sunday, every week &mdash; except fall break, and the long Sunday on the 18th when we get back. If a practice moves, Coach Rand will message you &mdash; the two morning days can change depending on the field.</p>
+  <p class="rnote">Two school mornings and a Sunday, every week &mdash; except the week of October 5 (Monday and Thursday), fall break, and the long Sunday on the 18th when we get back. If a practice moves, Coach Rand will message you &mdash; the two morning days can change depending on the field.</p>
 </div>
 
 <div id="wristband" class="respage">
