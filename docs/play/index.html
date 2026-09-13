@@ -19,7 +19,7 @@
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='20764602535b';
+const BUILD='d8f94204f0e7';
 if('serviceWorker' in navigator){
   addEventListener('load',()=>{
     /* If a NEW worker takes over, the page we are looking at is already stale -
@@ -612,7 +612,7 @@ const PLAYS = [
     R3:'Right slot, mirror of R2.',
     R4:'Right sideline, mirror of R1.',
     QB:'2–4 yards straight behind the Center. We will determine exact spacing in practice — but closer is better, because every step back is a step the rush gets for free.',
-    RB:'Offset LEFT behind the QB. On the signal you motion RIGHT at full speed. Same motion. Every play.'
+    RB:'Offset LEFT behind the QB. On the signal you motion RIGHT at full speed. Same motion. Every play (with the exception of SCISSORS LEFT, which we’ll review in practice).'
   },
   off:{ R1:hold('R1'),R2:hold('R2'),G:hold('G'),C:hold('C'),R3:hold('R3'),R4:hold('R4'),QB:hold('QB'),
     RB:[[16,-5.5,0],[16,-5.5,.2],[18,-5.3,.55],[20.5,-5.2,.82],[20.5,-5.2,1]] },
@@ -1545,7 +1545,7 @@ const POSINFO={
     ['QB','Quarterback','Every play starts in your hands. You run it, hand it, pitch it or throw it — and we only get one forward pass a play, so it has to leave your hand from behind the line.'],
     ['C','Center','Nothing in the playbook happens until you get the ball back to the QB. That makes the snap the most practiced thing we do, and it makes a bad one the only way a play dies before it starts.'],
     ['G','Guard','You build the left wall of the runner’s lane — arms at your sides, just be in the way.'],
-    ['RB','Running Back','On most plays you never touch the ball, and that is exactly the point. The defense has to honor that motion every single snap, which is what leaves somebody else open.'],
+    ['RB','Running Back','On most plays you are the running back, but on a few plays, you may morph into the passer (so the Quarterback). The defense has to honor your motion every single snap, which is what leaves somebody else open.'],
     ['R1','Left Wide Receiver','Widest player on the left. You stretch them out: even when the ball is not coming to you, the defender who follows you is one less defender in the middle.'],
     ['R2','Left Slot','The short, quick answer. You start closer to the ball than anybody wide, so when we need five yards right now, it usually comes to you.'],
     ['R3','Right Slot','Mirror of R2 on the right — and the right is the side the motion runs toward, so a lot of what we do happens around you.'],
