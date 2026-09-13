@@ -19,7 +19,7 @@
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='efad6f507cae';
+const BUILD='66a44b855dd0';
 if('serviceWorker' in navigator){
   addEventListener('load',()=>{
     /* If a NEW worker takes over, the page we are looking at is already stale -
@@ -256,18 +256,32 @@ if('serviceWorker' in navigator){
   .rgrid{display:grid; grid-template-columns:1fr; gap:10px; max-width:760px}
   @media(min-width:760px){.rgrid{grid-template-columns:1fr 1fr}}
   .rcard{font:inherit; text-align:left; cursor:pointer; display:flex; flex-direction:column; gap:5px;
-    background:var(--white); border:1.5px solid var(--line); border-radius:12px;
+    background:#fdeff2; border:1.5px solid #f2d3da; border-radius:12px;
     padding:15px 40px 15px 16px; position:relative; transition:.12s;
     -webkit-tap-highlight-color:transparent}
-  .rcard:hover{border-color:var(--red); background:#fdf6f7}
+  .rcard:hover{border-color:var(--red); background:#fbe2e8}
   .rcard b{font-size:15px; font-weight:900; letter-spacing:.02em; color:var(--ink)}
   .rcard b i{font-style:normal; font-weight:800; color:var(--muted); font-size:12.5px}
   .rcard span{font-size:13px; line-height:1.45; color:var(--muted)}
-  .pgroup{margin:0 0 26px}
-  .pgroup>h3{font-size:11px; font-weight:900; letter-spacing:.12em; text-transform:uppercase;
-    color:var(--red); margin:0 0 3px}
-  .pgroup>p.pnote{font-size:12.5px; color:var(--muted); margin:0 0 12px; max-width:70ch}
-  .plist{display:grid; grid-template-columns:1fr; gap:9px; max-width:760px}
+  /* Both sides start closed: sixteen cards open at once is a wall of text, and
+     a girl only ever needs the half she plays on. */
+  .pgroup{margin:0 0 12px; max-width:760px}
+  .pgroup>summary{list-style:none; cursor:pointer; display:flex; align-items:center; gap:10px;
+    padding:13px 15px; border-radius:10px; color:var(--white);
+    font-size:13px; font-weight:900; letter-spacing:.12em; text-transform:uppercase;
+    -webkit-tap-highlight-color:transparent}
+  .pgroup>summary::-webkit-details-marker{display:none}
+  .pgroup.off>summary{background:var(--red)}
+  .pgroup.def>summary{background:var(--black)}
+  .pgroup[open]>summary{border-radius:10px 10px 0 0}
+  .pgroup>summary .pcount{font-size:11px; font-weight:800; letter-spacing:.04em;
+    text-transform:none; opacity:.78; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .pgroup>summary::after{content:'\25BE'; margin-left:auto; font-size:12px; flex:0 0 auto}
+  .pgroup[open]>summary::after{content:'\25B4'}
+  .pbody{border:1.5px solid var(--line); border-top:0; border-radius:0 0 10px 10px;
+    padding:13px 13px 14px; background:var(--panel2)}
+  .pnote{font-size:12.5px; color:var(--muted); margin:0 0 12px; max-width:70ch}
+  .plist{display:grid; grid-template-columns:1fr; gap:9px}
   @media(min-width:760px){.plist{grid-template-columns:1fr 1fr}}
   .pcard{background:var(--white); border:1.5px solid var(--line); border-radius:12px; padding:13px 15px}
   .phead{display:flex; align-items:center; gap:9px; margin:0 0 7px}
@@ -429,7 +443,7 @@ if('serviceWorker' in navigator){
   <p class="rnote">Everything that is not a play. Pick one.</p>
   <div class="rgrid">
     <button class="rcard" data-res="pos"><b>Positions</b><span>Every spot on offense and defense, what it is called and what it does. Start here.</span></button>
-    <button class="rcard" data-res="rules"><b>The Rules</b><span>Word for word from the sheet the school handed out &mdash; what the referee is going by.</span></button>
+    <button class="rcard" data-res="rules"><b>Powderpuff Rules</b><span>Word for word from the sheet the school handed out &mdash; what the referee is going by.</span></button>
     <button class="rcard" data-res="defense"><b>Defense Concepts</b><span>Six things, every snap. Contain, inside leverage, and play the ball.</span></button>
     <button class="rcard" data-res="wrist"><b>Offense Plays <i>(printable)</i></b><span>Every play on one page. Print it, cut it, tape it to a wrist.</span></button>
     <button class="rcard" data-res="sched"><b>Schedule</b><span>Every practice through game day, fall break included.</span></button>
@@ -457,7 +471,7 @@ if('serviceWorker' in navigator){
 </div>
 
 <div id="resRules" class="respage">
-  <h2 class="rtitle">The Rules</h2>
+  <h2 class="rtitle">Powderpuff Rules</h2>
   <p class="rnote">Word for word, from the sheet the school handed out. If a referee tells you something different on the day, the referee is right &mdash; but this is what we are playing by.</p>
 
   <h3>Field Dimensions</h3>
@@ -1556,13 +1570,17 @@ function renderPositions(){
     '<p class="pjob">'+job+'</p>'+
     (spots[code]?'<p class="pspot"><em>Where you line up</em>'+spots[code]+'</p>':'')+
     '</div>').join('')+'</div>';
+  const group=(cls,title,count,note,rows,spots)=>
+    '<details class="pgroup '+cls+'"><summary>'+title+
+      '<span class="pcount">'+count+'</span></summary>'+
+    '<div class="pbody"><p class="pnote">'+note+'</p>'+block(rows,spots)+'</div></details>';
   document.getElementById('posBody').innerHTML=
-    '<div class="pgroup"><h3>Offense &mdash; eight on the field</h3>'+
-      '<p class="pnote">All eight come out of the same formation on every play. R1 to R4 are numbered left to right as you look downfield.</p>'+
-      block(POSINFO.off, look)+'</div>'+
-    '<div class="pgroup"><h3>Defense &mdash; eight on the field</h3>'+
-      '<p class="pnote">Two on the line, four on their receivers, two safeties. D1 to D4 are numbered left to right as you look at the offense.</p>'+
-      block(POSINFO.def, cage)+'</div>';
+    group('off','Offense','eight on the field',
+      'All eight come out of the same formation on every play. R1 to R4 are numbered left to right as you look downfield.',
+      POSINFO.off, look)+
+    group('def','Defense','eight on the field',
+      'Two on the line, four on their receivers, two safeties. D1 to D4 are numbered left to right as you look at the offense.',
+      POSINFO.def, cage);
 }
 const OPOS=['QB','RB','C','G','R1','R2','R3','R4'];
 /* Which girl is picking herself out of the crowd. Remembered per tab, because
