@@ -19,7 +19,7 @@
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='b8d84b029875';
+const BUILD='ad3c433bc0a5';
 if('serviceWorker' in navigator){
   addEventListener('load',()=>{
     /* If a NEW worker takes over, the page we are looking at is already stale -
@@ -82,7 +82,10 @@ if('serviceWorker' in navigator){
   /* ---------- picker: Start | Plays | Special ---------- */
   /* START needs far less room than the other two; MY POSITION needs the most,
      and it now sits in the middle. */
-  #picker{display:grid; grid-template-columns:0.8fr 1.2fr 1fr; gap:8px; max-width:1180px; margin:0 auto; padding:12px 16px 0}
+  /* PLAYS carries the full play name now, so it needs the widest track. */
+  #picker{display:grid; grid-template-columns:0.57fr 1.09fr 1.34fr; gap:8px; max-width:1180px; margin:0 auto; padding:12px 16px 0}
+  /* The controls ride under the header; the animation then stacks under them. */
+  #controlbar{position:sticky; top:var(--stick,60px); z-index:6; background:var(--page); padding-bottom:10px}
   #picker button,#picker select{
     font:inherit; font-size:12px; font-weight:900; letter-spacing:.06em; text-transform:uppercase;
     color:var(--ink); background-color:var(--white); border:1.5px solid var(--line); border-radius:9px;
@@ -97,6 +100,7 @@ if('serviceWorker' in navigator){
   #picker button[aria-pressed="true"]{background-color:var(--red); border-color:var(--red); color:var(--white)}
   #picker select.on{background-color:var(--red); border-color:var(--red); color:var(--white);
     background-image:linear-gradient(45deg,transparent 50%,#fff 50%),linear-gradient(135deg,#fff 50%,transparent 50%)}
+  #picker select#pCore.on{background-color:var(--black); border-color:var(--black)}
   #picker select option{color:var(--ink); background:var(--white); text-transform:none; letter-spacing:0}
   #picker select option:disabled{color:var(--muted); font-style:italic}
   #picker select optgroup{color:var(--muted); font-style:italic; font-weight:900; text-transform:none; letter-spacing:0}
@@ -125,7 +129,7 @@ if('serviceWorker' in navigator){
   /* Pin the animation under the header so she can keep watching the play while
      she scrolls down to read. --stick is the measured header height, set in JS,
      because it differs by breakpoint. */
-  main>div:first-child{position:sticky; top:var(--stick,60px); z-index:5}
+  main>div:first-child{position:sticky; top:var(--stick2,120px); z-index:5}
   @media(min-width:980px){ main{display:grid; grid-template-columns:1.2fr 1fr; gap:20px; align-items:start} }
 
   /* ---------- field ---------- */
@@ -161,21 +165,18 @@ if('serviceWorker' in navigator){
   .pl .stalk{stroke:#231F20; stroke-width:1.5; opacity:.3}
   #field:not(.three) .pl .shadow, #field:not(.three) .pl .stalk{display:none}
   .pl.carrier .shadow{fill:var(--red); opacity:.3}
-  #phasebar{background:#f1efec; padding:8px 12px 0}
+  #phasebar{background:#f1efec; padding:7px 12px 7px; display:flex; align-items:center; gap:10px}
+  .v3d{margin-left:auto; display:flex; align-items:center; gap:6px; font-size:12px; font-weight:900;
+    letter-spacing:.06em; color:var(--red); background:var(--white); cursor:pointer; flex:0 0 auto;
+    border:1.5px solid var(--red); border-radius:999px; padding:4px 11px 4px 8px; user-select:none}
+  .v3d input{width:13px; height:13px; margin:0; accent-color:var(--red)}
+  .v3d.on{background:var(--red); color:var(--white); border-color:var(--red)}
+  .v3d.on input{accent-color:var(--white)}
   .phase{color:var(--red); font-size:11px; font-weight:900; letter-spacing:.12em}
 
   #variants{display:none; align-items:center; gap:8px; flex-wrap:wrap; padding:9px 12px; background:#fdf2f4; border-bottom:1px solid var(--line)}
   #variants.on{display:flex}
-  #variants .vname{background:var(--black); color:var(--white); border-radius:999px;
-    font-size:15px; font-weight:900; letter-spacing:.05em; text-transform:uppercase;
-    padding:7px 15px; white-space:nowrap}
   .vread{display:flex; align-items:center; gap:7px; margin-left:auto}
-  #variants .v3d{display:flex; align-items:center; gap:6px; font-size:12px; font-weight:900;
-    letter-spacing:.06em; color:var(--red); background:var(--white); cursor:pointer;
-    border:1.5px solid var(--red); border-radius:999px; padding:5px 12px 5px 9px; user-select:none}
-  #variants .v3d input{width:13px; height:13px; margin:0; accent-color:var(--red)}
-  #variants .v3d.on{background:var(--red); color:var(--white); border-color:var(--red)}
-  #variants .v3d.on input{accent-color:var(--white)}
   #variants .vlab{font-size:10px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; color:var(--red)}
   #variants .vseg{display:flex; border:1.5px solid var(--red); border-radius:8px; overflow:hidden}
   #variants .vseg button{border:0; border-radius:0; padding:8px 13px; font-size:13px; font-weight:800; background:var(--white); color:var(--red)}
@@ -291,9 +292,6 @@ if('serviceWorker' in navigator){
   @media(max-width:520px){
     #picker{gap:6px; padding:10px 14px 0}
     #variants{gap:4px; padding:8px 7px}
-    #variants .vname{font-size:13px; padding:6px 11px; letter-spacing:.02em}
-    #variants .v3d{font-size:11px; padding:4px 9px 4px 7px; gap:5px}
-    #variants .v3d input{width:12px; height:12px}
     #variants .vlab{display:none}
     #variants .vseg button{padding:7px 6px; font-size:11.5px}
     #picker button,#picker select{font-size:11px; letter-spacing:.04em; padding:11px 8px}
@@ -301,7 +299,9 @@ if('serviceWorker' in navigator){
     #forminfo{padding:0 14px}
     main{padding:10px 14px 0}
     #controls{padding:10px}
-    #phasebar{padding:7px 9px 0}
+    #phasebar{padding:6px 9px 6px}
+    .v3d{font-size:11px; padding:3px 9px 3px 7px; gap:5px}
+    .v3d input{width:12px; height:12px}
     header{gap:10px; padding:10px 14px}
     #logo{height:26px}
     #mascot{height:34px}
@@ -312,7 +312,7 @@ if('serviceWorker' in navigator){
   @media print{
     @page{margin:.4in}
     header{position:static; border-bottom:2px solid #000}
-    #viewtabs,#picker,#forminfo,#dpicker,#dinfo,main,#controls,footer,.wbar{display:none !important}
+    #viewtabs,#controlbar,#forminfo,#dinfo,main,#controls,footer,.wbar{display:none !important}
     #wristband{display:block !important; padding:0}
     .wgrid{grid-template-columns:repeat(4,1fr); gap:6px}
     body{background:#fff}
@@ -345,22 +345,10 @@ if('serviceWorker' in navigator){
   <button id="tabWrist" role="tab" aria-selected="false">Wristband</button>
 </div>
 
-<div id="picker">
-  <button id="pFormation" aria-pressed="true">Start</button>
-  <select id="oPos" aria-label="My position"></select>
-  <select id="pCore" aria-label="Plays"></select>
-</div>
-
 <details id="forminfo">
   <summary><b>Formation</b><span>why every play looks the same</span></summary>
   <div class="fibody" id="fibody"></div>
 </details>
-
-<div id="dpicker">
-  <button id="dBase" aria-pressed="true">Base</button>
-  <select id="dPos" aria-label="My position"></select>
-</div>
-<div id="dviews"></div>
 
 <details id="dinfo">
   <summary><b>The rules</b><span>six things, every snap</span></summary>
@@ -377,11 +365,27 @@ if('serviceWorker' in navigator){
   </div>
 </details>
 
+<div id="controlbar">
+<div id="picker">
+  <button id="pFormation" aria-pressed="true">Start</button>
+  <select id="oPos" aria-label="My position"></select>
+  <select id="pCore" aria-label="Plays"></select>
+</div>
+<div id="dpicker">
+  <button id="dBase" aria-pressed="true">Base</button>
+  <select id="dPos" aria-label="My position"></select>
+</div>
+<div id="dviews"></div>
+</div>
+
 <main id="mainView">
   <div>
     <div class="card">
       <div id="variants"></div>
-      <div id="phasebar"><span id="phaseTxt" class="phase"></span></div>
+      <div id="phasebar">
+        <span id="phaseTxt" class="phase"></span>
+        <label class="v3d" id="l3d"><input type="checkbox" id="t3D"> 3D</label>
+      </div>
       <svg id="field" viewBox="-40 -20 480 336" role="img" aria-label="Animated play diagram"></svg>
       <div id="legend">
         <span><i class="dot"></i>Us</span>
@@ -1536,11 +1540,14 @@ function renderPicker(){
      that just says what it opens. The active group turns red, the current
      play is bulleted inside the menu, and its full name sits under the field. */
   const sel=document.getElementById('pCore'), g=GROUPS.core, sp=GROUPS.special;
+  /* The chosen play is genuinely selected, so the closed control shows its
+     name - which is why the play pill above the field is gone. */
   const opt=pid=>{const pl=PLAYS.find(x=>x.id===pid);
     /* shelved plays stay visible but disabled, so we remember they exist */
     if(pl.shelved) return '<option value="" disabled>'+flipText(pl.name)+' \u2014 shelved</option>';
-    return '<option value="'+pid+'">'+(pid===base.id?'\u2022 ':'')+flipText(pl.name)+'</option>';};
-  let html='<option value="" selected>'+g.label+'</option>'+g.plays.map(opt).join('');
+    return '<option value="'+pid+'"'+(pid===base.id?' selected':'')+'>'+flipText(pl.name)+'</option>';};
+  const onPlay=g.plays.some(pid=>pid===base.id);
+  let html='<option value=""'+(onPlay?'':' selected')+'>'+g.label+'</option>'+g.plays.map(opt).join('');
   /* SPECIAL lives inside this menu now, as a group the girls can see but not
      open yet. Deleting `locked` turns it into a normal section. */
   html+='<optgroup label="'+sp.label+(sp.locked?' \u2014 coming later':'')+'"'+(sp.locked?' disabled':'')+'>'+
@@ -1549,7 +1556,7 @@ function renderPicker(){
       : opt(pid)).join('')+'</optgroup>';
   sel.innerHTML=html;
   sel.setAttribute('aria-label', g.label);
-  sel.classList.toggle('on', g.plays.some(pid=>pid===base.id));
+  sel.classList.toggle('on', onPlay);
   const ps=document.getElementById('oPos'), F=FOCUS.offense;
   ps.innerHTML='<option value="">My position</option>'+
     OPOS.map(q=>'<option value="'+q+'"'+(q===F?' selected':'')+'>'+q+'</option>').join('');
@@ -1595,29 +1602,15 @@ function renderDetail(){
 }
 
 function renderVariants(){
-  /* This bar is always on now - it is the only place the chosen play is named
-     above the field, since the picker only shows group names. */
+  /* The play is named by the PLAYS selector now, so this bar exists only when
+     a play has more than one answer - and disappears entirely when it does not. */
   const host=document.getElementById('variants');
-  host.classList.add('on');
-  let html='<span class="vname">'+flipText(base.name)+'</span>';
-  /* 3D sits with the play name: it changes how you are looking at the play,
-     not what is drawn on it. Offence only. */
-  if(MODE!=='defense')
-    html+='<label class="v3d'+(THREE3D?' on':'')+'"><input type="checkbox" id="t3D"'+
-          (THREE3D?' checked':'')+'> 3D</label>';
-  if(base.variants){
-    html+='<div class="vread"><span class="vlab">Read</span><div class="vseg">'+
-      base.variants.map((v,i)=>'<button data-vi="'+i+'" aria-pressed="'+(i===vi)+'">'+flipText(v.label)+'</button>').join('')+
-      '</div></div>';
-  }
-  host.innerHTML=html;
-  const c3=host.querySelector('#t3D');
-  if(c3) c3.onchange=e=>{
-    THREE3D=e.target.checked;
-    c3.closest('.v3d').classList.toggle('on',THREE3D);
-    document.getElementById('field').classList.toggle('three',THREE3D);
-    applyVB();drawField();drawRoutes();render();
-  };
+  host.classList.toggle('on', !!base.variants);
+  host.innerHTML = base.variants
+    ? '<div class="vread"><span class="vlab">Read</span><div class="vseg">'+
+        base.variants.map((v,i)=>'<button data-vi="'+i+'" aria-pressed="'+(i===vi)+'">'+flipText(v.label)+'</button>').join('')+
+      '</div></div>'
+    : '';
   const seg=host.querySelector('.vseg');
   if(seg) seg.onclick=e=>{
     const b=e.target.closest('button[data-vi]');if(!b)return;
@@ -1633,6 +1626,10 @@ function select(id){
   t=0;holdUntil=0;playing=true;setBtn();
   VFLIP = (MODE==='defense');
   if(MODE==='defense') THREE3D=false;      /* that view is mirrored end-to-end */
+  const l3d=document.getElementById('l3d');
+  l3d.hidden = (MODE==='defense');
+  l3d.classList.toggle('on',THREE3D);
+  document.getElementById('t3D').checked=THREE3D;
   document.getElementById('field').classList.toggle('three',THREE3D);
   applyVB();
   drawField();
@@ -1723,6 +1720,13 @@ document.getElementById('oPos').onchange=e=>{
   document.getElementById('field').classList.toggle('focusing', !!focused());
   renderPicker();renderDetail();drawRoutes();render();
 };
+const c3=document.getElementById('t3D');
+c3.onchange=e=>{
+  THREE3D=e.target.checked;
+  document.getElementById('l3d').classList.toggle('on',THREE3D);
+  document.getElementById('field').classList.toggle('three',THREE3D);
+  applyVB();drawField();drawRoutes();render();
+};
 document.getElementById('pFormation').onclick=()=>select(FORMATION_PLAY);
 document.getElementById('dBase').onclick=()=>select('the-cage');
 document.getElementById('dPos').onchange=e=>{
@@ -1761,9 +1765,14 @@ document.getElementById('tabWrist').onclick=()=>setView('wrist');
 /* Watch the header itself, not the window: it changes height at the breakpoint
    and again when the webfont settles, and a resize listener misses both. */
 const hdrEl=document.querySelector('header');
-const setStick=()=>document.documentElement.style.setProperty('--stick', hdrEl.offsetHeight+'px');
+const barEl=document.getElementById('controlbar');
+const setStick=()=>{
+  const h=hdrEl.offsetHeight, d=document.documentElement.style;
+  d.setProperty('--stick', h+'px');
+  d.setProperty('--stick2', (h+barEl.offsetHeight)+'px');   /* animation stacks under the controls */
+};
 setStick();
-if(window.ResizeObserver) new ResizeObserver(setStick).observe(hdrEl);
+if(window.ResizeObserver){const ro=new ResizeObserver(setStick); ro.observe(hdrEl); ro.observe(barEl);}
 addEventListener('resize',setStick);
 addEventListener('orientationchange',setStick);
 renderWristband();
