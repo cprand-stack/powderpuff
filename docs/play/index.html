@@ -19,7 +19,7 @@
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='cc2ca95f45ed';
+const BUILD='1a77550c0c10';
 if('serviceWorker' in navigator){
   addEventListener('load',()=>{
     /* If a NEW worker takes over, the page we are looking at is already stale -
@@ -186,7 +186,7 @@ if('serviceWorker' in navigator){
   #legend{display:flex; align-items:center; gap:14px; flex-wrap:wrap; padding:5px 12px; background:var(--panel2); border-top:1px solid var(--line); font-size:11.5px; color:var(--muted); font-weight:700}
   /* Play/Pause sits at the right of the key, directly under the 3D box, and is
      sized to the row it lives in rather than to a control bar of its own. */
-  /* fill and text colour come from .primary; the box comes from the pair rule above */
+  /* fill and text color come from .primary; the box comes from the pair rule above */
   #legend span{display:flex; align-items:center; gap:6px}
   #legend .dot{width:12px; height:12px; border-radius:50%; display:inline-block; border:2px solid var(--red); background:var(--white)}
   #legend .dot.def{background:var(--black); border-color:var(--black)}
@@ -241,7 +241,7 @@ if('serviceWorker' in navigator){
   .drules{margin:0; padding-left:22px; display:flex; flex-direction:column; gap:11px; max-width:70ch}
   .drules li{font-size:14.5px; line-height:1.55}
   .drules b{color:var(--red)}
-  /* on the defence tab WE are the white circles, so tint our trails apart from the ball */
+  /* on the defense tab WE are the white circles, so tint our trails apart from the ball */
   #field.dmode .trail{stroke:var(--red2); opacity:.45}
   #field.dmode .trail.carry{stroke:var(--red); opacity:.95}
   #field.dmode .route{stroke:var(--red2); opacity:.18}
@@ -581,7 +581,7 @@ const ROSTER = { QB:[], C:[], G:[], RB:[], R1:[], R2:[], R3:[], R4:[] };
    FIELD MATH.  x = 0..40 yds across.  y = yds downfield (LOS=0).
    ============================================================ */
 const SX = x => x*10;
-/* Defence is drawn with our side at the BOTTOM, so the field mirrors vertically.
+/* Defense is drawn with our side at the BOTTOM, so the field mirrors vertically.
    x is untouched, so D1..D4 and R1..R4 both still read left-to-right on either tab. */
 let VFLIP=false;
 const SY  = y => VFLIP ? (y+9)*10 : (20-y)*10;
@@ -1432,8 +1432,8 @@ let CM={};
    is then whatever the tilt leaves us, and the viewBox is cut to match. Drop
    the camera low and the field really does flatten into a strip - that is not
    a bug, it is what standing on the field looks like. */
-/* Downfield in world units. The DEFENCE view is mirrored end-to-end, so the
-   camera has to stand behind OUR defenders instead of behind the offence -
+/* Downfield in world units. The DEFENSE view is mirrored end-to-end, so the
+   camera has to stand behind OUR defenders instead of behind the offense -
    which is exactly a negated y. x is untouched, so left-to-right still reads
    the same on both tabs. */
 const WY=y=>(VFLIP?-y:y)*10;
@@ -1543,9 +1543,9 @@ const DPOS=['LL','RL','D1','D2','D3','D4','LS','RS'];
 const POSINFO={
   off:[
     ['QB','Quarterback','Every play starts in your hands. You run it, hand it, pitch it or throw it — and we only get one forward pass a play, so it has to leave your hand from behind the line.'],
-    ['C','Center','Nothing in the playbook happens until you get the ball back to the QB. That makes the snap the most practised thing we do, and it makes a bad one the only way a play dies before it starts.'],
+    ['C','Center','Nothing in the playbook happens until you get the ball back to the QB. That makes the snap the most practiced thing we do, and it makes a bad one the only way a play dies before it starts.'],
     ['G','Guard','You build the left wall of the runner’s lane — arms at your sides, just be in the way. And on OPTION you trail behind the QB so she always has somewhere to toss it backward.'],
-    ['RB','Running Back','On most plays you never touch the ball, and that is exactly the point. The defense has to honour that motion every single snap, which is what leaves somebody else open.'],
+    ['RB','Running Back','On most plays you never touch the ball, and that is exactly the point. The defense has to honor that motion every single snap, which is what leaves somebody else open.'],
     ['R1','Left Wide Receiver','Widest player on the left. You stretch them out: even when the ball is not coming to you, the defender who follows you is one less defender in the middle.'],
     ['R2','Left Slot','The short, quick answer. You start closer to the ball than anybody wide, so when we need five yards right now, it usually comes to you.'],
     ['R3','Right Slot','Mirror of R2 on the right — and the right is the side the motion runs toward, so a lot of what we do happens around you.'],
@@ -1584,7 +1584,7 @@ function renderPositions(){
 }
 const OPOS=['QB','RB','C','G','R1','R2','R3','R4'];
 /* Which girl is picking herself out of the crowd. Remembered per tab, because
-   she is probably one thing on offence and something else on defence. */
+   she is probably one thing on offense and something else on defense. */
 const FOCUS={offense:'',defense:''};
 const focused=()=>FOCUS[MODE]||'';
 const inKey=(k,F)=>k.split(/\s+/).includes(F);   /* assign keys can be 'R1 R2' */
@@ -1690,7 +1690,7 @@ function render(){
   }
   if(!bw){
     /* Between two ball events nobody is described as having it. The ball is in
-       the hands of whoever last received it - NOT back at the centre. */
+       the hands of whoever last received it - NOT back at the center. */
     let holder=null,best=-1;
     for(const b of cur.ball){
       if(b.kind==='incomplete') continue;
@@ -1773,7 +1773,7 @@ function namesFor(key){
 function renderDetail(){
   const p=cur;let a='';
   const F=focused();
-  /* DEFENCE shows no per-position writing for now - too much jargon for a
+  /* DEFENSE shows no per-position writing for now - too much jargon for a
      freshman reading it cold. The animation plus practice carries it. The
      assign data is still in every DPLAY, so this is one line to undo. */
   const showJobs = MODE!=='defense';
@@ -1849,7 +1849,7 @@ function renderDPicker(){
   sel.innerHTML='<option value="">My position</option>'+
     DPOS.map(q=>'<option value="'+q+'"'+(q===FOCUS.defense?' selected':'')+'>'+q+'</option>').join('');
   sel.classList.toggle('on', !!FOCUS.defense);
-  /* Mirrors the offence picker exactly: the chosen look is genuinely selected,
+  /* Mirrors the offense picker exactly: the chosen look is genuinely selected,
      so the closed control carries its name. */
   const pl=document.getElementById('dPlays'), vs=DPLAYS.filter(p=>!p.base);
   const onPlay=vs.some(p=>p.id===base.id);
