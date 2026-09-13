@@ -65,8 +65,9 @@ if('serviceWorker' in navigator){
 
   /* ---------- formation bundles ---------- */
   /* ---------- picker: Start | Plays | Special ---------- */
-  /* START needs far less room than the other two; MY POSITION needs the most. */
-  #picker{display:grid; grid-template-columns:0.8fr 1fr 1.2fr; gap:8px; max-width:1180px; margin:0 auto; padding:12px 16px 0}
+  /* START needs far less room than the other two; MY POSITION needs the most,
+     and it now sits in the middle. */
+  #picker{display:grid; grid-template-columns:0.8fr 1.2fr 1fr; gap:8px; max-width:1180px; margin:0 auto; padding:12px 16px 0}
   #picker button,#picker select{
     font:inherit; font-size:12px; font-weight:900; letter-spacing:.06em; text-transform:uppercase;
     color:var(--ink); background-color:var(--white); border:1.5px solid var(--line); border-radius:9px;
@@ -331,8 +332,8 @@ if('serviceWorker' in navigator){
 
 <div id="picker">
   <button id="pFormation" aria-pressed="true">Start</button>
-  <select id="pCore" aria-label="Plays"></select>
   <select id="oPos" aria-label="My position"></select>
+  <select id="pCore" aria-label="Plays"></select>
 </div>
 
 <details id="forminfo">
