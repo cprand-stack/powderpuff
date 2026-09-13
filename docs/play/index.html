@@ -19,7 +19,7 @@
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='e590c70006ae';
+const BUILD='3cf513ff1bf5';
 if('serviceWorker' in navigator){
   addEventListener('load',()=>{
     /* If a NEW worker takes over, the page we are looking at is already stale -
@@ -1582,6 +1582,10 @@ function stillFormation(){
   g+='<text x="8" y="'+(los-9)+'" font-size="12" font-weight="900" fill="#6f6a66" letter-spacing="1.4">LINE OF SCRIMMAGE</text>';
   g+='<path d="M'+(rb[0]+18)+','+(rb[1]-1)+' L'+(rb[0]+40)+','+(rb[1]-3)+'" stroke="#DD5872" stroke-width="3.5" stroke-dasharray="7 5" fill="none"/>';
   g+='<path d="M'+(rb[0]+48)+','+(rb[1]-3)+' l-9,-4.5 l0,9 z" fill="#DD5872"/>';
+  /* Which way is downfield. Under R1, where nothing else is drawn. */
+  g+='<line x1="40" y1="258" x2="40" y2="227" stroke="#6f6a66" stroke-width="3"/>';
+  g+='<path d="M40,216 l-7,11 l14,0 z" fill="#6f6a66"/>';
+  g+='<text x="40" y="274" text-anchor="middle" font-size="12" font-weight="900" fill="#6f6a66" letter-spacing="1.2">SCORE</text>';
   for(const k of ['R1','R2','G','C','R3','R4','QB','RB']){
     const q=P(k);
     g+='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="13" fill="#fff" stroke="#CE1141" stroke-width="4"/>';
