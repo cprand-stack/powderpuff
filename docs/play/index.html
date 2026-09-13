@@ -19,7 +19,7 @@
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='b58f4a7dec19';
+const BUILD='3279820bc9fb';
 if('serviceWorker' in navigator){
   addEventListener('load',()=>{
     /* If a NEW worker takes over, the page we are looking at is already stale -
@@ -95,14 +95,14 @@ if('serviceWorker' in navigator){
   #picker,#dpicker{display:grid; grid-template-columns:0.57fr 1.09fr 1.34fr; gap:8px; max-width:1180px; margin:0 auto; padding:12px 16px 0}
   /* The controls ride under the header; the animation then stacks under them. */
   #controlbar{position:sticky; top:var(--stick,60px); z-index:6; background:var(--page); padding-bottom:10px}
-  #picker button,#picker select,#dpicker button,#dpicker select{
+  #picker button,#picker select,#dpicker button,#dpicker select,#rpicker select{
     font:inherit; font-size:12px; font-weight:900; letter-spacing:.06em; text-transform:uppercase;
     color:var(--ink); background-color:var(--white); border:1.5px solid var(--line); border-radius:9px;
     padding:11px 12px; cursor:pointer; width:100%; min-width:0;
     -webkit-appearance:none; appearance:none; -webkit-tap-highlight-color:transparent;
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
   }
-  #picker select,#dpicker select{padding-right:26px;
+  #picker select,#dpicker select,#rpicker select{padding-right:26px;
     background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);
     background-position:calc(100% - 16px) calc(50% + 1px),calc(100% - 11px) calc(50% + 1px);
     background-size:5px 5px; background-repeat:no-repeat}
@@ -110,7 +110,7 @@ if('serviceWorker' in navigator){
   #picker select.on,#dpicker select.on{background-color:var(--red); border-color:var(--red); color:var(--white);
     background-image:linear-gradient(45deg,transparent 50%,#fff 50%),linear-gradient(135deg,#fff 50%,transparent 50%)}
   #picker select#pCore.on,#dpicker select#dPlays.on{background-color:var(--black); border-color:var(--black)}
-  #picker select option,#dpicker select option{color:var(--ink); background:var(--white); text-transform:none; letter-spacing:0}
+  #picker select option,#dpicker select option,#rpicker select option{color:var(--ink); background:var(--white); text-transform:none; letter-spacing:0}
   #picker select option:disabled{color:var(--muted); font-style:italic}
   #picker select optgroup{color:var(--muted); font-style:italic; font-weight:900; text-transform:none; letter-spacing:0}
   /* A locked group stays on screen so the girls know it is coming, but it
@@ -258,8 +258,26 @@ if('serviceWorker' in navigator){
   #field.dmode .trail{stroke:var(--red2); opacity:.45}
   #field.dmode .trail.carry{stroke:var(--red); opacity:.95}
   #field.dmode .route{stroke:var(--red2); opacity:.18}
-  #wristband{display:none; max-width:1180px; margin:0 auto; padding:14px 16px 0}
-  #wristband.on{display:block}
+  /* RESOURCES: one picker, three pages, only one shown at a time. */
+  #rpicker{display:none; max-width:1180px; margin:0 auto; padding:12px 16px 0}
+  #resources{display:none; max-width:1180px; margin:0 auto; padding:14px 16px 0}
+  #resources.on{display:block}
+  .respage{display:none}
+  .respage.on{display:block}
+  .rtitle{font-size:26px; letter-spacing:-.01em; margin:0 0 6px}
+  .rnote{font-size:13.5px; color:var(--muted); margin:0 0 20px; max-width:62ch}
+  #resRules h3{font-size:11px; font-weight:900; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--red); margin:22px 0 6px}
+  #resRules p{margin:0 0 8px; font-size:14.5px; line-height:1.55; max-width:70ch}
+  #resRules ol{margin:0 0 8px; padding-left:22px; font-size:14.5px; line-height:1.55}
+  .sched{border-collapse:collapse; width:100%; max-width:560px}
+  .sched td{border-bottom:1px solid var(--line); padding:13px 8px 13px 0; vertical-align:baseline}
+  .sday{font-weight:900; font-size:15px; white-space:nowrap}
+  .stime{font-weight:800; font-size:14px; color:var(--red); white-space:nowrap; padding-right:14px !important}
+  .swhere{font-size:13px; color:var(--muted)}
+  .sched tr.gameday td{border-bottom:0; padding-top:18px}
+  .sched tr.gameday .sday,.sched tr.gameday .stime{color:var(--red); font-weight:900}
+  #wristband{max-width:none; margin:0; padding:0}
   .wbar{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:12px}
   .wbar p{margin:0; font-size:13px; color:var(--muted)}
   .wgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:10px}
@@ -282,11 +300,12 @@ if('serviceWorker' in navigator){
   /* mobile overrides live last so they win the cascade over the base rules above */
   @media(max-width:520px){
     #picker,#dpicker{gap:6px; padding:10px 14px 0}
+    #rpicker{padding:10px 14px 0}
     #variants{gap:4px; padding:8px 7px}
     #variants .vlab{display:none}
     #variants .vseg button{padding:7px 6px; font-size:11.5px}
-    #picker button,#picker select,#dpicker button,#dpicker select{font-size:11px; letter-spacing:.04em; padding:11px 8px}
-    #picker select,#dpicker select{padding-right:22px; background-position:calc(100% - 13px) calc(50% + 1px),calc(100% - 9px) calc(50% + 1px)}
+    #picker button,#picker select,#dpicker button,#dpicker select,#rpicker select{font-size:11px; letter-spacing:.04em; padding:11px 8px}
+    #picker select,#dpicker select,#rpicker select{padding-right:22px; background-position:calc(100% - 13px) calc(50% + 1px),calc(100% - 9px) calc(50% + 1px)}
     #forminfo{padding:0 14px}
     main{padding:10px 14px 0}
     #controls{padding:10px}
@@ -303,8 +322,9 @@ if('serviceWorker' in navigator){
   @media print{
     @page{margin:.4in}
     header{position:static; border-bottom:2px solid #000}
-    #viewtabs,#controlbar,#forminfo,#dinfo,main,#controls,footer,.wbar{display:none !important}
-    #wristband{display:block !important; padding:0}
+    #viewtabs,#controlbar,#forminfo,#dinfo,main,#controls,footer,.wbar,#rpicker,
+    #resRules,#resSched{display:none !important}
+    #resources,#wristband{display:block !important; padding:0}
     .wgrid{grid-template-columns:repeat(4,1fr); gap:6px}
     body{background:#fff}
     .wcard{border-color:#000 !important}
@@ -333,7 +353,7 @@ if('serviceWorker' in navigator){
 <div id="viewtabs" role="tablist">
   <button id="tabOffense" role="tab" aria-selected="true">Offense</button>
   <button id="tabDefense" role="tab" aria-selected="false">Defense</button>
-  <button id="tabWrist" role="tab" aria-selected="false">Wristband</button>
+  <button id="tabRes" role="tab" aria-selected="false">Resources</button>
 </div>
 
 <details id="forminfo">
@@ -367,6 +387,14 @@ if('serviceWorker' in navigator){
   <select id="dPos" aria-label="My position"></select>
   <select id="dPlays" aria-label="Plays"></select>
 </div>
+
+<div id="rpicker">
+  <select id="rPick" aria-label="Resources">
+    <option value="rules">The rules</option>
+    <option value="wrist" selected>Wristband</option>
+    <option value="sched">Schedule</option>
+  </select>
+</div>
 </div>
 
 <main id="mainView">
@@ -394,12 +422,101 @@ if('serviceWorker' in navigator){
   <div class="card" id="detail"></div>
 </main>
 
-<div id="wristband">
+<div id="resources">
+
+<div id="resRules" class="respage">
+  <h2 class="rtitle">The Rules</h2>
+  <p class="rnote">Word for word, from the sheet the school handed out. If a referee tells you something different on the day, the referee is right &mdash; but this is what we are playing by.</p>
+
+  <h3>Field Dimensions</h3>
+  <p>60 yards long (plus a 10 yard end zone) by 40 yards wide.</p>
+
+  <h3>Game Length</h3>
+  <p>Games will begin every half-hour. Halves will be 8 minutes using a running clock except during time outs and the last minute of the game, during which the clock will stop as in a regulation game during these instances: Incomplete Pass, Out of Bounds, Penalty, Turn Over, Time Out.</p>
+
+  <h3>Timeouts</h3>
+  <p>Coaches may call two 30-second timeouts per game, in either half.</p>
+
+  <h3>Dead Ball</h3>
+  <p>The ball is dead when it:</p>
+  <ol>
+    <li>goes out of bounds</li>
+    <li>the ball carrier goes out of bounds</li>
+    <li>touches the ground (you may not recover a fumble)</li>
+  </ol>
+
+  <h3>Scoring</h3>
+  <p>A touchdown counts for 6 points.<br>A safety counts 2 points for the defensive team.</p>
+
+  <h3>Start of Each Game</h3>
+  <p>The choice of goal and possession of the ball at the 20 yard line will be determined by coin flip.</p>
+
+  <h3>First Downs</h3>
+  <p>Possession of the ball is retained as long as the offensive team is able to continue obtaining first down. The team must reach the next Line to Gain in four plays.</p>
+
+  <h3>Fourth Down</h3>
+  <p>On fourth down, a team must indicate whether they intend to &ldquo;punt&rdquo; or go for it. A &ldquo;punt&rdquo; will result in a change of possession. The receiving team will get the ball on their 20 yard line.</p>
+
+  <h3>Players and Substitutions</h3>
+  <p>There shall be 8 players on the field at a time for each team. Substitutions are made when the ball is dead, without reporting.</p>
+  <p>If a team has more than 8 people on the field, they will be penalized five yards. If it is the offensive team, they will move back five yards. If it is the defensive team, the offense will move forward five yards.</p>
+
+  <h3>Carrying the Ball</h3>
+  <p>A ball carrier who has fallen to the ground may not resume her run. If the ball is fumbled, it is a dead ball and may not be recovered or advanced by the defense.</p>
+
+  <h3>Rushing</h3>
+  <p>The defense can rush when the ball is hiked. The defense doesn&rsquo;t have to count to &ldquo;5 Mississippi,&rdquo; for instance. The Rusher may not initiate contact with any offensive players.</p>
+
+  <h3>Passes</h3>
+  <p>One forward pass may be thrown from any place behind the line of scrimmage.</p>
+  <p>There must be no interference with the receiver of a forward pass. The defense may not initiate contact with an offensive player trying to catch a pass. Defensive players must play the ball or pull flags.</p>
+
+  <h3>Tackling</h3>
+  <p>Tackling shall consist of pulling flags without holding the ball carrier with the hand or any part of the body. Flags must be worn on the outside of all types of clothing and the entire flag must be exposed. If a player with the ball loses her flag during play, the ball is dead at the point of the flag fall. Shirts MUST be tucked in.</p>
+
+  <h3>Blocking</h3>
+  <p>Only screening of the defensive player is allowed. Use of arms, hands, legs, running over, cutting or pushing a defender is not allowed. All appendages must stay within the framework of the body during a block. (i.e. arms must stay at their sides, knees and feet must stay in line with body as well). All these violations result in five-yard penalty and either the loss of down or replay of the down / decline the penalty.</p>
+
+  <h3>Off Sides</h3>
+  <p>When any member of the defense is on the offensive side of the ball before it is snapped, it results in a five yard penalty.</p>
+
+  <h3>Flag Guarding</h3>
+  <p>When an offensive player holding the ball blocks a defensive player from grabbing their flag (i.e. swatting at their hand, pushing them away, or grabbing their arm to prevent the defense from reaching their flags), this will be a 5-yard penalty from the line of scrimmage and replay the down/decline the penalty. This can be prevented by keeping two hands on the ball.</p>
+
+  <h3>Excessive Roughness</h3>
+  <p>Excessive roughness may occur when blocking (i.e. grabbing/pushing/hugging) or rushing (i.e. pushing someone down/to the side) or pulling flags (i.e. grabbing their body to get the flag/tackling) or an offensive player running over a stationary defensive player (i.e. stiff arm)</p>
+  <p>The penalty for excessive roughness will be 15 yards and loss of down if the offense commits the foul and 15 yard penalty and an automatic first down if the defense commits the foul.</p>
+
+  <h3>Touchdown Tug</h3>
+  <p>After a player scores a touchdown, the referee will tug on her flag to check that the belt is not tied to her waist and that the flags are not rolled in such a way that makes it difficult or impossible to pull the flag. If the flag is found &ldquo;unpullable&rdquo;, there will be a loss of down and the ball will be placed at the spot of the previous play.</p>
+
+  <h3>Weather</h3>
+  <p>If weather is spotty, all games may be shortened to one half. If a game is rained out, the final score should be taken at halftime.</p>
+
+  <h3>Unsportsmanlike Conduct</h3>
+  <p>Disrespectful behavior towards a referee or coach/adult can result in a 15-yard penalty for the offending team. The offending player may also be ejected for the rest of the game.</p>
+</div>
+
+<div id="resSched" class="respage">
+  <h2 class="rtitle">Schedule</h2>
+  <p class="rnote">Three a week. Put them in your phone now &mdash; nobody should be finding out on the morning.</p>
+  <table class="sched">
+    <tr><td class="sday">Monday</td><td class="stime">6:45 &ndash; 7:45 a.m.</td><td class="swhere">Before school &middot; SCA field</td></tr>
+    <tr><td class="sday">Wednesday</td><td class="stime">6:45 &ndash; 7:45 a.m.</td><td class="swhere">Before school &middot; SCA field</td></tr>
+    <tr><td class="sday">Sunday</td><td class="stime">3:00 p.m.</td><td class="swhere">SCA field</td></tr>
+    <tr class="gameday"><td class="sday">Fri Oct 30</td><td class="stime">GAME DAY</td><td class="swhere">vs the seniors first</td></tr>
+  </table>
+  <p class="rnote">Two school mornings and a Sunday, every week, until game day. If a practice moves, Coach Rand will message you &mdash; the two morning days can change depending on the field.</p>
+</div>
+
+<div id="wristband" class="respage">
   <div class="wbar">
     <button class="primary" onclick="window.print()">&#128424; Print / Save PDF</button>
     <p>One page, no defense, no words you have to read in a huddle. Print it, cut it, tape it to a wrist.</p>
   </div>
   <div class="wgrid" id="wgrid"></div>
+</div>
+
 </div>
 
 <footer>St. Cecilia Academy &middot; Freshman Powderpuff &middot; Coach Rand &middot; <span id="build"></span></footer>
@@ -1745,8 +1862,13 @@ document.getElementById('fibody').innerHTML=miniFormation()+'<p>'+FORM_NOTE+'</p
 document.getElementById('btnPlay').onclick=()=>{if(t>=1){t=0;holdUntil=0;}playing=!playing;setBtn();};
 document.getElementById('scrub').oninput=e=>{t=e.target.value/1000;holdUntil=0;playing=false;setBtn();render();};
 
+function showResource(which){
+  for(const [id,key] of [['resRules','rules'],['wristband','wrist'],['resSched','sched']])
+    document.getElementById(id).classList.toggle('on', key===which);
+  document.getElementById('rPick').value=which;
+}
 function setView(w){
-  const tabs={offense:'tabOffense', defense:'tabDefense', wrist:'tabWrist'};
+  const tabs={offense:'tabOffense', defense:'tabDefense', resources:'tabRes'};
   for(const k in tabs) document.getElementById(tabs[k]).setAttribute('aria-selected', k===w);
   const onField = (w==='offense'||w==='defense');
   /* explicit values, never '': these elements' CSS defaults are display:none */
@@ -1755,13 +1877,16 @@ function setView(w){
   document.getElementById('dpicker').style.display  = w==='defense'?'grid':'none';
   document.getElementById('dinfo').style.display    = w==='defense'?'block':'none';
   document.getElementById('mainView').style.display = onField?'':'none';
-  document.getElementById('wristband').classList.toggle('on', w==='wrist');
+  document.getElementById('rpicker').style.display = w==='resources'?'block':'none';
+  document.getElementById('resources').classList.toggle('on', w==='resources');
   if(onField && MODE!==w){ MODE=w; select(w==='defense'?lastDefense:lastOffense); }
   playing = onField; setBtn();
 }
 document.getElementById('tabOffense').onclick=()=>setView('offense');
 document.getElementById('tabDefense').onclick=()=>setView('defense');
-document.getElementById('tabWrist').onclick=()=>setView('wrist');
+document.getElementById('tabRes').onclick=()=>setView('resources');
+document.getElementById('rPick').onchange=e=>showResource(e.target.value);
+showResource('wrist');
 
 /* Watch the header itself, not the window: it changes height at the breakpoint
    and again when the webfont settles, and a resize listener misses both. */
