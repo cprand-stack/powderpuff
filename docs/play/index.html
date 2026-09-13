@@ -19,7 +19,7 @@
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='c021355e048c';
+const BUILD='d1b718e6ad3b';
 if('serviceWorker' in navigator){
   addEventListener('load',()=>{
     /* If a NEW worker takes over, the page we are looking at is already stale -
@@ -1594,6 +1594,30 @@ function stillFormation(){
   }
   return g+'</svg>';
 }
+/* THE CAGE, same idea. The defence view is mirrored end-to-end - our side sits
+   at the BOTTOM and they attack downward - so the vertical map is (y+9)*10,
+   not (20-y)*10, and the direction arrow points the other way. */
+function stillCage(){
+  /* DPLAYS entries are normalised at load: the authored `us`/`them` become
+     `off`/`def`, and on this tab `off` is OUR defenders. */
+  const c=DPLAYS.find(p=>p.id==='the-cage'), us=c.off||c.us;
+  const P=k=>[us[k][0][0]*10, (us[k][0][1]+9)*10];
+  const los=90;
+  let g='<svg viewBox="6 70 388 147" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Where all eight of us line up on defense">';
+  g+='<line x1="6" y1="'+los+'" x2="394" y2="'+los+'" stroke="#CE1141" stroke-width="3"/>';
+  /* only 20 units of headroom above the line here, so this label sits closer
+     to it than the offense one does or its ascenders clip the viewBox */
+  g+='<text x="8" y="'+(los-7)+'" font-size="12" font-weight="900" fill="#6f6a66" letter-spacing="1.4">LINE OF SCRIMMAGE</text>';
+  g+='<text x="18" y="115" font-size="12" font-weight="900" fill="#6f6a66" letter-spacing="1.2">THEY SCORE</text>';
+  g+='<line x1="26" y1="122" x2="26" y2="188" stroke="#6f6a66" stroke-width="3"/>';
+  g+='<path d="M26,198 l-7,-11 l14,0 z" fill="#6f6a66"/>';
+  for(const k of ['LL','RL','D1','D2','D3','D4','LS','RS']){
+    const q=P(k);
+    g+='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="13" fill="#fff" stroke="#CE1141" stroke-width="4"/>';
+    g+='<text x="'+q[0]+'" y="'+(q[1]+4)+'" text-anchor="middle" font-size="11" font-weight="900" fill="#CE1141">'+k+'</text>';
+  }
+  return g+'</svg>';
+}
 function renderPositions(){
   const look=PLAYS.find(p=>p.id==='the-look').assign;
   const cage=DPLAYS.find(p=>p.id==='the-cage').assign;
@@ -1613,7 +1637,7 @@ function renderPositions(){
       POSINFO.off, look, stillFormation())+
     group('def','Defense','eight on the field',
       'Two on the line, four on their receivers, two safeties. D1 to D4 are numbered left to right as you look at the offense.',
-      POSINFO.def, cage);
+      POSINFO.def, cage, stillCage());
 }
 const OPOS=['QB','RB','C','G','R1','R2','R3','R4'];
 /* Which girl is picking herself out of the crowd. Remembered per tab, because
