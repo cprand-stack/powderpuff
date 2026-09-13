@@ -44,6 +44,9 @@ if('serviceWorker' in navigator){
     --r:12px;
   }
   *{box-sizing:border-box}
+  /* Our own display rules (e.g. .v3d{display:flex}) outrank the UA's [hidden],
+     so make hidden actually mean hidden. */
+  [hidden]{display:none!important}
   html,body{margin:0;padding:0}
   body{
     background:var(--page); color:var(--ink);
@@ -83,32 +86,32 @@ if('serviceWorker' in navigator){
   /* START needs far less room than the other two; MY POSITION needs the most,
      and it now sits in the middle. */
   /* PLAYS carries the full play name now, so it needs the widest track. */
-  #picker{display:grid; grid-template-columns:0.57fr 1.09fr 1.34fr; gap:8px; max-width:1180px; margin:0 auto; padding:12px 16px 0}
+  #picker,#dpicker{display:grid; grid-template-columns:0.57fr 1.09fr 1.34fr; gap:8px; max-width:1180px; margin:0 auto; padding:12px 16px 0}
   /* The controls ride under the header; the animation then stacks under them. */
   #controlbar{position:sticky; top:var(--stick,60px); z-index:6; background:var(--page); padding-bottom:10px}
-  #picker button,#picker select{
+  #picker button,#picker select,#dpicker button,#dpicker select{
     font:inherit; font-size:12px; font-weight:900; letter-spacing:.06em; text-transform:uppercase;
     color:var(--ink); background-color:var(--white); border:1.5px solid var(--line); border-radius:9px;
     padding:11px 12px; cursor:pointer; width:100%; min-width:0;
     -webkit-appearance:none; appearance:none; -webkit-tap-highlight-color:transparent;
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
   }
-  #picker select{padding-right:26px;
+  #picker select,#dpicker select{padding-right:26px;
     background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);
     background-position:calc(100% - 16px) calc(50% + 1px),calc(100% - 11px) calc(50% + 1px);
     background-size:5px 5px; background-repeat:no-repeat}
-  #picker button[aria-pressed="true"]{background-color:var(--red); border-color:var(--red); color:var(--white)}
-  #picker select.on{background-color:var(--red); border-color:var(--red); color:var(--white);
+  #picker button[aria-pressed="true"],#dpicker button[aria-pressed="true"]{background-color:var(--red); border-color:var(--red); color:var(--white)}
+  #picker select.on,#dpicker select.on{background-color:var(--red); border-color:var(--red); color:var(--white);
     background-image:linear-gradient(45deg,transparent 50%,#fff 50%),linear-gradient(135deg,#fff 50%,transparent 50%)}
-  #picker select#pCore.on{background-color:var(--black); border-color:var(--black)}
-  #picker select option{color:var(--ink); background:var(--white); text-transform:none; letter-spacing:0}
+  #picker select#pCore.on,#dpicker select#dPlays.on{background-color:var(--black); border-color:var(--black)}
+  #picker select option,#dpicker select option{color:var(--ink); background:var(--white); text-transform:none; letter-spacing:0}
   #picker select option:disabled{color:var(--muted); font-style:italic}
   #picker select optgroup{color:var(--muted); font-style:italic; font-weight:900; text-transform:none; letter-spacing:0}
   /* A locked group stays on screen so the girls know it is coming, but it
      cannot be opened. No arrow, because there is nothing to drop down. */
   #picker select:disabled{color:var(--muted); background-color:#f4f2f0; border-color:var(--line);
     border-style:dashed; background-image:none; padding-right:12px; cursor:default; opacity:1}
-  #picker button:focus-visible,#picker select:focus-visible{outline:2px solid var(--red2); outline-offset:2px}
+  #picker button:focus-visible,#picker select:focus-visible,#dpicker button:focus-visible,#dpicker select:focus-visible{outline:2px solid var(--red2); outline-offset:2px}
 
   /* ---------- collapsed formation note ---------- */
   #forminfo{max-width:1180px; margin:8px auto 0; padding:0 16px}
@@ -219,25 +222,7 @@ if('serviceWorker' in navigator){
   .call.gold{border-left-color:var(--red)}
 
   /* ---------- wristband ---------- */
-  #dpicker{display:none; grid-template-columns:1fr 2fr; gap:8px; max-width:1180px; margin:0 auto; padding:12px 16px 0}
-  #dpicker button,#dpicker select{font:inherit; font-size:12px; font-weight:900; letter-spacing:.06em; text-transform:uppercase;
-    color:var(--ink); background-color:var(--white); border:1.5px solid var(--line); border-radius:9px;
-    padding:11px 12px; cursor:pointer; width:100%; min-width:0;
-    -webkit-appearance:none; appearance:none; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-  #dpicker select{padding-right:26px;
-    background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);
-    background-position:calc(100% - 16px) calc(50% + 1px),calc(100% - 11px) calc(50% + 1px);
-    background-size:5px 5px; background-repeat:no-repeat}
-  #dpicker button[aria-pressed="true"]{background-color:var(--red); border-color:var(--red); color:var(--white)}
-  #dpicker select.on{background-color:var(--red); border-color:var(--red); color:var(--white);
-    background-image:linear-gradient(45deg,transparent 50%,#fff 50%),linear-gradient(135deg,#fff 50%,transparent 50%)}
-  #dpicker select option{color:var(--ink); background:var(--white); text-transform:none; letter-spacing:0}
-  #dviews{display:none; max-width:1180px; margin:8px auto 0; padding:0 16px; gap:6px}
-  #dviews.on{display:grid; grid-template-columns:1fr 1fr}
-  #dviews button{font:inherit; font-size:11.5px; font-weight:900; letter-spacing:.04em; text-transform:uppercase;
-    color:var(--ink); background:var(--white); border:1.5px solid var(--line); border-radius:9px;
-    padding:11px 6px; cursor:pointer; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-  #dviews button[aria-pressed="true"]{background:var(--red); border-color:var(--red); color:var(--white)}
+  #dpicker{display:none}   /* geometry + skin come from the shared #picker rules */
   /* one girl at a time: everybody else fades so she can find herself */
   /* Her ring already finds her, so the rest only need to read as secondary -
      not vanish. Roughly half their normal weight. */
@@ -290,12 +275,12 @@ if('serviceWorker' in navigator){
 
   /* mobile overrides live last so they win the cascade over the base rules above */
   @media(max-width:520px){
-    #picker{gap:6px; padding:10px 14px 0}
+    #picker,#dpicker{gap:6px; padding:10px 14px 0}
     #variants{gap:4px; padding:8px 7px}
     #variants .vlab{display:none}
     #variants .vseg button{padding:7px 6px; font-size:11.5px}
-    #picker button,#picker select{font-size:11px; letter-spacing:.04em; padding:11px 8px}
-    #picker select{padding-right:22px; background-position:calc(100% - 13px) calc(50% + 1px),calc(100% - 9px) calc(50% + 1px)}
+    #picker button,#picker select,#dpicker button,#dpicker select{font-size:11px; letter-spacing:.04em; padding:11px 8px}
+    #picker select,#dpicker select{padding-right:22px; background-position:calc(100% - 13px) calc(50% + 1px),calc(100% - 9px) calc(50% + 1px)}
     #forminfo{padding:0 14px}
     main{padding:10px 14px 0}
     #controls{padding:10px}
@@ -372,10 +357,10 @@ if('serviceWorker' in navigator){
   <select id="pCore" aria-label="Plays"></select>
 </div>
 <div id="dpicker">
-  <button id="dBase" aria-pressed="true">Base</button>
+  <button id="dBase" aria-pressed="true">Start</button>
   <select id="dPos" aria-label="My position"></select>
+  <select id="dPlays" aria-label="Plays"></select>
 </div>
-<div id="dviews"></div>
 </div>
 
 <main id="mainView">
@@ -1636,7 +1621,6 @@ function select(id){
   buildNodes();
   document.getElementById('field').classList.toggle('dmode', MODE==='defense');
   document.getElementById('field').classList.toggle('focusing', !!focused());
-  document.getElementById('dviews').classList.toggle('on', MODE==='defense');
   document.getElementById('legOpp').textContent = MODE==='defense' ? 'Offense' : 'Defense';
   if(typeof setStick==='function') setStick();   /* re-sync after any layout change */
   if(MODE==='defense') renderDPicker(); else renderPicker();
@@ -1649,8 +1633,13 @@ function renderDPicker(){
   sel.innerHTML='<option value="">My position</option>'+
     DPOS.map(q=>'<option value="'+q+'"'+(q===FOCUS.defense?' selected':'')+'>'+q+'</option>').join('');
   sel.classList.toggle('on', !!FOCUS.defense);
-  const views=document.getElementById('dviews'), vs=DPLAYS.filter(p=>!p.base);
-  views.innerHTML=vs.map(p=>'<button data-id="'+p.id+'" aria-pressed="'+(p.id===base.id)+'">'+p.name+'</button>').join('');
+  /* Mirrors the offence picker exactly: the chosen look is genuinely selected,
+     so the closed control carries its name. */
+  const pl=document.getElementById('dPlays'), vs=DPLAYS.filter(p=>!p.base);
+  const onPlay=vs.some(p=>p.id===base.id);
+  pl.innerHTML='<option value=""'+(onPlay?'':' selected')+'>Plays</option>'+
+    vs.map(p=>'<option value="'+p.id+'"'+(p.id===base.id?' selected':'')+'>'+p.name+'</option>').join('');
+  pl.classList.toggle('on', onPlay);
 }
 
 /* ============================================================
@@ -1734,9 +1723,7 @@ document.getElementById('dPos').onchange=e=>{
   document.getElementById('field').classList.toggle('focusing', !!focused());
   renderDPicker();renderDetail();drawRoutes();render();
 };
-document.getElementById('dviews').onclick=e=>{
-  const b=e.target.closest('button[data-id]'); if(b) select(b.dataset.id);
-};
+document.getElementById('dPlays').onchange=e=>{ if(e.target.value) select(e.target.value); else renderDPicker(); };
 document.getElementById('pCore').onchange=e=>{ if(e.target.value) select(e.target.value); else renderPicker(); };
 document.getElementById('fibody').innerHTML=miniFormation()+'<p>'+FORM_NOTE+'</p>';
 
@@ -1752,7 +1739,6 @@ function setView(w){
   document.getElementById('forminfo').style.display = w==='offense'?'block':'none';
   document.getElementById('dpicker').style.display  = w==='defense'?'grid':'none';
   document.getElementById('dinfo').style.display    = w==='defense'?'block':'none';
-  document.getElementById('dviews').classList.toggle('on', w==='defense');
   document.getElementById('mainView').style.display = onField?'':'none';
   document.getElementById('wristband').classList.toggle('on', w==='wrist');
   if(onField && MODE!==w){ MODE=w; select(w==='defense'?lastDefense:lastOffense); }
