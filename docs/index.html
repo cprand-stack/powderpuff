@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#CE1141">
+<meta name="robots" content="noindex, nofollow">
+<title>Freshman Powderpuff — St. Cecilia Academy</title>
+<meta name="description" content="The freshman Powderpuff playbook. Every play, animated.">
+<link rel="icon" href="play/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="play/apple-touch-icon.png">
+<style>
+  :root{
+    --red:#CE1141; --red2:#DD5872; --white:#fff; --black:#231F20;
+    --ink:#231F20; --muted:#6f6a66;
+    --page:#faf9f8; --panel:#fff; --line:#dcd7d2; --r:12px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--page); color:var(--ink); -webkit-text-size-adjust:100%;
+    font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    padding-bottom:env(safe-area-inset-bottom)}
+  .wrap{max-width:560px; margin:0 auto; padding:0 18px 48px}
+
+  header{background:var(--white); border-bottom:3px solid var(--red); padding:14px 18px}
+  .hrow{max-width:560px; margin:0 auto; display:flex; align-items:center; gap:14px}
+  .hrow img.logo{height:34px; width:auto; display:block}
+  .hrow img.mascot{height:44px; width:auto; margin-left:auto; display:block}
+
+  h1{font-size:30px; line-height:1.1; letter-spacing:-.01em; margin:26px 0 6px; text-wrap:balance}
+  .sub{font-size:12px; font-weight:900; letter-spacing:.13em; text-transform:uppercase; color:var(--red); margin:0 0 18px}
+  .lede{font-size:16px; color:#302c29; margin:0 0 24px}
+
+  .actions{display:grid; gap:11px}
+  a.btn,button.btn{display:flex; align-items:center; justify-content:center; gap:10px; width:100%;
+    font:inherit; font-size:16px; font-weight:900; letter-spacing:.03em; text-transform:uppercase;
+    padding:17px 18px; border-radius:var(--r); border:2px solid var(--red); cursor:pointer;
+    text-decoration:none; -webkit-tap-highlight-color:transparent}
+  a.btn.primary{background:var(--red); color:var(--white)}
+  button.btn.ghost{background:var(--white); color:var(--red)}
+  .btn small{display:block; font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:none; opacity:.85}
+  .btn .stack{display:flex; flex-direction:column; align-items:center; line-height:1.25}
+
+  #how{display:none; margin-top:14px; background:var(--panel); border:1.5px solid var(--line); border-radius:var(--r); padding:16px 18px}
+  #how.on{display:block}
+  #how h2{font-size:11px; font-weight:900; letter-spacing:.12em; text-transform:uppercase; color:var(--red); margin:0 0 10px}
+  #how ol{margin:0; padding-left:20px; display:flex; flex-direction:column; gap:9px}
+  #how li{font-size:14.5px}
+  #how b{color:var(--red)}
+  .share{display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px;
+    vertical-align:-5px; margin:0 1px}
+  .note{font-size:12.5px; color:var(--muted); margin:14px 0 0}
+
+  .why{margin-top:30px; border-top:1px solid var(--line); padding-top:22px}
+  .why h2{font-size:11px; font-weight:900; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin:0 0 12px}
+  .why ul{margin:0; padding-left:20px; display:flex; flex-direction:column; gap:8px}
+  .why li{font-size:14.5px}
+  footer{font-size:12px; color:var(--muted); margin-top:30px; text-align:center}
+  @media(min-width:520px){ .actions{grid-template-columns:1fr 1fr} h1{font-size:36px} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hrow">
+    <img class="logo" src="logo.png" alt="St. Cecilia Academy">
+    <img class="mascot" src="Powerpuff.webp" alt="">
+  </div>
+</header>
+
+<div class="wrap">
+  <h1>Freshman Powderpuff</h1>
+  <p class="sub">Two-second spread &middot; October 30</p>
+  <p class="lede">Every play we run, animated. Pick your position and watch exactly where you go &mdash; then do it again tomorrow night for five minutes.</p>
+
+  <div class="actions">
+    <a class="btn primary" href="play/"><span class="stack">View<small>open it right now</small></span></a>
+    <button class="btn ghost" id="add"><span class="stack">Add to my phone<small>works with no signal</small></span></button>
+  </div>
+
+  <div id="how">
+    <h2 id="howTitle">Add it to your home screen</h2>
+    <ol id="howSteps"></ol>
+    <p class="note">Once it is on your home screen it opens like a real app, full screen, and it still works on the field when there is no signal.</p>
+  </div>
+
+  <div class="why">
+    <h2>Five minutes a night</h2>
+    <ul>
+      <li>Open your position and watch your plays run.</li>
+      <li>You do not have to memorize anybody else&rsquo;s job &mdash; just know where <b>you</b> go.</li>
+      <li>The wristband tab prints the cards we carry on game day.</li>
+    </ul>
+  </div>
+
+  <footer>St. Cecilia Academy &middot; Freshman Powderpuff &middot; Coach Rand</footer>
+</div>
+
+<script>
+/* The install story is different on every platform: Android/desktop Chrome give
+   us a real prompt, iOS gives us nothing at all and the girl has to use Share.
+   Most of this team is on iPhones, so that path has to be the clear one. */
+const ua=navigator.userAgent;
+const isIOS=/iPad|iPhone|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+const isAndroid=/Android/.test(ua);
+const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+const SHARE='<svg class="share" viewBox="0 0 24 24" fill="none" stroke="#CE1141" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"/><path d="m8 7 4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>';
+let deferred=null;
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;});
+
+const steps=(html)=>{document.getElementById('howSteps').innerHTML=html;document.getElementById('how').classList.add('on');};
+
+document.getElementById('add').onclick=async()=>{
+  if(standalone){
+    document.getElementById('howTitle').textContent='You already have it';
+    steps('<li>This is already running from your home screen. You are all set.</li>');
+    return;
+  }
+  if(deferred){                       /* Android + desktop Chrome */
+    deferred.prompt();
+    const {outcome}=await deferred.userChoice;
+    deferred=null;
+    if(outcome!=='accepted') steps('<li>No problem — tap <b>Add to my phone</b> again whenever you want it.</li>');
+    return;
+  }
+  if(isIOS){
+    steps('<li>Tap the <b>Share</b> button '+SHARE+' at the bottom of Safari.</li>'+
+          '<li>Scroll down and tap <b>Add to Home Screen</b>.</li>'+
+          '<li>Tap <b>Add</b> in the top right.</li>'+
+          '<li>Look for the pink <b>Powderpuff</b> icon on your home screen.</li>');
+    return;
+  }
+  if(isAndroid){
+    steps('<li>Tap the <b>⋮</b> menu in the top right of Chrome.</li>'+
+          '<li>Tap <b>Add to Home screen</b> (or <b>Install app</b>).</li>'+
+          '<li>Tap <b>Add</b>.</li>');
+    return;
+  }
+  steps('<li>In Chrome or Edge, click the <b>install</b> icon in the address bar.</li>'+
+        '<li>On a phone, open this page in Safari or Chrome and tap <b>Add to my phone</b> again.</li>');
+};
+</script>
+</body>
+</html>
