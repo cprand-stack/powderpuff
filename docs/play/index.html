@@ -19,7 +19,7 @@
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='cd82b490f065';
+const BUILD='efad6f507cae';
 if('serviceWorker' in navigator){
   addEventListener('load',()=>{
     /* If a NEW worker takes over, the page we are looking at is already stale -
@@ -263,6 +263,20 @@ if('serviceWorker' in navigator){
   .rcard b{font-size:15px; font-weight:900; letter-spacing:.02em; color:var(--ink)}
   .rcard b i{font-style:normal; font-weight:800; color:var(--muted); font-size:12.5px}
   .rcard span{font-size:13px; line-height:1.45; color:var(--muted)}
+  .pgroup{margin:0 0 26px}
+  .pgroup>h3{font-size:11px; font-weight:900; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--red); margin:0 0 3px}
+  .pgroup>p.pnote{font-size:12.5px; color:var(--muted); margin:0 0 12px; max-width:70ch}
+  .plist{display:grid; grid-template-columns:1fr; gap:9px; max-width:760px}
+  @media(min-width:760px){.plist{grid-template-columns:1fr 1fr}}
+  .pcard{background:var(--white); border:1.5px solid var(--line); border-radius:12px; padding:13px 15px}
+  .phead{display:flex; align-items:center; gap:9px; margin:0 0 7px}
+  .phead b{font-size:14.5px; font-weight:900; letter-spacing:.01em}
+  .pjob{margin:0; font-size:13px; line-height:1.5}
+  .pspot{margin:8px 0 0; font-size:12.5px; line-height:1.45; color:var(--muted);
+    padding-left:11px; border-left:2.5px solid var(--line)}
+  .pspot em{font-style:normal; font-weight:900; color:var(--red); letter-spacing:.04em;
+    text-transform:uppercase; font-size:10.5px; display:block; margin-bottom:2px}
   .rcard::after{content:'\203A'; position:absolute; right:16px; top:50%; transform:translateY(-50%);
     color:var(--red); font-size:22px; font-weight:900; line-height:1}
   #resources{display:none; max-width:1180px; margin:0 auto; padding:14px 16px 0}
@@ -332,7 +346,7 @@ if('serviceWorker' in navigator){
     @page{margin:.4in}
     header{position:static; border-bottom:2px solid #000}
     #viewtabs,#controlbar,main,#controls,footer,.wbar,#rpicker,
-    #resHome,#resDef,#resRules,#resSched{display:none !important}
+    #resHome,#resPos,#resDef,#resRules,#resSched{display:none !important}
     #resources,#wristband{display:block !important; padding:0}
     .wgrid{grid-template-columns:repeat(4,1fr); gap:6px}
     body{background:#fff}
@@ -414,11 +428,18 @@ if('serviceWorker' in navigator){
   <h2 class="rtitle">Resources</h2>
   <p class="rnote">Everything that is not a play. Pick one.</p>
   <div class="rgrid">
+    <button class="rcard" data-res="pos"><b>Positions</b><span>Every spot on offense and defense, what it is called and what it does. Start here.</span></button>
     <button class="rcard" data-res="rules"><b>The Rules</b><span>Word for word from the sheet the school handed out &mdash; what the referee is going by.</span></button>
     <button class="rcard" data-res="defense"><b>Defense Concepts</b><span>Six things, every snap. Contain, inside leverage, and play the ball.</span></button>
     <button class="rcard" data-res="wrist"><b>Offense Plays <i>(printable)</i></b><span>Every play on one page. Print it, cut it, tape it to a wrist.</span></button>
     <button class="rcard" data-res="sched"><b>Schedule</b><span>Every practice through game day, fall break included.</span></button>
   </div>
+</div>
+
+<div id="resPos" class="respage">
+  <h2 class="rtitle">Positions</h2>
+  <p class="rnote">Every spot on the field, what it is called and what it does. Find yours first &mdash; then read the one lined up next to you, because that is who you are working with.</p>
+  <div id="posBody"></div>
 </div>
 
 <div id="resDef" class="respage">
@@ -1502,6 +1523,47 @@ const ball=el('ellipse',{rx:8.5,ry:5.6,class:'ballshape'});gBall.append(ball);
 
 let MODE='offense', lastOffense='the-look', lastDefense='the-cage';
 const DPOS=['LL','RL','D1','D2','D3','D4','LS','RS'];
+/* Long names and the one-line job, for the Positions page. "Where you line up"
+   is NOT duplicated here — it is read straight off THE LOOK and THE CAGE so the
+   two can never drift apart. */
+const POSINFO={
+  off:[
+    ['QB','Quarterback','Every play starts in your hands. You run it, hand it, pitch it or throw it — and we only get one forward pass a play, so it has to leave your hand from behind the line.'],
+    ['C','Center','Nothing in the playbook happens until you get the ball back to the QB. That makes the snap the most practised thing we do, and it makes a bad one the only way a play dies before it starts.'],
+    ['G','Guard','You build the left wall of the runner’s lane — arms at your sides, just be in the way. And on OPTION you trail behind the QB so she always has somewhere to toss it backward.'],
+    ['RB','Running Back','On most plays you never touch the ball, and that is exactly the point. The defense has to honour that motion every single snap, which is what leaves somebody else open.'],
+    ['R1','Left Wide Receiver','Widest player on the left. You stretch them out: even when the ball is not coming to you, the defender who follows you is one less defender in the middle.'],
+    ['R2','Left Slot','The short, quick answer. You start closer to the ball than anybody wide, so when we need five yards right now, it usually comes to you.'],
+    ['R3','Right Slot','Mirror of R2 on the right — and the right is the side the motion runs toward, so a lot of what we do happens around you.'],
+    ['R4','Right Wide Receiver','Widest player on the right. Same job as R1, on the side the ball tends to go.']
+  ],
+  def:[
+    ['LL','Left Line','Contain. You are not trying to chase her down — you are the wall that makes her cut back inside to everybody else. The second a runner gets around your outside shoulder, the whole defense is behind the play.'],
+    ['RL','Right Line','The same job as LL, mirrored. Between the two of you nothing gets outside — and that is what turns their run into our tackle.'],
+    ['D1','Left Corner','You take the middle away and hand her the sideline. That is not giving something up: every yard she gets pushed toward the boundary makes the throw longer, and long throws get caught less often.'],
+    ['D2','Left Slot Defender','The same rule as D1, on the left slot. You start nearer the middle than anybody out wide, so the ground you protect is the most expensive ground on the field.'],
+    ['D3','Right Slot Defender','Mirror of D2 on the right — and the right is the side their motion usually runs toward, so you will see traffic first.'],
+    ['D4','Right Corner','Mirror of D1, on the right sideline.'],
+    ['LS','Left Safety','Everybody else pushes the ball toward the sidelines, which leaves exactly one door open — and you are standing in it. The short easy throw inside is the only thing that really beats this defense.'],
+    ['RS','Right Safety','You are our insurance. Nobody gets behind you, and you do not commit until you can see where the ball is actually going — guessing early is how a 5-yard play becomes a touchdown.']
+  ]
+};
+function renderPositions(){
+  const look=PLAYS.find(p=>p.id==='the-look').assign;
+  const cage=DPLAYS.find(p=>p.id==='the-cage').assign;
+  const block=(rows,spots)=>'<div class="plist">'+rows.map(([code,long,job])=>
+    '<div class="pcard"><div class="phead"><span class="who">'+code+'</span><b>'+long+'</b></div>'+
+    '<p class="pjob">'+job+'</p>'+
+    (spots[code]?'<p class="pspot"><em>Where you line up</em>'+spots[code]+'</p>':'')+
+    '</div>').join('')+'</div>';
+  document.getElementById('posBody').innerHTML=
+    '<div class="pgroup"><h3>Offense &mdash; eight on the field</h3>'+
+      '<p class="pnote">All eight come out of the same formation on every play. R1 to R4 are numbered left to right as you look downfield.</p>'+
+      block(POSINFO.off, look)+'</div>'+
+    '<div class="pgroup"><h3>Defense &mdash; eight on the field</h3>'+
+      '<p class="pnote">Two on the line, four on their receivers, two safeties. D1 to D4 are numbered left to right as you look at the offense.</p>'+
+      block(POSINFO.def, cage)+'</div>';
+}
 const OPOS=['QB','RB','C','G','R1','R2','R3','R4'];
 /* Which girl is picking herself out of the crowd. Remembered per tab, because
    she is probably one thing on offence and something else on defence. */
@@ -1865,7 +1927,7 @@ document.getElementById('pCore').onchange=e=>{ if(e.target.value) select(e.targe
 document.getElementById('btnPlay').onclick=()=>{if(t>=1){t=0;holdUntil=0;}playing=!playing;setBtn();};
 document.getElementById('scrub').oninput=e=>{t=e.target.value/1000;holdUntil=0;playing=false;setBtn();render();};
 
-const RESPAGES={home:'resHome', rules:'resRules', defense:'resDef', wrist:'wristband', sched:'resSched'};
+const RESPAGES={home:'resHome', pos:'resPos', rules:'resRules', defense:'resDef', wrist:'wristband', sched:'resSched'};
 function showResource(which){
   for(const k in RESPAGES) document.getElementById(RESPAGES[k]).classList.toggle('on', k===which);
   /* the back button only exists once you are inside a page */
@@ -1890,6 +1952,7 @@ function setView(w){
 document.getElementById('tabOffense').onclick=()=>setView('offense');
 document.getElementById('tabDefense').onclick=()=>setView('defense');
 document.getElementById('tabRes').onclick=()=>setView('resources');
+renderPositions();
 document.querySelectorAll('.rcard').forEach(b=>b.onclick=()=>showResource(b.dataset.res));
 document.getElementById('rBack').onclick=()=>showResource('home');
 showResource('home');
