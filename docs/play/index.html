@@ -19,7 +19,7 @@
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='7447dbe60dca';
+const BUILD='aaf5d78daa10';
 if('serviceWorker' in navigator){
   addEventListener('load',()=>{
     /* If a NEW worker takes over, the page we are looking at is already stale -
@@ -165,9 +165,16 @@ if('serviceWorker' in navigator){
   #field:not(.three) .pl .shadow, #field:not(.three) .pl .stalk{display:none}
   .pl.carrier .shadow{fill:var(--red); opacity:.3}
   #phasebar{background:#f1efec; padding:7px 12px 7px; display:flex; align-items:center; gap:10px}
-  .v3d{margin-left:auto; display:flex; align-items:center; gap:6px; font-size:12px; font-weight:900;
-    letter-spacing:.06em; color:var(--red); background:var(--white); cursor:pointer; flex:0 0 auto;
-    border:1.5px solid var(--red); border-radius:999px; padding:4px 11px 4px 8px; user-select:none}
+  /* 3D and Play/Pause are a matched pair, stacked on the right edge of the card
+     one directly above the other. Identical box, pill and border — only the
+     label and the fill differ, so they read as one control column. */
+  .v3d, #legend #btnPlay{
+    margin-left:auto; flex:0 0 auto; min-width:0;
+    width:84px; height:26px; padding:0 10px;
+    display:flex; align-items:center; justify-content:center; gap:6px;
+    font-size:11.5px; font-weight:900; letter-spacing:.06em; line-height:1;
+    border:1.5px solid var(--red); border-radius:999px}
+  .v3d{color:var(--red); background:var(--white); cursor:pointer; user-select:none}
   .v3d input{width:13px; height:13px; margin:0; accent-color:var(--red)}
   .v3d.on{background:var(--red); color:var(--white); border-color:var(--red)}
   .v3d.on input{accent-color:var(--white)}
@@ -183,8 +190,7 @@ if('serviceWorker' in navigator){
   #legend{display:flex; align-items:center; gap:14px; flex-wrap:wrap; padding:5px 12px; background:var(--panel2); border-top:1px solid var(--line); font-size:11.5px; color:var(--muted); font-weight:700}
   /* Play/Pause sits at the right of the key, directly under the 3D box, and is
      sized to the row it lives in rather than to a control bar of its own. */
-  #legend #btnPlay{margin-left:auto; min-width:78px; padding:4px 10px; font-size:11.5px;
-    line-height:1.35; border-radius:7px; border-width:1.5px}
+  /* fill and text colour come from .primary; the box comes from the pair rule above */
   #legend span{display:flex; align-items:center; gap:6px}
   #legend .dot{width:12px; height:12px; border-radius:50%; display:inline-block; border:2px solid var(--red); background:var(--white)}
   #legend .dot.def{background:var(--black); border-color:var(--black)}
@@ -308,7 +314,7 @@ if('serviceWorker' in navigator){
     #controls{padding:2px 10px 4px}
     #phasebar{padding:6px 9px 6px}
     #legend{padding:5px 9px}
-    .v3d{font-size:11px; padding:3px 9px 3px 7px; gap:5px}
+    .v3d, #legend #btnPlay{width:80px; height:24px; padding:0 8px; font-size:11px; gap:5px}
     .v3d input{width:12px; height:12px}
     header{gap:10px; padding:10px 14px}
     #logo{height:26px}
