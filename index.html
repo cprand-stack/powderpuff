@@ -340,11 +340,11 @@ if('serviceWorker' in navigator){
   <div class="fibody">
     <p class="dmath"><b>They need 10 yards in 4 downs.</b> Hold them to 2 a play and they never convert. There are no fumbles in this rulebook, so we will not strip the ball loose &mdash; <b>our takeaway is the fourth-down stop.</b> Four small wins, not one big one. <b>We do not know what they run, and we do not need to.</b> Every play they own is a run to one side or a throw to one side, and we line up the same way for all four.</p>
     <ol class="drules">
-      <li><b>Contain first.</b> E1 and E2 &mdash; your job is not to get her, it is to make sure she cannot get outside you. The second a ball carrier turns the corner, everything behind you is chasing.</li>
+      <li><b>Contain first.</b> LL and RL &mdash; your job is not to get her, it is to make sure she cannot get outside you. The second a ball carrier turns the corner, everything behind you is chasing.</li>
       <li><b>Do not chase the motion.</b> If their back runs across before the snap, she is trying to move you. Do not move.</li>
       <li><b>Inside leverage.</b> D1 through D4: line up on her INSIDE shoulder and stay there all day. She can have the sideline. She cannot have the middle.</li>
       <li><b>Add yards to every throw.</b> This is why we play inside. They are going to throw short, just like we do &mdash; so we are not trying to stop the 5-yard route, we are trying to make it expensive. Pushed to the sideline, their 12-yard throw becomes a 16-yard throw, and the longer the ball is in the air the less often it is caught. <b>The short easy one over the middle is the only thing that beats us.</b></li>
-      <li><b>WS owns the middle. SS goes to the ball.</b> WS stands in the one place we are deliberately not pushing people, so anybody who comes inside is hers. SS gets over the top of wherever it goes &mdash; she is the reason a long sideline throw is a bad decision.</li>
+      <li><b>LS owns the middle. RS goes to the ball.</b> LS stands in the one place we are deliberately not pushing people, so anybody who comes inside is hers. RS gets over the top of wherever it goes &mdash; she is the reason a long sideline throw is a bad decision.</li>
       <li><b>Play the ball, never her body &mdash; then eyes up and go.</b> Knocking a pass down is legal and it is exactly what we want. Touching <i>her</i> before the catch is 15 yards <i>and</i> an automatic first down. If you cannot get the ball cleanly, let her catch it and take the flag right now. <b>Exception:</b> if the ball is right at you and you can catch it clean, catch it &mdash; an interception can be run back. And the second somebody else&rsquo;s girl catches it, your coverage is over: head up and sprint.</li>
     </ol>
   </div>
@@ -449,7 +449,7 @@ const PLAYS = [
   ball:[]
 },
 {
-  id:'qb-run', name:'QB RUN', kind:'Run', dur:4.6, snapAt:0.28, core:true,
+  id:'qb-run', name:'OPTION', kind:'Run', dur:4.6, snapAt:0.28, core:true,
   badges:['QB reads it','Short yardage','Three answers'],
   summary:'One play, three answers. The QB lets the rush go past her and reads the middle \u2014 straight ahead if it is open, bounce right around C and RB if it is clogged. And if somebody is about to reach her flag, she can toss it backward to G trailing behind her and let G finish it.',
   read:'Two steps back, then look at the middle. If both rushers ran upfield past you — GO, straight ahead. If they squeezed down inside and the middle is a crowd, bounce right and run around C and RB.',
@@ -803,7 +803,7 @@ const PLAYS = [
   summary:'R2 bellies back behind the line and catches it standing still while R1 walls off the corner. The jet fake goes right, the ball goes left. The rush never matters.',
   result:'8–12 yards — and it makes an aggressive rush irrelevant.',
   read:'Pre-snap, look at the defender over R2. If she is 5+ yards off, or she walks out wide — throw it. If she is right on top of R2, check to JET.',
-  coach:'Identical look and identical motion to JET and QB RUN. The defense cannot tell which of the three is coming. That is the whole offense.',
+  coach:'Identical look and identical motion to JET and OPTION. The defense cannot tell which of the three is coming. That is the whole offense.',
   assign:{
     R2:'One step upfield, then get depth AND width — belly back to about 3 yards behind the line. Catch it with your hands, standing up. Then get to the sideline and turn it up.',
     QB:'Catch, turn, throw. This ball is gone before the rusher reaches you. Throw it out in front of her, leading her to the sideline.',
@@ -989,7 +989,7 @@ const PLAYS = [
 
 /* Corners line up INSIDE their receiver (R4@4, R3@11, R2@29, R1@36), so every
    route gets pushed toward the sideline and every throw gets longer. */
-const DSTART = { D1:[6.2,5], D2:[12.8,5], E1:[14.5,1], E2:[23,1], D3:[27.2,5], D4:[33.8,5], WS:[18.5,7], SS:[23,11] };
+const DSTART = { D1:[6.2,5], D2:[12.8,5], LL:[14.5,1], RL:[23,1], D3:[27.2,5], D4:[33.8,5], LS:[18.5,7], RS:[23,11] };
 
 /* ============================================================
    DEFENSE — one base, six rules. "us" = our defenders (white),
@@ -1007,24 +1007,24 @@ const DPLAYS = [
   coach:'We are not trying to take the ball away. We are trying to make every single thing they do harder than it needs to be \u2014 longer throws, wider runs, nothing easy in the middle. Four small wins beats one big gamble.',
   result:'If all eight of us are lined up right before the snap, we have already won something.',
   assign:{
-    E1:'On the ball, outside their guard. You have contain on the left \u2014 nobody gets outside you, ever.',
-    E2:'On the ball, outside their center. You have contain on the right. Same rule.',
+    LL:'On the ball, outside their guard. You have contain on the left \u2014 nobody gets outside you, ever.',
+    RL:'On the ball, outside their center. You have contain on the right. Same rule.',
     D1:'Five yards off the receiver on the left sideline, shaded to her INSIDE shoulder. She can have the sideline. She cannot have the middle.',
     D2:'Five yards off the left slot, inside shoulder. Same rule.',
     D3:'Five yards off the right slot, inside shoulder. Same rule.',
     D4:'Five yards off the receiver on the right sideline, inside shoulder. Same rule.',
-    WS:'Seven yards deep in the middle. You own the short middle \u2014 the one place we are deliberately not pushing people. Everything gets funnelled away from you, so anybody who does come inside is yours.',
-    SS:'Eleven yards deep in the middle. You go wherever the ball goes and you get over the top of it. You are the reason a long throw to the sideline is a bad decision.'
+    LS:'Seven yards deep, just LEFT of the ball. You own the short middle \u2014 the one place we are deliberately not pushing people. Everything gets funnelled away from you, so anybody who does come inside is yours.',
+    RS:'Eleven yards deep, just RIGHT of the ball. You go wherever the ball goes and you get over the top of it. You are the reason a long throw to the sideline is a bad decision.'
   },
   us:{
     D1:[[6.2,5,0],[6.2,5,1]],
     D2:[[12.8,5,0],[12.8,5,1]],
-    E1:[[14.5,1,0],[14.5,1,1]],
-    E2:[[23,1,0],[23,1,1]],
+    LL:[[14.5,1,0],[14.5,1,1]],
+    RL:[[23,1,0],[23,1,1]],
     D3:[[27.2,5,0],[27.2,5,1]],
     D4:[[33.8,5,0],[33.8,5,1]],
-    WS:[[18.5,7,0],[18.5,7,1]],
-    SS:[[23,11,0],[23,11,1]]
+    LS:[[18.5,7,0],[18.5,7,1]],
+    RS:[[23,11,0],[23,11,1]]
   },
   them:{
     R4:[[4,0,0],[4,0,1]],
@@ -1041,30 +1041,30 @@ const DPLAYS = [
 {
   id:'d-run-left', deadAt:0.86, deadLabel:'●  STOPPED — 2 YARDS', name:'RUN LEFT', kind:'Run', dur:4.6, snapAt:0.24,
   badges:['Contain','Squeeze'],
-  summary:'Anything on the ground to your left. E1 takes away the outside, D1 takes away the cutback, and everybody else runs to the ball from the inside out.',
-  key:'E1 outside her. D1 inside her. Nowhere to go.',
+  summary:'Anything on the ground to your left. LL takes away the outside, D1 takes away the cutback, and everybody else runs to the ball from the inside out.',
+  key:'LL outside her. D1 inside her. Nowhere to go.',
   read:'Linemen coming forward instead of backing up means run. Go.',
-  coach:'Be aggressive — but in that order. Take the corner away FIRST, then go get her. If E1 leaves the edge to chase the tackle and misses, that girl is gone for 30. Once contain and leverage are set, everybody else should be arriving, not watching.',
+  coach:'Be aggressive — but in that order. Take the corner away FIRST, then go get her. If LL leaves the edge to chase the tackle and misses, that girl is gone for 30. Once contain and leverage are set, everybody else should be arriving, not watching.',
   result:'Two yards, and look at the finish: four of us are standing on top of her. That is what going to the ball looks like.',
   assign:{
-    E1:'This one is yours. Get upfield and then get OUTSIDE her — never let her turn the corner. You do not have to make the tackle. You have to make sure she cannot get around you.',
-    E2:'Backside. Do NOT chase across the field. Trail behind the play at the line in case it comes back to you. If you leave, a reverse scores.',
-    D1:'Squeeze down INSIDE her and take away the cutback. You and E1 are a set of jaws: she cannot go outside E1 and she cannot come back inside you.',
+    LL:'This one is yours. Get upfield and then get OUTSIDE her — never let her turn the corner. You do not have to make the tackle. You have to make sure she cannot get around you.',
+    RL:'Backside. Do NOT chase across the field. Trail behind the play at the line in case it comes back to you. If you leave, a reverse scores.',
+    D1:'Squeeze down INSIDE her and take away the cutback. You and LL are a set of jaws: she cannot go outside LL and she cannot come back inside you.',
     D2:'Come downhill inside-out. Do not run straight at her — run to where she will be if she cuts back. You are the wall behind D1.',
     D3:'Stay home for one count — make sure it is really a run — then pursue flat down the line. Never run in front of the ball.',
     D4:'You are the furthest from it, so you are the safety valve. Pursue, but stay behind and outside the ball. If she breaks one, you are the last body.',
-    WS:'Downhill into the alley. This is your play — fill the gap between D1 and E1 and take the flag.',
-    SS:'Come across, but stay DEEPER than the ball the whole way. If you run past her you have given up the whole field.'
+    LS:'Downhill into the alley. This is your play — fill the gap between D1 and LL and take the flag.',
+    RS:'Come across, but stay DEEPER than the ball the whole way. If you run past her you have given up the whole field.'
   },
   us:{
-    E1:[[14.5,1,0],[14.5,1,0.24],[13,-1.2,0.36],[10.6,-1.8,0.48],[8,-1,0.6],[6.2,0.4,0.72],[5.4,1.8,0.86],[5.3,2.3,1]],
+    LL:[[14.5,1,0],[14.5,1,0.24],[13,-1.2,0.36],[10.6,-1.8,0.48],[8,-1,0.6],[6.2,0.4,0.72],[5.4,1.8,0.86],[5.3,2.3,1]],
     D1:[[6.2,5,0],[6.2,5,0.24],[6.6,4.4,0.38],[7.1,3.8,0.52],[7.2,3.2,0.66],[6.9,2.7,0.8],[6.7,2.5,0.86],[6.7,2.5,1]],
     D2:[[12.8,5,0],[12.8,5,0.24],[12.2,4.6,0.4],[11,4.2,0.56],[9.8,3.8,0.72],[8.6,3.3,0.88],[8,3,1]],
-    E2:[[23,1,0],[23,1,0.24],[21.6,-1.6,0.38],[20,-2.2,0.52],[17.6,-1.6,0.68],[14.8,-0.2,0.84],[12,1.2,1]],
+    RL:[[23,1,0],[23,1,0.24],[21.6,-1.6,0.38],[20,-2.2,0.52],[17.6,-1.6,0.68],[14.8,-0.2,0.84],[12,1.2,1]],
     D3:[[27.2,5,0],[27.2,5,0.24],[26,5,0.4],[22.6,4.8,0.56],[18.4,4.5,0.72],[14.4,4,0.88],[11.6,3.6,1]],
     D4:[[33.8,5,0],[33.8,5,0.24],[32.8,5.2,0.4],[30,5.4,0.56],[26.2,5.4,0.72],[21.8,5.2,0.88],[18,5,1]],
-    WS:[[18.5,7,0],[18.5,7,0.24],[17,6.4,0.4],[14.6,5.4,0.56],[11.8,4.4,0.72],[9.2,3.7,0.88],[7.6,3.4,1]],
-    SS:[[23,11,0],[23,11,0.24],[21.6,10.4,0.4],[18.4,9.2,0.56],[15,7.8,0.72],[11.6,6,0.88],[8.8,4.6,1]]
+    LS:[[18.5,7,0],[18.5,7,0.24],[17,6.4,0.4],[14.6,5.4,0.56],[11.8,4.4,0.72],[9.2,3.7,0.88],[7.6,3.4,1]],
+    RS:[[23,11,0],[23,11,0.24],[21.6,10.4,0.4],[18.4,9.2,0.56],[15,7.8,0.72],[11.6,6,0.88],[8.8,4.6,1]]
   },
   them:{
     R4:[[4,0,0],[4,0,0.24],[4.4,1.4,0.42],[5,2.6,0.62],[5.4,3.2,1]],
@@ -1081,30 +1081,30 @@ const DPLAYS = [
 {
   id:'d-run-right', deadAt:0.86, deadLabel:'●  STOPPED — 2 YARDS', name:'RUN RIGHT', kind:'Run', dur:4.6, snapAt:0.24,
   badges:['Contain','Squeeze'],
-  summary:'The same play the other way. E2 takes away the outside, D4 takes away the cutback, and SS is already on this side so she gets there first.',
-  key:'E2 outside her. D4 inside her. Nowhere to go.',
+  summary:'The same play the other way. RL takes away the outside, D4 takes away the cutback, and RS is already on this side so she gets there first.',
+  key:'RL outside her. D4 inside her. Nowhere to go.',
   read:'Linemen coming forward instead of backing up means run. Go.',
-  coach:'Exactly the mirror of RUN LEFT, with one bonus: SS lines up on this side, so we have an extra body here before the play even starts. Notice she still finishes deeper than the ball — aggressive does not mean running past it.',
+  coach:'Exactly the mirror of RUN LEFT, with one bonus: RS lines up on this side, so we have an extra body here before the play even starts. Notice she still finishes deeper than the ball — aggressive does not mean running past it.',
   result:'Two yards, same as the other way, and the same crowd arriving at the finish.',
   assign:{
-    E1:'Backside. Do NOT chase across the field. Trail behind the play at the line in case it comes back to you. If you leave, a reverse scores.',
-    E2:'This one is yours. Get upfield and then get OUTSIDE her — never let her turn the corner. You do not have to make the tackle. You have to make sure she cannot get around you.',
+    LL:'Backside. Do NOT chase across the field. Trail behind the play at the line in case it comes back to you. If you leave, a reverse scores.',
+    RL:'This one is yours. Get upfield and then get OUTSIDE her — never let her turn the corner. You do not have to make the tackle. You have to make sure she cannot get around you.',
     D1:'You are the furthest from it, so you are the safety valve. Pursue, but stay behind and outside the ball. If she breaks one, you are the last body.',
     D2:'Stay home for one count — make sure it is really a run — then pursue flat down the line. Never run in front of the ball.',
     D3:'Come downhill inside-out. Do not run straight at her — run to where she will be if she cuts back. You are the wall behind D4.',
-    D4:'Squeeze down INSIDE her and take away the cutback. You and E2 are a set of jaws: she cannot go outside E2 and she cannot come back inside you.',
-    WS:'Downhill into the alley. This is your play — fill the gap between D4 and E2 and take the flag.',
-    SS:'You start on this side, so you are there first. Come downhill but stay DEEPER than the ball. If you run past her you have given up the whole field.'
+    D4:'Squeeze down INSIDE her and take away the cutback. You and RL are a set of jaws: she cannot go outside RL and she cannot come back inside you.',
+    LS:'Downhill into the alley. This is your play — fill the gap between D4 and RL and take the flag.',
+    RS:'You start on this side, so you are there first. Come downhill but stay DEEPER than the ball. If you run past her you have given up the whole field.'
   },
   us:{
-    E2:[[23,1,0],[23,1,0.24],[27,-1.2,0.36],[29.4,-1.8,0.48],[32,-1,0.6],[33.8,0.4,0.72],[34.6,1.8,0.86],[34.7,2.3,1]],
+    RL:[[23,1,0],[23,1,0.24],[27,-1.2,0.36],[29.4,-1.8,0.48],[32,-1,0.6],[33.8,0.4,0.72],[34.6,1.8,0.86],[34.7,2.3,1]],
     D4:[[33.8,5,0],[33.8,5,0.24],[33.4,4.4,0.38],[32.9,3.8,0.52],[32.8,3.2,0.66],[33.1,2.7,0.8],[33.3,2.5,0.86],[33.3,2.5,1]],
     D3:[[27.2,5,0],[27.2,5,0.24],[27.8,4.6,0.4],[29,4.2,0.56],[30.2,3.8,0.72],[31.4,3.3,0.88],[32,3,1]],
-    E1:[[14.5,1,0],[14.5,1,0.24],[18.4,-1.6,0.38],[20,-2.2,0.52],[22.4,-1.6,0.68],[25.2,-0.2,0.84],[28,1.2,1]],
+    LL:[[14.5,1,0],[14.5,1,0.24],[18.4,-1.6,0.38],[20,-2.2,0.52],[22.4,-1.6,0.68],[25.2,-0.2,0.84],[28,1.2,1]],
     D2:[[12.8,5,0],[12.8,5,0.24],[14,5,0.4],[17.4,4.8,0.56],[21.6,4.5,0.72],[25.6,4,0.88],[28.4,3.6,1]],
     D1:[[6.2,5,0],[6.2,5,0.24],[7.2,5.2,0.4],[10,5.4,0.56],[13.8,5.4,0.72],[18.2,5.2,0.88],[22,5,1]],
-    WS:[[18.5,7,0],[18.5,7,0.24],[20.2,6.4,0.4],[23,5.4,0.56],[26.4,4.4,0.72],[29.8,3.7,0.88],[32.4,3.4,1]],
-    SS:[[23,11,0],[23,11,0.24],[24.4,10.2,0.4],[26.6,8.8,0.56],[28.4,7.2,0.72],[30,5.8,0.88],[31.2,4.6,1]]
+    LS:[[18.5,7,0],[18.5,7,0.24],[20.2,6.4,0.4],[23,5.4,0.56],[26.4,4.4,0.72],[29.8,3.7,0.88],[32.4,3.4,1]],
+    RS:[[23,11,0],[23,11,0.24],[24.4,10.2,0.4],[26.6,8.8,0.56],[28.4,7.2,0.72],[30,5.8,0.88],[31.2,4.6,1]]
   },
   them:{
     R4:[[4,0,0],[4,0,0.24],[4.6,2.4,0.45],[5.4,5,0.7],[5.8,6.4,1]],
@@ -1125,26 +1125,26 @@ const DPLAYS = [
   key:'Inside her. Push her out. Add four yards to every throw.',
   read:'Linemen backing up means pass. Get your eyes on your girl, not on the ball.',
   coach:'They are going to throw short, just like we do. We are not trying to stop a 5-yard route — we are trying to make it cost four extra yards of throw, every single time. Inside leverage turns their 12-yard throw into a 16-yard throw, and at our age that is the whole difference. Then go knock it down: hands on the BALL, never on her. Playing the ball is legal. Hitting her arm before she catches it is 15 yards AND an automatic first down.',
-  result:'A 5-yard out that cost them a 16-yard throw, D2 inside her with a hand on the ball, SS over the top. Incomplete. That is the version of their easiest play that we want to see every down.',
+  result:'A 5-yard out that cost them a 16-yard throw, D2 inside her with a hand on the ball, RS over the top. Incomplete. That is the version of their easiest play that we want to see every down.',
   assign:{
-    E1:'Rush, hands up, and stay OUTSIDE her. She cannot be allowed to run left. Make her set her feet and throw it.',
-    E2:'Rush, hands up, and stay OUTSIDE her on your side. Between the two of you she has nowhere to go but backwards.',
+    LL:'Rush, hands up, and stay OUTSIDE her. She cannot be allowed to run left. Make her set her feet and throw it.',
+    RL:'Rush, hands up, and stay OUTSIDE her on your side. Between the two of you she has nowhere to go but backwards.',
     D1:'Stay INSIDE her and run with her. Ride her toward the sideline the whole way. Do not jump in front — just never let her back into the middle.',
     D2:'This is the throw. It is only a 5-yard route, but because you are inside her the only place she can break is out — and now the ball has to travel 16 yards to find her. Stay on her inside hip and go with her. Get a hand up and knock it down. Hands on the BALL, never on her arm.',
     D3:'Backside, but you still cover. Inside leverage on your girl until the ball is thrown — then eyes up and SPRINT to it.',
     D4:'Backside. Inside leverage, stay on her, do not peek at the quarterback. The second the ball is caught, run to the ball.',
-    WS:'Own the middle. Do not chase the throw — the short easy one over the middle is the only thing that beats us, and you are standing in it.',
-    SS:'Go to the ball side and get OVER THE TOP. Even on a short route the ball has to travel a long way sideways, and that is all the time you need to get there.'
+    LS:'Own the middle. Do not chase the throw — the short easy one over the middle is the only thing that beats us, and you are standing in it.',
+    RS:'Go to the ball side and get OVER THE TOP. Even on a short route the ball has to travel a long way sideways, and that is all the time you need to get there.'
   },
   us:{
-    E1:[[14.5,1,0],[14.5,1,0.24],[16.2,-2,0.4],[17.6,-4,0.55],[18.2,-5,0.7],[18.4,-5.4,1]],
-    E2:[[23,1,0],[23,1,0.24],[22.4,-2,0.4],[21.8,-4,0.55],[21.6,-5,0.7],[21.6,-5.4,1]],
+    LL:[[14.5,1,0],[14.5,1,0.24],[16.2,-2,0.4],[17.6,-4,0.55],[18.2,-5,0.7],[18.4,-5.4,1]],
+    RL:[[23,1,0],[23,1,0.24],[22.4,-2,0.4],[21.8,-4,0.55],[21.6,-5,0.7],[21.6,-5.4,1]],
     D1:[[6.2,5,0],[6.2,5,0.24],[5.8,5.4,0.42],[5.2,6.6,0.62],[4.8,7.4,0.8],[4.6,7.6,1]],
     D2:[[12.8,5,0],[12.8,5,0.24],[12.4,5.6,0.36],[11.8,6,0.46],[10.4,6,0.56],[9.4,5.8,0.66],[8.3,5.5,0.74],[8.4,5.6,1]],
     D3:[[27.2,5,0],[27.2,5,0.24],[27.8,5.8,0.42],[28.8,7,0.62],[30,7.6,0.8],[30.6,7.8,1]],
     D4:[[33.8,5,0],[33.8,5,0.24],[34.2,5.6,0.45],[34.8,7,0.7],[35.2,7.8,1]],
-    WS:[[18.5,7,0],[18.5,7,0.24],[17.8,6.8,0.45],[16.6,6.4,0.65],[15.4,6,0.85],[14.6,5.8,1]],
-    SS:[[23,11,0],[23,11,0.24],[20.6,10.4,0.4],[16.6,9.2,0.58],[12.6,7.8,0.76],[10,6.8,0.9],[9,6.4,1]]
+    LS:[[18.5,7,0],[18.5,7,0.24],[17.8,6.8,0.45],[16.6,6.4,0.65],[15.4,6,0.85],[14.6,5.8,1]],
+    RS:[[23,11,0],[23,11,0.24],[20.6,10.4,0.4],[16.6,9.2,0.58],[12.6,7.8,0.76],[10,6.8,0.9],[9,6.4,1]]
   },
   them:{
     QB:[[20,-4,0],[20,-4,0.24],[20,-5,0.34],[20,-5.2,0.42],[20,-5.2,1]],
@@ -1165,26 +1165,26 @@ const DPLAYS = [
   key:'Inside her. Push her out. Add four yards to every throw.',
   read:'Linemen backing up means pass. Get your eyes on your girl, not on the ball.',
   coach:'Same idea both ways, and that is the point — you do not have to know what they called. You have to know where you line up, which shoulder you keep, and to play the BALL and not her body when it finally comes.',
-  result:'Same 5-yard route, same 16-yard throw, knocked down by D3 with SS right there behind her. Incomplete again.',
+  result:'Same 5-yard route, same 16-yard throw, knocked down by D3 with RS right there behind her. Incomplete again.',
   assign:{
-    E1:'Rush, hands up, and stay OUTSIDE her on your side. Between the two of you she has nowhere to go but backwards.',
-    E2:'Rush, hands up, and stay OUTSIDE her. She cannot be allowed to run right. Make her set her feet and throw it.',
+    LL:'Rush, hands up, and stay OUTSIDE her on your side. Between the two of you she has nowhere to go but backwards.',
+    RL:'Rush, hands up, and stay OUTSIDE her. She cannot be allowed to run right. Make her set her feet and throw it.',
     D1:'Backside. Inside leverage, stay on her, do not peek at the quarterback. The second the ball is caught, run to the ball.',
     D2:'Backside, but you still cover. Inside leverage on your girl until the ball is thrown — then eyes up and SPRINT to it.',
     D3:'This is the throw. It is only a 5-yard route, but because you are inside her the only place she can break is out — and now the ball has to travel 16 yards to find her. Stay on her inside hip and go with her. Get a hand up and knock it down. Hands on the BALL, never on her arm.',
     D4:'Stay INSIDE her and run with her. Ride her toward the sideline the whole way. Do not jump in front — just never let her back into the middle.',
-    WS:'Own the middle. Do not chase the throw — the short easy one over the middle is the only thing that beats us, and you are standing in it.',
-    SS:'Go to the ball side and get OVER THE TOP. Even on a short route the ball has to travel a long way sideways, and that is all the time you need to get there.'
+    LS:'Own the middle. Do not chase the throw — the short easy one over the middle is the only thing that beats us, and you are standing in it.',
+    RS:'Go to the ball side and get OVER THE TOP. Even on a short route the ball has to travel a long way sideways, and that is all the time you need to get there.'
   },
   us:{
-    E1:[[14.5,1,0],[14.5,1,0.24],[16.4,-2,0.4],[17.6,-4,0.55],[18.2,-5,0.7],[18.4,-5.4,1]],
-    E2:[[23,1,0],[23,1,0.24],[23.2,-2,0.4],[21.8,-4,0.55],[21.6,-5,0.7],[21.6,-5.4,1]],
+    LL:[[14.5,1,0],[14.5,1,0.24],[16.4,-2,0.4],[17.6,-4,0.55],[18.2,-5,0.7],[18.4,-5.4,1]],
+    RL:[[23,1,0],[23,1,0.24],[23.2,-2,0.4],[21.8,-4,0.55],[21.6,-5,0.7],[21.6,-5.4,1]],
     D4:[[33.8,5,0],[33.8,5,0.24],[34.2,5.4,0.42],[34.8,6.6,0.62],[35.2,7.4,0.8],[35.4,7.6,1]],
     D3:[[27.2,5,0],[27.2,5,0.24],[27.6,5.6,0.36],[28.2,6,0.46],[29.6,6,0.56],[30.6,5.8,0.66],[31.7,5.5,0.74],[31.6,5.6,1]],
     D2:[[12.8,5,0],[12.8,5,0.24],[12.2,5.8,0.42],[11.2,7,0.62],[10,7.6,0.8],[9.4,7.8,1]],
     D1:[[6.2,5,0],[6.2,5,0.24],[5.8,5.6,0.45],[5.2,7,0.7],[4.8,7.8,1]],
-    WS:[[18.5,7,0],[18.5,7,0.24],[19.2,6.8,0.45],[20.4,6.4,0.65],[21.6,6,0.85],[22.4,5.8,1]],
-    SS:[[23,11,0],[23,11,0.24],[25.4,10.4,0.4],[29,9.2,0.58],[31.4,7.8,0.76],[32,6.8,0.9],[32.6,6.4,1]]
+    LS:[[18.5,7,0],[18.5,7,0.24],[19.2,6.8,0.45],[20.4,6.4,0.65],[21.6,6,0.85],[22.4,5.8,1]],
+    RS:[[23,11,0],[23,11,0.24],[25.4,10.4,0.4],[29,9.2,0.58],[31.4,7.8,0.76],[32,6.8,0.9],[32.6,6.4,1]]
   },
   them:{
     QB:[[20,-4,0],[20,-4,0.24],[20,-5,0.34],[20,-5.2,0.42],[20,-5.2,1]],
@@ -1356,7 +1356,7 @@ function makeNode(label,side){
   return g;
 }
 /* Rebuilt whenever the play changes, because offense and defense put
-   different people on the field (R1..RB vs E1..S). */
+   different people on the field (R1..RB vs LL..S). */
 function buildNodes(){
   clear(gOff); clear(gDef); nodes={};
   Object.keys(cur.off).forEach(k=>nodes[k]=makeNode(k,'off'));
@@ -1365,7 +1365,7 @@ function buildNodes(){
 const ball=el('ellipse',{rx:8.5,ry:5.6,class:'ballshape'});gBall.append(ball);
 
 let MODE='offense', lastOffense='the-look', lastDefense='the-cage';
-const DPOS=['E1','E2','D1','D2','D3','D4','WS','SS'];
+const DPOS=['LL','RL','D1','D2','D3','D4','LS','RS'];
 const OPOS=['QB','RB','C','G','R1','R2','R3','R4'];
 /* Which girl is picking herself out of the crowd. Remembered per tab, because
    she is probably one thing on offence and something else on defence. */
