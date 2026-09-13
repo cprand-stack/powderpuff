@@ -313,10 +313,16 @@ if('serviceWorker' in navigator){
   .respage.on{display:block}
   .rtitle{font-size:26px; letter-spacing:-.01em; margin:0 0 6px}
   .rnote{font-size:13.5px; color:var(--muted); margin:0 0 20px; max-width:62ch}
-  #resRules h3{font-size:11px; font-weight:900; letter-spacing:.12em; text-transform:uppercase;
-    color:var(--red); margin:22px 0 6px}
+  #resRules h3{font-size:11.5px; font-weight:900; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--white); background:var(--red); margin:24px 0 10px; padding:8px 12px;
+    border-radius:7px; max-width:70ch}
+  #resRules h3:first-of-type{margin-top:16px}
   #resRules p{margin:0 0 8px; font-size:14.5px; line-height:1.55; max-width:70ch}
   #resRules ol{margin:0 0 8px; padding-left:22px; font-size:14.5px; line-height:1.55}
+  /* Anything Coach Rand added to explain the school's wording, kept visibly
+     separate so the official text stays the official text. */
+  #resRules .gl{color:var(--red)}
+  #resRules p.gl{padding-left:12px; border-left:3px solid var(--red2); font-style:italic}
   .sched{border-collapse:collapse; width:100%; max-width:560px}
   .sched td{border-bottom:1px solid var(--line); padding:13px 8px 13px 0; vertical-align:baseline}
   .sday{font-weight:900; font-size:15px; white-space:nowrap}
@@ -489,10 +495,10 @@ if('serviceWorker' in navigator){
 
 <div id="resRules" class="respage">
   <h2 class="rtitle">Powderpuff Rules</h2>
-  <p class="rnote">Word for word, from the sheet the school handed out. If a referee tells you something different on the day, the referee is right &mdash; but this is what we are playing by.</p>
+  <p class="rnote">The sheet the school handed out, word for word. <b>Anything in red is Coach Rand explaining something</b> &mdash; it is not part of the official rules. If a referee tells you something different on the day, the referee is right.</p>
 
   <h3>Field Dimensions</h3>
-  <p>60 yards long (plus a 10 yard end zone) by 40 yards wide.</p>
+  <p>60 yards long (plus a 10 yard end zone) by 40 yards wide. <span class="gl">(A standard football field is 100 yards long by 53 yards wide.)</span></p>
 
   <h3>Game Length</h3>
   <p>Games will begin every half-hour. Halves will be 8 minutes using a running clock except during time outs and the last minute of the game, during which the clock will stop as in a regulation game during these instances: Incomplete Pass, Out of Bounds, Penalty, Turn Over, Time Out.</p>
@@ -501,6 +507,7 @@ if('serviceWorker' in navigator){
   <p>Coaches may call two 30-second timeouts per game, in either half.</p>
 
   <h3>Dead Ball</h3>
+  <p class="gl">A dead ball means that the play is over.</p>
   <p>The ball is dead when it:</p>
   <ol>
     <li>goes out of bounds</li>
@@ -510,12 +517,14 @@ if('serviceWorker' in navigator){
 
   <h3>Scoring</h3>
   <p>A touchdown counts for 6 points.<br>A safety counts 2 points for the defensive team.</p>
+  <p class="gl">A safety occurs when the Defense pulls the ball runner&rsquo;s (Offensive player&rsquo;s) flag in their end zone &mdash; the one behind the Offense, not the one they are scoring in.</p>
 
   <h3>Start of Each Game</h3>
   <p>The choice of goal and possession of the ball at the 20 yard line will be determined by coin flip.</p>
 
   <h3>First Downs</h3>
   <p>Possession of the ball is retained as long as the offensive team is able to continue obtaining first down. The team must reach the next Line to Gain in four plays.</p>
+  <p class="gl">It takes 10 yards to reach a first down (the next Line to Gain).</p>
 
   <h3>Fourth Down</h3>
   <p>On fourth down, a team must indicate whether they intend to &ldquo;punt&rdquo; or go for it. A &ldquo;punt&rdquo; will result in a change of possession. The receiving team will get the ball on their 20 yard line.</p>
@@ -528,7 +537,7 @@ if('serviceWorker' in navigator){
   <p>A ball carrier who has fallen to the ground may not resume her run. If the ball is fumbled, it is a dead ball and may not be recovered or advanced by the defense.</p>
 
   <h3>Rushing</h3>
-  <p>The defense can rush when the ball is hiked. The defense doesn&rsquo;t have to count to &ldquo;5 Mississippi,&rdquo; for instance. The Rusher may not initiate contact with any offensive players.</p>
+  <p>The defense can rush when the ball is hiked. The defense doesn&rsquo;t have to count to &ldquo;5 Mississippi,&rdquo; for instance. The Rusher <span class="gl">(Defense)</span> may not initiate contact with any offensive players.</p>
 
   <h3>Passes</h3>
   <p>One forward pass may be thrown from any place behind the line of scrimmage.</p>
@@ -538,7 +547,7 @@ if('serviceWorker' in navigator){
   <p>Tackling shall consist of pulling flags without holding the ball carrier with the hand or any part of the body. Flags must be worn on the outside of all types of clothing and the entire flag must be exposed. If a player with the ball loses her flag during play, the ball is dead at the point of the flag fall. Shirts MUST be tucked in.</p>
 
   <h3>Blocking</h3>
-  <p>Only screening of the defensive player is allowed. Use of arms, hands, legs, running over, cutting or pushing a defender is not allowed. All appendages must stay within the framework of the body during a block. (i.e. arms must stay at their sides, knees and feet must stay in line with body as well). All these violations result in five-yard penalty and either the loss of down or replay of the down / decline the penalty.</p>
+  <p><span class="gl">When on Offense,</span> only screening of the defensive player is allowed. Use of arms, hands, legs, running over, cutting or pushing a defender is not allowed. All appendages must stay within the framework of the body during a block. (i.e. arms must stay at their sides, knees and feet must stay in line with body as well). All these violations result in five-yard penalty and either the loss of down or replay of the down / decline the penalty.</p>
 
   <h3>Off Sides</h3>
   <p>When any member of the defense is on the offensive side of the ball before it is snapped, it results in a five yard penalty.</p>
@@ -591,7 +600,7 @@ if('serviceWorker' in navigator){
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='450907cf0372';
+const BUILD='2b6b70eeee74';
 /* TEMPORARY, until the first practice. build.py flips this to true for the
    hosted PWA only, so the girls get Resources and nothing else while the
    Artifact build stays wide open for Coach Rand and me to keep working on the
