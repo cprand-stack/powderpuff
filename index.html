@@ -95,14 +95,14 @@ if('serviceWorker' in navigator){
   #picker,#dpicker{display:grid; grid-template-columns:0.57fr 1.09fr 1.34fr; gap:8px; max-width:1180px; margin:0 auto; padding:12px 16px 0}
   /* The controls ride under the header; the animation then stacks under them. */
   #controlbar{position:sticky; top:var(--stick,60px); z-index:6; background:var(--page); padding-bottom:10px}
-  #picker button,#picker select,#dpicker button,#dpicker select,#rpicker select{
+  #picker button,#picker select,#dpicker button,#dpicker select{
     font:inherit; font-size:12px; font-weight:900; letter-spacing:.06em; text-transform:uppercase;
     color:var(--ink); background-color:var(--white); border:1.5px solid var(--line); border-radius:9px;
     padding:11px 12px; cursor:pointer; width:100%; min-width:0;
     -webkit-appearance:none; appearance:none; -webkit-tap-highlight-color:transparent;
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
   }
-  #picker select,#dpicker select,#rpicker select{padding-right:26px;
+  #picker select,#dpicker select{padding-right:26px;
     background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);
     background-position:calc(100% - 16px) calc(50% + 1px),calc(100% - 11px) calc(50% + 1px);
     background-size:5px 5px; background-repeat:no-repeat}
@@ -110,7 +110,7 @@ if('serviceWorker' in navigator){
   #picker select.on,#dpicker select.on{background-color:var(--red); border-color:var(--red); color:var(--white);
     background-image:linear-gradient(45deg,transparent 50%,#fff 50%),linear-gradient(135deg,#fff 50%,transparent 50%)}
   #picker select#pCore.on,#dpicker select#dPlays.on{background-color:var(--black); border-color:var(--black)}
-  #picker select option,#dpicker select option,#rpicker select option{color:var(--ink); background:var(--white); text-transform:none; letter-spacing:0}
+  #picker select option,#dpicker select option{color:var(--ink); background:var(--white); text-transform:none; letter-spacing:0}
   #picker select option:disabled{color:var(--muted); font-style:italic}
   #picker select optgroup{color:var(--muted); font-style:italic; font-weight:900; text-transform:none; letter-spacing:0}
   /* A locked group stays on screen so the girls know it is coming, but it
@@ -119,10 +119,6 @@ if('serviceWorker' in navigator){
     border-style:dashed; background-image:none; padding-right:12px; cursor:default; opacity:1}
   #picker button:focus-visible,#picker select:focus-visible,#dpicker button:focus-visible,#dpicker select:focus-visible{outline:2px solid var(--red2); outline-offset:2px}
 
-  .fibody{border:1.5px solid var(--line); border-top:0; border-radius:0 0 9px 9px; padding:11px 12px; background:#fdf6f7}
-  .fibody svg{display:block; width:100%; max-width:320px; height:auto; margin:0 auto 10px; border:1px solid var(--line); border-radius:5px; background:var(--white)}
-  .fibody p{margin:0; font-size:12.5px; line-height:1.45}
-  .fibody b{color:var(--red)}
 
   main{max-width:1180px; margin:0 auto; padding:10px 16px 0}
   /* Pin the animation under the header so she can keep watching the play while
@@ -241,18 +237,9 @@ if('serviceWorker' in navigator){
   .assign .who.dim{background:#e8e5e0; color:var(--muted)}
   .assign .dim p{color:var(--muted)}
   .assign .dim .names{opacity:.5}
-  #dinfo{display:none; max-width:1180px; margin:8px auto 0; padding:0 16px}
-  #dinfo>summary{list-style:none; cursor:pointer; display:flex; align-items:center; gap:8px;
-    padding:9px 12px; border:1.5px solid var(--line); border-radius:9px; background:var(--panel2)}
-  #dinfo>summary::-webkit-details-marker{display:none}
-  #dinfo>summary b{font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.1em; flex:0 0 auto}
-  #dinfo>summary span{font-size:11.5px; font-weight:600; color:var(--muted); min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
-  #dinfo>summary::after{content:'\25BE'; margin-left:auto; color:var(--muted); font-size:11px}
-  #dinfo[open]>summary{border-radius:9px 9px 0 0; border-bottom-color:transparent}
-  #dinfo[open]>summary::after{content:'\25B4'}
-  .dmath{margin:0 0 10px; font-size:12.5px; line-height:1.45; padding-left:12px; border-left:3px solid var(--red)}
-  .drules{margin:0; padding-left:20px; display:flex; flex-direction:column; gap:7px}
-  .drules li{font-size:12.5px; line-height:1.45}
+  .dmath{margin:0 0 16px; font-size:14.5px; line-height:1.55; padding-left:14px; border-left:3px solid var(--red); max-width:70ch}
+  .drules{margin:0; padding-left:22px; display:flex; flex-direction:column; gap:11px; max-width:70ch}
+  .drules li{font-size:14.5px; line-height:1.55}
   .drules b{color:var(--red)}
   /* on the defence tab WE are the white circles, so tint our trails apart from the ball */
   #field.dmode .trail{stroke:var(--red2); opacity:.45}
@@ -260,6 +247,24 @@ if('serviceWorker' in navigator){
   #field.dmode .route{stroke:var(--red2); opacity:.18}
   /* RESOURCES: one picker, three pages, only one shown at a time. */
   #rpicker{display:none; max-width:1180px; margin:0 auto; padding:12px 16px 0}
+  #rBack{font:inherit; font-size:11.5px; font-weight:900; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--red); background:var(--white); border:1.5px solid var(--red); border-radius:999px;
+    padding:8px 15px; cursor:pointer; -webkit-tap-highlight-color:transparent}
+  #rBack:hover{background:var(--red); color:var(--white)}
+  /* The landing page: four doors, each one a whole tap target. One column on a
+     phone because a half-width tile cannot hold a sentence anybody will read. */
+  .rgrid{display:grid; grid-template-columns:1fr; gap:10px; max-width:760px}
+  @media(min-width:760px){.rgrid{grid-template-columns:1fr 1fr}}
+  .rcard{font:inherit; text-align:left; cursor:pointer; display:flex; flex-direction:column; gap:5px;
+    background:var(--white); border:1.5px solid var(--line); border-radius:12px;
+    padding:15px 40px 15px 16px; position:relative; transition:.12s;
+    -webkit-tap-highlight-color:transparent}
+  .rcard:hover{border-color:var(--red); background:#fdf6f7}
+  .rcard b{font-size:15px; font-weight:900; letter-spacing:.02em; color:var(--ink)}
+  .rcard b i{font-style:normal; font-weight:800; color:var(--muted); font-size:12.5px}
+  .rcard span{font-size:13px; line-height:1.45; color:var(--muted)}
+  .rcard::after{content:'\203A'; position:absolute; right:16px; top:50%; transform:translateY(-50%);
+    color:var(--red); font-size:22px; font-weight:900; line-height:1}
   #resources{display:none; max-width:1180px; margin:0 auto; padding:14px 16px 0}
   #resources.on{display:block}
   .respage{display:none}
@@ -308,8 +313,8 @@ if('serviceWorker' in navigator){
     #variants{gap:4px; padding:8px 7px}
     #variants .vlab{display:none}
     #variants .vseg button{padding:7px 6px; font-size:11.5px}
-    #picker button,#picker select,#dpicker button,#dpicker select,#rpicker select{font-size:11px; letter-spacing:.04em; padding:11px 8px}
-    #picker select,#dpicker select,#rpicker select{padding-right:22px; background-position:calc(100% - 13px) calc(50% + 1px),calc(100% - 9px) calc(50% + 1px)}
+    #picker button,#picker select,#dpicker button,#dpicker select{font-size:11px; letter-spacing:.04em; padding:11px 8px}
+    #picker select,#dpicker select{padding-right:22px; background-position:calc(100% - 13px) calc(50% + 1px),calc(100% - 9px) calc(50% + 1px)}
     main{padding:10px 14px 0}
     #controls{padding:2px 10px 4px}
     #phasebar{padding:6px 9px 6px}
@@ -326,8 +331,8 @@ if('serviceWorker' in navigator){
   @media print{
     @page{margin:.4in}
     header{position:static; border-bottom:2px solid #000}
-    #viewtabs,#controlbar,#dinfo,main,#controls,footer,.wbar,#rpicker,
-    #resRules,#resSched{display:none !important}
+    #viewtabs,#controlbar,main,#controls,footer,.wbar,#rpicker,
+    #resHome,#resDef,#resRules,#resSched{display:none !important}
     #resources,#wristband{display:block !important; padding:0}
     .wgrid{grid-template-columns:repeat(4,1fr); gap:6px}
     body{background:#fff}
@@ -360,20 +365,6 @@ if('serviceWorker' in navigator){
   <button id="tabRes" role="tab" aria-selected="false">Resources</button>
 </div>
 
-<details id="dinfo">
-  <summary><b>The rules</b><span>six things, every snap</span></summary>
-  <div class="fibody">
-    <p class="dmath"><b>They need 10 yards in 4 downs.</b> Hold them to 2 a play and they never convert. There are no fumbles in this rulebook, so we will not strip the ball loose &mdash; <b>our takeaway is the fourth-down stop.</b> Four small wins, not one big one. <b>We do not know what they run, and we do not need to.</b> Every play they own is a run to one side or a throw to one side, and we line up the same way for all four.</p>
-    <ol class="drules">
-      <li><b>Contain first.</b> LL and RL &mdash; your job is not to get her, it is to make sure she cannot get outside you. The second a ball carrier turns the corner, everything behind you is chasing.</li>
-      <li><b>Do not chase the motion.</b> If their back runs across before the snap, she is trying to move you. Do not move.</li>
-      <li><b>Inside leverage.</b> D1 through D4: line up on her INSIDE shoulder and stay there all day. She can have the sideline. She cannot have the middle.</li>
-      <li><b>Add yards to every throw.</b> This is why we play inside. They are going to throw short, just like we do &mdash; so we are not trying to stop the 5-yard route, we are trying to make it expensive. Pushed to the sideline, their 12-yard throw becomes a 16-yard throw, and the longer the ball is in the air the less often it is caught. <b>The short easy one over the middle is the only thing that beats us.</b></li>
-      <li><b>LS owns the middle. RS goes to the ball.</b> LS stands in the one place we are deliberately not pushing people, so anybody who comes inside is hers. RS gets over the top of wherever it goes &mdash; she is the reason a long sideline throw is a bad decision.</li>
-      <li><b>Play the ball, never her body &mdash; then eyes up and go.</b> Knocking a pass down is legal and it is exactly what we want. Touching <i>her</i> before the catch is 15 yards <i>and</i> an automatic first down. If you cannot get the ball cleanly, let her catch it and take the flag right now. <b>Exception:</b> if the ball is right at you and you can catch it clean, catch it &mdash; an interception can be run back. And the second somebody else&rsquo;s girl catches it, your coverage is over: head up and sprint.</li>
-    </ol>
-  </div>
-</details>
 
 <div id="controlbar">
 <div id="picker">
@@ -388,11 +379,7 @@ if('serviceWorker' in navigator){
 </div>
 
 <div id="rpicker">
-  <select id="rPick" aria-label="Resources">
-    <option value="rules">The rules</option>
-    <option value="wrist" selected>Wristband</option>
-    <option value="sched">Schedule</option>
-  </select>
+  <button id="rBack">&lsaquo;&nbsp; All resources</button>
 </div>
 </div>
 
@@ -422,6 +409,31 @@ if('serviceWorker' in navigator){
 </main>
 
 <div id="resources">
+
+<div id="resHome" class="respage">
+  <h2 class="rtitle">Resources</h2>
+  <p class="rnote">Everything that is not a play. Pick one.</p>
+  <div class="rgrid">
+    <button class="rcard" data-res="rules"><b>The Rules</b><span>Word for word from the sheet the school handed out &mdash; what the referee is going by.</span></button>
+    <button class="rcard" data-res="defense"><b>Defense Concepts</b><span>Six things, every snap. Contain, inside leverage, and play the ball.</span></button>
+    <button class="rcard" data-res="wrist"><b>Offense Plays <i>(printable)</i></b><span>Every play on one page. Print it, cut it, tape it to a wrist.</span></button>
+    <button class="rcard" data-res="sched"><b>Schedule</b><span>Every practice through game day, fall break included.</span></button>
+  </div>
+</div>
+
+<div id="resDef" class="respage">
+  <h2 class="rtitle">Defense Concepts</h2>
+  <p class="rnote">Six things, every snap. These do not change with whatever they call &mdash; learn them once and you are ready for all four looks.</p>
+  <p class="dmath"><b>They need 10 yards in 4 downs.</b> Hold them to 2 a play and they never convert. There are no fumbles in this rulebook, so we will not strip the ball loose &mdash; <b>our takeaway is the fourth-down stop.</b> Four small wins, not one big one. <b>We do not know what they run, and we do not need to.</b> Every play they own is a run to one side or a throw to one side, and we line up the same way for all four.</p>
+    <ol class="drules">
+      <li><b>Contain first.</b> LL and RL &mdash; your job is not to get her, it is to make sure she cannot get outside you. The second a ball carrier turns the corner, everything behind you is chasing.</li>
+      <li><b>Do not chase the motion.</b> If their back runs across before the snap, she is trying to move you. Do not move.</li>
+      <li><b>Inside leverage.</b> D1 through D4: line up on her INSIDE shoulder and stay there all day. She can have the sideline. She cannot have the middle.</li>
+      <li><b>Add yards to every throw.</b> This is why we play inside. They are going to throw short, just like we do &mdash; so we are not trying to stop the 5-yard route, we are trying to make it expensive. Pushed to the sideline, their 12-yard throw becomes a 16-yard throw, and the longer the ball is in the air the less often it is caught. <b>The short easy one over the middle is the only thing that beats us.</b></li>
+      <li><b>LS owns the middle. RS goes to the ball.</b> LS stands in the one place we are deliberately not pushing people, so anybody who comes inside is hers. RS gets over the top of wherever it goes &mdash; she is the reason a long sideline throw is a bad decision.</li>
+      <li><b>Play the ball, never her body &mdash; then eyes up and go.</b> Knocking a pass down is legal and it is exactly what we want. Touching <i>her</i> before the catch is 15 yards <i>and</i> an automatic first down. If you cannot get the ball cleanly, let her catch it and take the flag right now. <b>Exception:</b> if the ball is right at you and you can catch it clean, catch it &mdash; an interception can be run back. And the second somebody else&rsquo;s girl catches it, your coverage is over: head up and sprint.</li>
+    </ol>
+</div>
 
 <div id="resRules" class="respage">
   <h2 class="rtitle">The Rules</h2>
@@ -1853,10 +1865,12 @@ document.getElementById('pCore').onchange=e=>{ if(e.target.value) select(e.targe
 document.getElementById('btnPlay').onclick=()=>{if(t>=1){t=0;holdUntil=0;}playing=!playing;setBtn();};
 document.getElementById('scrub').oninput=e=>{t=e.target.value/1000;holdUntil=0;playing=false;setBtn();render();};
 
+const RESPAGES={home:'resHome', rules:'resRules', defense:'resDef', wrist:'wristband', sched:'resSched'};
 function showResource(which){
-  for(const [id,key] of [['resRules','rules'],['wristband','wrist'],['resSched','sched']])
-    document.getElementById(id).classList.toggle('on', key===which);
-  document.getElementById('rPick').value=which;
+  for(const k in RESPAGES) document.getElementById(RESPAGES[k]).classList.toggle('on', k===which);
+  /* the back button only exists once you are inside a page */
+  document.getElementById('rpicker').style.display = which==='home' ? 'none' : 'block';
+  window.scrollTo(0,0);
 }
 function setView(w){
   const tabs={offense:'tabOffense', defense:'tabDefense', resources:'tabRes'};
@@ -1865,18 +1879,20 @@ function setView(w){
   /* explicit values, never '': these elements' CSS defaults are display:none */
   document.getElementById('picker').style.display   = w==='offense'?'grid':'none';
   document.getElementById('dpicker').style.display  = w==='defense'?'grid':'none';
-  document.getElementById('dinfo').style.display    = w==='defense'?'block':'none';
   document.getElementById('mainView').style.display = onField?'':'none';
-  document.getElementById('rpicker').style.display = w==='resources'?'block':'none';
   document.getElementById('resources').classList.toggle('on', w==='resources');
+  /* Resources always opens on its landing page, never wherever you were last. */
+  if(w==='resources') showResource('home');
+  else document.getElementById('rpicker').style.display='none';
   if(onField && MODE!==w){ MODE=w; select(w==='defense'?lastDefense:lastOffense); }
   playing = onField; setBtn();
 }
 document.getElementById('tabOffense').onclick=()=>setView('offense');
 document.getElementById('tabDefense').onclick=()=>setView('defense');
 document.getElementById('tabRes').onclick=()=>setView('resources');
-document.getElementById('rPick').onchange=e=>showResource(e.target.value);
-showResource('wrist');
+document.querySelectorAll('.rcard').forEach(b=>b.onclick=()=>showResource(b.dataset.res));
+document.getElementById('rBack').onclick=()=>showResource('home');
+showResource('home');
 
 /* Watch the header itself, not the window: it changes height at the breakpoint
    and again when the webfont settles, and a resize listener misses both. */
