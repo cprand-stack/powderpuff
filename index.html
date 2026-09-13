@@ -1261,14 +1261,22 @@ let CM={};
    is then whatever the tilt leaves us, and the viewBox is cut to match. Drop
    the camera low and the field really does flatten into a strip - that is not
    a bug, it is what standing on the field looks like. */
+/* Downfield in world units. The DEFENCE view is mirrored end-to-end, so the
+   camera has to stand behind OUR defenders instead of behind the offence -
+   which is exactly a negated y. x is untouched, so left-to-right still reads
+   the same on both tabs. */
+const WY=y=>(VFLIP?-y:y)*10;
+/* [near edge, far edge] in world units, i.e. whichever end the camera is behind. */
+const EXT=()=>VFLIP?[-200,90]:[-90,200];
 function setTilt(deg){
   TILT=deg;
   const th=deg*Math.PI/180, s=Math.sin(th), c=Math.cos(th);
   const ey=CAM.cy-CAM.dist*c, ez=CAM.dist*s;
   const D=(Y,Z)=>(Y-ey)*c-(Z-ez)*s, V=(Y,Z)=>(Y-ey)*s+(Z-ez)*c;
-  const focal=CAM.halfW*D(-90,0)/200, k0=focal/D(CAM.cy,0);
+  const ext=EXT();
+  const focal=CAM.halfW*D(ext[0],0)/200, k0=focal/D(CAM.cy,0);
   let lo=1e9,hi=-1e9;
-  for(const Y of [-90,200]){
+  for(const Y of ext){
     const gk=focal/D(Y,0),   gy=-V(Y,0)*gk;             /* her feet */
     const mk=focal/D(Y,PLH*10), my=-V(Y,PLH*10)*mk;     /* her marker */
     lo=Math.min(lo, gy, my-15*mk/k0);
@@ -1279,7 +1287,7 @@ function setTilt(deg){
   if(BOOTED&&THREE3D){applyVB();drawField();drawRoutes();render();}
 }
 function P3(x,y,z){
-  const X=x*10, Y=y*10, Z=(z||0)*10;
+  const X=x*10, Y=WY(y), Z=(z||0)*10;
   const d=(Y-CM.ey)*CM.c-(Z-CM.ez)*CM.s;       /* distance along the lens */
   const v=(Y-CM.ey)*CM.s+(Z-CM.ez)*CM.c;       /* height in the frame */
   const k=CM.focal/d;
@@ -1309,7 +1317,7 @@ function drawField3(){
   lab(0,0,-5,4,'fieldlabel','LOS','end');
   lab(40,10,6,4,'fieldlabel r','LTG');
   lab(20,10,0,-6,'fieldlabel r','LINE TO GAIN \u2014 10 YARDS','middle');
-  lab(40,-9,-5,-7,'fieldlabel','40 YARDS WIDE','end');
+  lab(40,VFLIP?20:-9,-5,-7,'fieldlabel','40 YARDS WIDE','end');
 }
 
 function drawField(){
@@ -1440,7 +1448,9 @@ function render(){
   }
   /* Painter's algorithm: whoever is furthest downfield is furthest away,
      so she gets drawn first and everyone nearer overlaps her. */
-  if(THREE3D) [gOff,gDef].forEach(g=>[...g.children].sort((a,b)=>b.__y-a.__y).forEach(c=>g.append(c)));
+  if(THREE3D) [gOff,gDef].forEach(g=>[...g.children]
+    .sort((a,b)=>VFLIP ? a.__y-b.__y : b.__y-a.__y)   /* furthest away drawn first */
+    .forEach(c=>g.append(c)));
   /* The ball is tracked in world yards (x, y, height) and projected last,
      so it arcs over the field in 3D instead of sliding across the picture.
      In 2D the numbers come out byte-for-byte the same as before. */
@@ -1610,11 +1620,10 @@ function select(id){
   if(MODE==='defense') lastDefense=id; else lastOffense=id;
   t=0;holdUntil=0;playing=true;setBtn();
   VFLIP = (MODE==='defense');
-  if(MODE==='defense') THREE3D=false;      /* that view is mirrored end-to-end */
   const l3d=document.getElementById('l3d');
-  l3d.hidden = (MODE==='defense');
   l3d.classList.toggle('on',THREE3D);
   document.getElementById('t3D').checked=THREE3D;
+  setTilt(TILT);        /* VFLIP just changed, so re-fit the camera to this end */
   document.getElementById('field').classList.toggle('three',THREE3D);
   applyVB();
   drawField();
