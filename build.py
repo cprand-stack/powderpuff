@@ -17,7 +17,11 @@ site, play = ROOT/'docs', ROOT/'docs'/'play'   # GitHub Pages serves /docs
 play.mkdir(parents=True, exist_ok=True)
 
 # ---- the app itself -------------------------------------------------------
-(play/'index.html').write_text(app.replace("const BUILD='dev'", "const BUILD='%s'" % ver))
+# TEMPORARY: the hosted PWA is locked to Resources until the first practice.
+# The Artifact build keeps every tab, so work on the plays continues there.
+(play/'index.html').write_text(
+    app.replace("const BUILD='dev'", "const BUILD='%s'" % ver)
+       .replace('const LOCKED=false;', 'const LOCKED=true;'))
 
 # ---- manifest -------------------------------------------------------------
 (play/'manifest.webmanifest').write_text(json.dumps({
@@ -93,6 +97,11 @@ assert js.count('{') == js.count('}'), 'unbalanced braces in artifact script'
 assert 'serviceWorker' not in art, 'SW registration leaked into the artifact'
 assert "const BUILD='%s'" % ver in (play/'index.html').read_text(), 'build id not stamped'
 assert "cache: 'reload'" in (play/'sw.js').read_text(), 'sw is not bypassing the http cache'
+assert 'const LOCKED=true;'  in (play/'index.html').read_text(), 'hosted build is not locked'
+assert 'const LOCKED=false;' in art, 'artifact build must stay unlocked'
+# BUILD and LOCKED must live in the BODY script: the artifact is style+body
+# only, and a head-only declaration leaves it referencing an undefined name.
+assert "const BUILD='dev';" in art, 'artifact has no BUILD definition'
 for f in ('icon-192.png','icon-512.png','icon-maskable-512.png','apple-touch-icon.png','favicon-32.png'):
     assert (play/f).exists(), 'missing icon '+f
 print('version   ', ver)
