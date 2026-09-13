@@ -17,8 +17,23 @@
 <meta name="apple-mobile-web-app-title" content="Powderpuff">
 <meta name="description" content="St. Cecilia Academy freshman Powderpuff playbook — every play, animated.">
 <script>
+/* Build id, stamped by build.py. Shown in the footer so we can always tell
+   which version a phone is actually running. */
+const BUILD='dev';
 if('serviceWorker' in navigator){
-  addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{});});
+  addEventListener('load',()=>{
+    /* If a NEW worker takes over, the page we are looking at is already stale -
+       reload once so an update lands on this launch, not the next one. */
+    let had=!!navigator.serviceWorker.controller, reloading=false;
+    navigator.serviceWorker.addEventListener('controllerchange',()=>{
+      if(had && !reloading){ reloading=true; location.reload(); }
+    });
+    navigator.serviceWorker.register('sw.js').then(reg=>{
+      const check=()=>{ if(document.visibilityState==='visible') reg.update().catch(()=>{}); };
+      addEventListener('visibilitychange',check);   /* she reopens the app -> look for a new playbook */
+      setInterval(check,3600000);
+    }).catch(()=>{});
+  });
 }
 </script>
 <style>
@@ -392,7 +407,7 @@ if('serviceWorker' in navigator){
   <div class="wgrid" id="wgrid"></div>
 </div>
 
-<footer>St. Cecilia Academy &middot; Freshman Powderpuff &middot; Coach Rand</footer>
+<footer>St. Cecilia Academy &middot; Freshman Powderpuff &middot; Coach Rand &middot; <span id="build"></span></footer>
 
 <script>
 /* ============================================================
@@ -1753,6 +1768,7 @@ addEventListener('resize',setStick);
 addEventListener('orientationchange',setStick);
 renderWristband();
 select(PLAYS[0].id);
+document.getElementById('build').textContent='v'+BUILD.slice(0,7);
 BOOTED=true;
 </script>
 </body>

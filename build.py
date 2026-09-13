@@ -17,7 +17,7 @@ site, play = ROOT/'docs', ROOT/'docs'/'play'   # GitHub Pages serves /docs
 play.mkdir(parents=True, exist_ok=True)
 
 # ---- the app itself -------------------------------------------------------
-(play/'index.html').write_text(app)
+(play/'index.html').write_text(app.replace("const BUILD='dev'", "const BUILD='%s'" % ver))
 
 # ---- manifest -------------------------------------------------------------
 (play/'manifest.webmanifest').write_text(json.dumps({
@@ -44,8 +44,15 @@ const SHELL = ['./','./index.html','./manifest.webmanifest',
   './icon-192.png','./icon-512.png','./icon-maskable-512.png',
   './apple-touch-icon.png','./favicon-32.png'];
 
+/* Every network read here uses cache:'reload' to step over the browser's HTTP
+   cache. GitHub Pages serves everything with max-age=600, so without this a
+   relaunch inside ten minutes hands her the previous playbook. */
+const fresh = u => new Request(u, {cache: 'reload'});
+
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(V).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
+  e.waitUntil(caches.open(V)
+    .then(c => c.addAll(SHELL.map(fresh)))
+    .then(() => self.skipWaiting()));
 });
 self.addEventListener('activate', e => {
   e.waitUntil(caches.keys()
@@ -55,12 +62,17 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   const r = e.request;
   if (r.method !== 'GET') return;
-  /* The page itself: network first, so a republished playbook shows up as soon
-     as she has signal - but fall back to cache so it still opens on the field. */
+  /* The page itself: straight to the network so a republished playbook shows up
+     the moment she has signal - but fall back to cache so it still opens on the
+     field with no signal at all. */
   if (r.mode === 'navigate') {
-    e.respondWith(fetch(r).then(res => {
-      const copy = res.clone(); caches.open(V).then(c => c.put('./', copy)); return res;
-    }).catch(() => caches.match('./').then(m => m || caches.match('./index.html'))));
+    e.respondWith(
+      fetch(fresh(r.url))
+        .then(res => {
+          if (res && res.ok) { const copy = res.clone(); caches.open(V).then(c => c.put('./', copy)); }
+          return res;
+        })
+        .catch(() => caches.match('./').then(m => m || caches.match('./index.html'))));
     return;
   }
   e.respondWith(caches.match(r).then(m => m || fetch(r)));
@@ -79,6 +91,8 @@ art = '<title>Freshman Powderpuff Playbook</title>\n<style>'+style+'</style>\n'+
 js = re.findall(r'<script>(.*?)</script>', art, re.S)[-1]
 assert js.count('{') == js.count('}'), 'unbalanced braces in artifact script'
 assert 'serviceWorker' not in art, 'SW registration leaked into the artifact'
+assert "const BUILD='%s'" % ver in (play/'index.html').read_text(), 'build id not stamped'
+assert "cache: 'reload'" in (play/'sw.js').read_text(), 'sw is not bypassing the http cache'
 for f in ('icon-192.png','icon-512.png','icon-maskable-512.png','apple-touch-icon.png','favicon-32.png'):
     assert (play/f).exists(), 'missing icon '+f
 print('version   ', ver)
