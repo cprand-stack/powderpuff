@@ -235,9 +235,6 @@ if('serviceWorker' in navigator){
   .assign .dim p{color:var(--muted)}
   .assign .dim .names{opacity:.5}
   .dmath{margin:0 0 16px; font-size:14.5px; line-height:1.55; padding-left:14px; border-left:3px solid var(--red); max-width:70ch}
-  .drules{margin:0; padding-left:22px; display:flex; flex-direction:column; gap:11px; max-width:70ch}
-  .drules li{font-size:14.5px; line-height:1.55}
-  .drules b{color:var(--red)}
   /* on the defense tab WE are the white circles, so tint our trails apart from the ball */
   #field.dmode .trail{stroke:var(--red2); opacity:.45}
   #field.dmode .trail.carry{stroke:var(--red); opacity:.95}
@@ -313,11 +310,11 @@ if('serviceWorker' in navigator){
   .respage.on{display:block}
   .rtitle{font-size:26px; letter-spacing:-.01em; margin:0 0 6px}
   .rnote{font-size:13.5px; color:var(--muted); margin:0 0 20px; max-width:62ch}
-  #resRules h3{font-size:11.5px; font-weight:900; letter-spacing:.12em; text-transform:uppercase;
+  #resRules h3,#resDef h3{font-size:11.5px; font-weight:900; letter-spacing:.12em; text-transform:uppercase;
     color:var(--white); background:var(--red); margin:24px 0 10px; padding:8px 12px;
-    border-radius:7px; max-width:70ch}
-  #resRules h3:first-of-type{margin-top:16px}
-  #resRules p{margin:0 0 8px; font-size:14.5px; line-height:1.55; max-width:70ch}
+    border-radius:7px; max-width:70ch; line-height:1.4}
+  #resRules h3:first-of-type,#resDef h3:first-of-type{margin-top:16px}
+  #resRules p,#resDef p{margin:0 0 8px; font-size:14.5px; line-height:1.55; max-width:70ch}
   #resRules ol{margin:0 0 8px; padding-left:22px; font-size:14.5px; line-height:1.55}
   /* Anything Coach Rand added to explain the school's wording, kept visibly
      separate so the official text stays the official text. */
@@ -483,14 +480,18 @@ if('serviceWorker' in navigator){
   <h2 class="rtitle">Defense Concepts</h2>
   <p class="rnote">Six things, every snap. These do not change with whatever they call &mdash; learn them once and you are ready for all four looks.</p>
   <p class="dmath"><b>They need 10 yards in 4 downs.</b> Hold them to 2 a play and they never convert. There are no fumbles in this rulebook, so we will not strip the ball loose &mdash; <b>our takeaway is the fourth-down stop.</b> Four small wins, not one big one. <b>We do not know what they run, and we do not need to.</b> Every play they own is a run to one side or a throw to one side, and we line up the same way for all four.</p>
-    <ol class="drules">
-      <li><b>Contain first.</b> Left Line (LL) and Right Line (RL) &mdash; your job is not to get her, it is to make sure she cannot get outside you. The second a ball carrier turns the corner, everything behind you is chasing.</li>
-      <li><b>Do not chase the motion.</b> If their running back runs across before the snap, she is trying to move you. Do not move.</li>
-      <li><b>Inside leverage.</b> D1 through D4: line up on her INSIDE shoulder (toward the middle of the field) and stay there all day. She can have the sideline. She cannot have the middle.</li>
-      <li><b>Add yards to every throw.</b> This is why we play inside. They are going to throw short, just like we do &mdash; so we are not trying to stop the 5-yard route, we are trying to make it expensive. Pushed to the sideline, their 12-yard throw becomes a 16-yard throw, and the longer the ball is in the air the less often it is caught. <b>The short easy one over the middle is the only thing that beats us.</b></li>
-      <li><b>Left Safety (LS) owns the middle. Right Safety (RS) goes to the ball.</b> LS stands in the one place we are deliberately not pushing people, so anybody who comes inside is hers. RS gets over the top of wherever it goes &mdash; she is the reason a long sideline throw is a bad decision.</li>
-      <li><b>Play the ball, never her body &mdash; then eyes up and go.</b> Knocking a pass down is legal and it is exactly what we want. Touching <i>her</i> before the catch is 15 yards <i>and</i> an automatic first down. If you cannot get the ball cleanly, let her catch it and take the flag right now. <b>Exception:</b> if the ball is right at you and you can catch it clean, catch it &mdash; an interception can be run back. And the second somebody else&rsquo;s girl catches it, your coverage is over: head up and sprint to the girl with the ball ASAP!</li>
-    </ol>
+  <h3>1 &middot; Contain first</h3>
+  <p>Left Line (LL) and Right Line (RL) &mdash; your job is not to get her, it is to make sure she cannot get outside you. The second a ball carrier turns the corner, everything behind you is chasing.</p>
+  <h3>2 &middot; Do not chase the motion</h3>
+  <p>If their running back runs across before the snap, she is trying to move you. Do not move.</p>
+  <h3>3 &middot; Inside leverage</h3>
+  <p>D1 through D4: line up on her INSIDE shoulder (toward the middle of the field) and stay there all day. She can have the sideline. She cannot have the middle.</p>
+  <h3>4 &middot; Add yards to every throw</h3>
+  <p>This is why we play inside. They are going to throw short, just like we do &mdash; so we are not trying to stop the 5-yard route, we are trying to make it expensive. Pushed to the sideline, their 12-yard throw becomes a 16-yard throw, and the longer the ball is in the air the less often it is caught. <b>The short easy one over the middle is the only thing that beats us.</b></p>
+  <h3>5 &middot; Left Safety (LS) owns the middle. Right Safety (RS) goes to the ball</h3>
+  <p>LS stands in the one place we are deliberately not pushing people, so anybody who comes inside is hers. RS gets over the top of wherever it goes &mdash; she is the reason a long sideline throw is a bad decision.</p>
+  <h3>6 &middot; Play the ball, never her body &mdash; then eyes up and go</h3>
+  <p>Knocking a pass down is legal and it is exactly what we want. Touching <i>her</i> before the catch is 15 yards <i>and</i> an automatic first down. If you cannot get the ball cleanly, let her catch it and take the flag right now. <b>Exception:</b> if the ball is right at you and you can catch it clean, catch it &mdash; an interception can be run back. And the second somebody else&rsquo;s girl catches it, your coverage is over: head up and sprint to the girl with the ball ASAP!</p>
 </div>
 
 <div id="resRules" class="respage">
@@ -599,7 +600,7 @@ if('serviceWorker' in navigator){
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='ee40ac43254d';
+const BUILD='76b3b0c38b67';
 /* TEMPORARY, until the first practice. build.py flips this to true for the
    hosted PWA only, so the girls get Resources and nothing else while the
    Artifact build stays wide open for Coach Rand and me to keep working on the
