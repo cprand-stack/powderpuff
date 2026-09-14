@@ -310,10 +310,10 @@ if('serviceWorker' in navigator){
   .respage.on{display:block}
   .rtitle{font-size:26px; letter-spacing:-.01em; margin:0 0 6px}
   .rnote{font-size:13.5px; color:var(--muted); margin:0 0 20px; max-width:62ch}
-  #resRules h3,#resDef h3{font-size:11.5px; font-weight:900; letter-spacing:.12em; text-transform:uppercase;
+  #resRules h3,#resDef h3,#resSched h3{font-size:11.5px; font-weight:900; letter-spacing:.12em; text-transform:uppercase;
     color:var(--white); background:var(--red); margin:24px 0 10px; padding:8px 12px;
     border-radius:7px; max-width:70ch; line-height:1.4}
-  #resRules h3:first-of-type,#resDef h3:first-of-type{margin-top:16px}
+  #resRules h3:first-of-type,#resDef h3:first-of-type,#resSched h3:first-of-type{margin-top:16px}
   #resRules p,#resDef p{margin:0 0 8px; font-size:14.5px; line-height:1.55; max-width:70ch}
   #resRules ol{margin:0 0 8px; padding-left:22px; font-size:14.5px; line-height:1.55}
   /* Anything Coach Rand added to explain the school's wording, kept visibly
@@ -573,10 +573,15 @@ if('serviceWorker' in navigator){
 <div id="resSched" class="respage">
   <h2 class="rtitle">Schedule</h2>
   <p class="rnote">Three a week: two school mornings and a Sunday. <b>The school day practices will likely be 2 different days each week</b>, so watch for Coach Rand&rsquo;s message. <b>School day practices end at 7:30 so you have fifteen minutes to get inside.</b></p>
+  <h3>Targeted Practice Days</h3>
   <table class="sched">
     <tr><td class="sday">Mon/Tues</td><td class="stime">6:45 &ndash; 7:30 a.m.</td><td class="swhere"><b>Field House</b> &middot; doors at 7:45</td></tr>
     <tr><td class="sday">Wed/Thurs/Fri</td><td class="stime">6:45 &ndash; 7:30 a.m.</td><td class="swhere"><b>Field House</b> &middot; doors at 7:45</td></tr>
     <tr><td class="sday">Sunday</td><td class="stime">3:00 p.m.</td><td class="swhere">SCA field</td></tr>
+  </table>
+
+  <h3>Specific Practice Days</h3>
+  <table class="sched">
     <tr class="chg"><td class="sday">Tue Sep 15</td><td class="stime">CONFIRMED</td><td class="swhere">Our first practice. 6:45 &ndash; 7:30 a.m. at the <b>Field House.</b></td></tr>
     <tr class="chg"><td class="sday">Tue Sep 22</td><td class="stime">NO PRACTICE</td><td class="swhere">There is an event at the Mother House. That week is <b>Monday the 21st and Wed or Thurs.</b></td></tr>
     <tr class="chg"><td class="sday">Week of Oct 5</td><td class="stime">MON &amp; THU</td><td class="swhere">This week only &mdash; <b>Monday the 5th and Thursday the 8th.</b> No Wednesday.</td></tr>
@@ -601,7 +606,7 @@ if('serviceWorker' in navigator){
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='f1818eec6403';
+const BUILD='9c0f75d401cd';
 /* TEMPORARY, until the first practice. build.py flips this to true for the
    hosted PWA only, so the girls get Resources and nothing else while the
    Artifact build stays wide open for Coach Rand and me to keep working on the
