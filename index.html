@@ -2009,7 +2009,7 @@ function renderDPicker(){
   document.getElementById('dBase').setAttribute('aria-pressed', base.id==='the-cage');
   const sel=document.getElementById('dPos');
   if(!dposAllowed()) FOCUS.defense='';
-  sel.innerHTML='<option value="">'+(dposAllowed()?'My position':'Position insights coming soon')+'</option>'+
+  sel.innerHTML='<option value="">'+(dposAllowed()?'My position':'Coming soon')+'</option>'+
     DPOS.map(q=>dposAllowed()
       ? '<option value="'+q+'"'+(q===FOCUS.defense?' selected':'')+'>'+q+'</option>'
       : '<option value="" disabled>'+q+'</option>').join('');
