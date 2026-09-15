@@ -446,6 +446,7 @@ if('serviceWorker' in navigator){
     <button data-role="coach"><b>Coach</b><span>Everything</span></button>
     <button data-role="qbR"><b>Quarterback</b><span>right-handed</span></button>
     <button data-role="qbL"><b>Quarterback</b><span>left-handed</span></button>
+    <button data-role="center"><b>Center</b><span>Center or Guard</span></button>
     <button data-role="off"><b>Running back / Receiver</b><span>Offense and defense</span></button>
     <button data-role="def"><b>Defense</b><span>Our defensive looks</span></button>
   </div>
@@ -649,6 +650,7 @@ if('serviceWorker' in navigator){
   <button data-r="coach">Coach</button>
   <button data-r="qbR">QB right</button>
   <button data-r="qbL">QB left</button>
+  <button data-r="center">Center</button>
   <button data-r="off">RB/Rec</button>
   <button data-r="def">Defense</button>
   <button data-r="">Reset &amp; ask</button>
@@ -657,7 +659,7 @@ if('serviceWorker' in navigator){
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='0cb5d0874b09';
+const BUILD='4b3901866a27';
 /* TEMPORARY, until the first practice. build.py flips this to true for the
    hosted PWA only, so the girls get Resources and nothing else while the
    Artifact build stays wide open for Coach Rand and me to keep working on the
@@ -1936,9 +1938,13 @@ function renderPicker(){
   sel.innerHTML=html;
   sel.setAttribute('aria-label', g.label);
   sel.classList.toggle('on', onPlay);
+  /* a position she does not play stays visible but greyed */
+  if(FOCUS.offense && !posAllowed(FOCUS.offense)) FOCUS.offense='';
   const ps=document.getElementById('oPos'), F=FOCUS.offense;
   ps.innerHTML='<option value="">My position</option>'+
-    OPOS.map(q=>'<option value="'+q+'"'+(q===F?' selected':'')+'>'+q+'</option>').join('');
+    OPOS.map(q=>posAllowed(q)
+      ? '<option value="'+q+'"'+(q===F?' selected':'')+'>'+q+'</option>'
+      : '<option value="" disabled>'+q+'</option>').join('');
   ps.classList.toggle('on', !!F);
 }
 
@@ -2023,8 +2029,12 @@ function select(id){
 function renderDPicker(){
   document.getElementById('dBase').setAttribute('aria-pressed', base.id==='the-cage');
   const sel=document.getElementById('dPos');
-  sel.innerHTML='<option value="">My position</option>'+
-    DPOS.map(q=>'<option value="'+q+'"'+(q===FOCUS.defense?' selected':'')+'>'+q+'</option>').join('');
+  if(!dposAllowed()) FOCUS.defense='';
+  sel.innerHTML='<option value="">'+(dposAllowed()?'My position':'Positions not assigned yet')+'</option>'+
+    DPOS.map(q=>dposAllowed()
+      ? '<option value="'+q+'"'+(q===FOCUS.defense?' selected':'')+'>'+q+'</option>'
+      : '<option value="" disabled>'+q+'</option>').join('');
+  sel.disabled=!dposAllowed();
   sel.classList.toggle('on', !!FOCUS.defense);
   /* Mirrors the offense picker exactly: the chosen look is genuinely selected,
      so the closed control carries its name. */
@@ -2167,12 +2177,17 @@ showResource('home');
    plays a few days early. Worth far less than making her feel locked out.
    ------------------------------------------------------------------ */
 const ROLES={
-  coach:{label:'Coach',                     off:true,  hide:[]},
-  qbR  :{label:'Quarterback (right-handed)',off:true,  hide:['scissors-left']},
-  qbL  :{label:'Quarterback (left-handed)', off:true,  hide:['scissors']},
-  off  :{label:'Running back / Receiver',   off:true,  hide:[]},
-  def  :{label:'Defense',                   off:false, hide:[]}
+  coach :{label:'Coach',                     off:true,  hide:[], pos:null},
+  qbR   :{label:'Quarterback (right-handed)',off:true,  hide:['scissors-left'], pos:['QB']},
+  qbL   :{label:'Quarterback (left-handed)', off:true,  hide:['scissors'],      pos:['QB']},
+  center:{label:'Center',                    off:true,  hide:[], pos:['C','G']},
+  off   :{label:'Running back / Receiver',   off:true,  hide:[], pos:['RB','R1','R2','R3','R4']},
+  def   :{label:'Defense',                   off:false, hide:[], pos:[]}
 };
+/* pos:null means every position. Defensive positions are greyed for everybody
+   until they are assigned - the tab is still open, just not personalised. */
+const posAllowed=q=>{ if(!LOCKED) return true; const p=roleCan().pos; return p===null||p===undefined||p.indexOf(q)>=0; };
+const dposAllowed=()=>!LOCKED;
 const ROLE_KEY='pp-role';
 let ROLE=null;
 const roleCan=()=>ROLE&&ROLES[ROLE] ? ROLES[ROLE] : {off:true,hide:[]};
@@ -2200,7 +2215,7 @@ function applyRole(){
   if(off.disabled && MODE==='offense') setView('resources');
   /* switching roles while looking at a play the new role does not get */
   if(BOOTED && playHidden(base.id)) select(GROUPS.core.plays[0]);
-  if(BOOTED) renderPicker();
+  if(BOOTED){ renderPicker(); renderDPicker(); }
   /* TEMPORARY test strip */
   const rt=document.getElementById('roletest');
   if(rt){
