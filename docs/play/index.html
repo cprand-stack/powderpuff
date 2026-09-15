@@ -263,6 +263,15 @@ if('serviceWorker' in navigator){
   .rgbox button b{font-size:15px; font-weight:900; color:var(--ink)}
   .rgbox button span{font-size:12.5px; color:var(--muted)}
   #whoami{white-space:nowrap}
+  #roletest{position:sticky; bottom:0; z-index:45; display:flex; flex-wrap:wrap; gap:6px;
+    align-items:center; padding:9px 14px; background:var(--ink); border-top:3px solid var(--red)}
+  #roletest[hidden]{display:none!important}
+  #roletest b{font-size:10px; font-weight:900; letter-spacing:.14em; color:#ffb3c1}
+  #roletestNow{font-size:11.5px; font-weight:800; color:#fff; margin-right:4px}
+  #roletest button{font:inherit; font-size:11px; font-weight:800; cursor:pointer;
+    background:#3a3436; color:#fff; border:1px solid #5a5254; border-radius:999px; padding:5px 10px}
+  #roletest button:hover{background:var(--red); border-color:var(--red)}
+  #roletest button[aria-pressed="true"]{background:var(--red); border-color:var(--red)}
   #whoamiChange{font:inherit; font-size:11px; font-weight:800; color:var(--red);
     background:none; border:0; padding:0 0 0 4px; cursor:pointer; text-decoration:underline}
   #lockmsg b{color:var(--ink)}
@@ -633,10 +642,22 @@ if('serviceWorker' in navigator){
 
 <footer>St. Cecilia Academy &middot; Freshman Powderpuff &middot; Coach Rand &middot; <span id="build"></span><span id="whoami" hidden> &middot; <span id="whoamiName"></span> <button id="whoamiChange">Not you?</button></span></footer>
 
+<!-- TEMPORARY test strip. Delete this block, its CSS and its script section
+     at the same time as the role gate. -->
+<div id="roletest" hidden>
+  <b>TESTING</b><span id="roletestNow"></span>
+  <button data-r="coach">Coach</button>
+  <button data-r="qbR">QB right</button>
+  <button data-r="qbL">QB left</button>
+  <button data-r="off">RB/Rec</button>
+  <button data-r="def">Defense</button>
+  <button data-r="">Reset &amp; ask</button>
+</div>
+
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='55e8963d3225';
+const BUILD='0cb5d0874b09';
 /* TEMPORARY, until the first practice. build.py flips this to true for the
    hosted PWA only, so the girls get Resources and nothing else while the
    Artifact build stays wide open for Coach Rand and me to keep working on the
@@ -2177,7 +2198,16 @@ function applyRole(){
   who.hidden = !LOCKED || !ROLE;
   if(ROLE) document.getElementById('whoamiName').textContent=ROLES[ROLE].label;
   if(off.disabled && MODE==='offense') setView('resources');
+  /* switching roles while looking at a play the new role does not get */
+  if(BOOTED && playHidden(base.id)) select(GROUPS.core.plays[0]);
   if(BOOTED) renderPicker();
+  /* TEMPORARY test strip */
+  const rt=document.getElementById('roletest');
+  if(rt){
+    rt.hidden=!LOCKED;
+    document.getElementById('roletestNow').textContent = ROLE ? ROLES[ROLE].label : 'nobody picked';
+    rt.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.r===(ROLE||'')));
+  }
 }
 function setRole(r){
   ROLE=r; try{ localStorage.setItem(ROLE_KEY,r); }catch(e){}
@@ -2186,10 +2216,12 @@ function setRole(r){
 }
 function askRole(){ document.getElementById('rolegate').hidden=false; }
 document.querySelectorAll('#rolegate button').forEach(b=>b.onclick=()=>setRole(b.dataset.role));
-document.getElementById('whoamiChange').onclick=()=>{
-  try{ localStorage.removeItem(ROLE_KEY); }catch(e){}
-  ROLE=null; askRole();
-};
+function resetRole(){ try{ localStorage.removeItem(ROLE_KEY); }catch(e){} ROLE=null; applyRole(); askRole(); }
+document.getElementById('whoamiChange').onclick=resetRole;
+/* TEMPORARY: flip between roles without going through the gate each time */
+document.querySelectorAll('#roletest button').forEach(b=>b.onclick=()=>{
+  if(b.dataset.r) setRole(b.dataset.r); else resetRole();
+});
 if(LOCKED){
   let saved=null; try{ saved=localStorage.getItem(ROLE_KEY); }catch(e){}
   if(saved && ROLES[saved]) ROLE=saved; else askRole();
