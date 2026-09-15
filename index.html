@@ -653,7 +653,7 @@ const PLAYS = [
     R3:'Right slot, mirror of R2.',
     R4:'Right sideline, mirror of R1.',
     QB:'2–4 yards straight behind the Center. We will determine exact spacing in practice — but closer is better, because every step back is a step the rush gets for free.',
-    RB:'Offset LEFT behind the QB. On the signal you motion RIGHT at full speed. Same motion. Every play (with the exception of SCISSORS LEFT, which we’ll review in practice).'
+    RB:'Offset LEFT behind the QB. On the signal you motion RIGHT at full speed. Same motion. Every play, no exceptions — that is what makes it a disguise.'
   },
   off:{ R1:hold('R1'),R2:hold('R2'),G:hold('G'),C:hold('C'),R3:hold('R3'),R4:hold('R4'),QB:hold('QB'),
     RB:[[16,-5.5,0],[16,-5.5,.2],[18,-5.3,.55],[20.5,-5.2,.82],[20.5,-5.2,1]] },
@@ -918,13 +918,13 @@ const PLAYS = [
 },
 {
   id:'scissors-left', core:true, name:'SCISSORS LEFT', kind:'Pass', dur:5.2, snapAt:0.26,
-  badges:['Lefty rollout','Three answers','One pitch'],
-  summary:'The mirror of SCISSORS RIGHT, thrown by our left-hander. RB stays home instead of motioning, takes a short pitch, and rolls LEFT \u2014 which gives her exactly the free throwing platform a right-handed QB gets rolling right. R1 and R2 cross: R2 up the sideline, R1 across into the middle, where she STOPS and shows her hands.',
+  badges:['Lefty rollout','Three answers','Mirrors SCISSORS RIGHT'],
+  summary:'The exact mirror of SCISSORS RIGHT, run by a left-handed quarterback. Same snap, same read, same crossers \u2014 everything just points the other way. She rolls LEFT, which gives a lefty the same free throwing platform a righty gets rolling right. R1 and R2 cross: R2 up the sideline, R1 across into the middle, where she STOPS and shows her hands.',
   read:'Three answers, in order. Watch the defender over R1: if she stays home and R1 crosses free into the middle, throw R1. If she runs across with her, R2 is behind her up the sideline. And if both are covered and nobody has come out to take the edge \u2014 keep it and run.',
-  coach:'This play exists for one reason: RB throws left-handed, and rolling to her throwing hand gives her the same easy platform the QB gets going right. Two things to know. The pitch is the only one in our whole offense \u2014 short, soft, underhand, and we drill it, because a ball on the ground is dead where it lands. And RB does NOT motion on this play, which is the only pre-snap tell we have all season. Never run it twice in a row.',
+  coach:'This play exists for one reason: a left-handed quarterback rolling to her throwing hand gets the same easy platform a righty gets going right. <b>It is SCISSORS RIGHT with every direction flipped</b> \u2014 same snap, same crossers, same three reads \u2014 so if they know one they know both. And because RB still motions right while the ball goes left, there is no pre-snap tell at all: the motion says right, the play says left.',
   assign:{
-    RB:'Do not motion. Stay exactly where you line up, and the instant the ball is snapped slide left and look the pitch into your hands. Then keep rolling left and throw off your left foot \u2014 the same way the QB does going right.',
-    QB:'Catch the snap and pitch it soft and low to RB. She is four yards away, so guide it, do not fire it. Then run RIGHT like you still have it \u2014 you will pull a rusher and a linebacker away from the whole play.',
+    RB:'Jet motion RIGHT at full speed, exactly like every other play \u2014 and on this one you are the whole disguise. The ball is going the other way, so every defender who chases you is a defender who is not near R1. Pull up about nine yards outside the ball and take on anyone chasing back from that side.',
+    QB:'Sprint LEFT the instant you have the ball \u2014 do not stand still, the rollout is what buys you the time. Find R1: she will be STOPPED in the middle with her hands out, not running. That is the easy throw, so take it. If somebody ran across with her, look up the left sideline for R2. If both are covered, tuck it and run \u2014 there is grass out there because everybody went right with the motion.',
     R2:'Cross with R1 at the line \u2014 you go OUTSIDE her. Settle that in practice so you never run into each other. Get to the left sideline and turn straight up the field, looking over your inside shoulder. <b>You are the long option</b> if somebody chases R1.',
     R1:'Cross with R2 at the line \u2014 you go INSIDE her. <b>Five big strides across at about five yards deep, then STOP.</b> Turn back to the thrower and <b>put your hands out</b> so she can see exactly where to put it. If you cannot stop clean, slow right down. Stand there and be a target until it arrives, then turn and climb.',
     C:'Snap, then work LEFT and wall the rusher on that side \u2014 same as every rollout we run, just the other direction.',
@@ -939,10 +939,10 @@ const PLAYS = [
       off:{
         R2:[[11,-1,0],[11,-1,0.26],[8.5,0.5,0.34],[6,1.5,0.42],[3.5,3.5,0.52],[2.5,7,0.62],[2,11.5,0.74],[2,15,0.85],[2,18,0.95],[2,19,1]],
         R1:[[4,0,0],[4,0,0.26],[7,1.8,0.32],[10.5,3.4,0.39],[13.5,4.6,0.45],[15.4,5.3,0.50],[15.8,5.5,0.54],[15.8,5.5,0.70],[16.2,7.8,0.78],[16.5,10.6,0.87],[16.8,13.6,0.94],[17,16,1]],
-        QB:[[20,-4,0],[20,-4,0.26],[20.2,-4.3,0.31],[20.8,-4.6,0.37],[22.5,-4.6,0.47],[25,-4.3,0.6],[27.5,-3.9,0.75],[29.5,-3.6,0.9],[30.5,-3.4,1]],
+        QB:[[20,-4,0],[20,-4,.26],[18.5,-4.4,.33],[16,-4.8,.42],[14,-5,.52],[13,-5,.62],[12.5,-4.8,.74],[12,-4.8,.9],[12,-4.8,1]],
         G:[[23,0,0],[23,0,0.26],[20.5,-1.5,0.38],[17,-3,0.5],[13.5,-4.2,0.64],[10.5,-4.8,0.8],[8.5,-5,1]],
         C:[[20,0,0],[20,0,0.26],[18.2,-0.4,0.36],[16.6,-1,0.45],[15.5,-1.5,0.52],[14.8,-1.9,0.62],[14.2,-2.2,0.75],[13.8,-2.4,0.88],[13.6,-2.5,1]],
-        RB:[[16,-5.5,0],[16,-5.5,0.26],[15.6,-5.3,0.31],[15,-5.1,0.37],[14,-5,0.45],[13,-4.9,0.54],[12.4,-4.9,0.63],[12,-4.9,0.75],[11.9,-4.9,0.9],[11.9,-4.9,1]],
+        RB:[[16,-5.5,0],[18,-5.3,.14],[20.5,-5,.26],[24.5,-4.5,.36],[27,-3.4,.46],[28.3,-2.2,.56],[28.9,-1.6,.64],[29.4,-1.6,.72],[29.9,-1.8,.8],[30.2,-1.9,.84],[32.2,-1.4,.92],[34.5,-1,1]],
         R4:[[36,0,0],[36,0,0.26],[36,6,0.5],[36,12,0.78],[36,16,1]],
         R3:[[29,-1,0],[29,-1,0.26],[28,5,0.5],[27,11,0.78],[26.5,15,1]]
       },
@@ -956,7 +956,7 @@ const PLAYS = [
         D4:[[35,7,0],[35,7,0.26],[35,11,0.5],[35,15,0.8],[35,17,1]],
         D3:[[28,6,0],[28,6,0.26],[27,10,0.5],[26,14,0.8],[25.5,16,1]]
       },
-      ball:[{kind:'snap',from:'C',to:'QB',t0:.26,t1:.31},{kind:'hand',from:'QB',to:'RB',t0:.31,t1:.37},{kind:'throw',from:'RB',to:'R1',t0:.62,t1:.7},{kind:'carry',who:'R1',t0:.7,t1:1}]
+      ball:[{kind:'snap',from:'C',to:'QB',t0:.26,t1:.31},{kind:'throw',from:'QB',to:'R1',t0:.62,t1:.7},{kind:'carry',who:'R1',t0:.7,t1:1}]
     },
     {
       vid:'r2-up', label:'R2 deep',
@@ -965,10 +965,10 @@ const PLAYS = [
       off:{
         R2:[[11,-1,0],[11,-1,0.26],[8.5,0.5,0.34],[6,1.5,0.42],[3.5,3.5,0.52],[2.5,7,0.62],[2,11.5,0.74],[2,15,0.85],[2,18,0.95],[2,19,1]],
         R1:[[4,0,0],[4,0,0.26],[7,1.8,0.32],[10.5,3.4,0.39],[13.5,4.6,0.45],[15.4,5.3,0.50],[15.8,5.5,0.54],[15.8,5.5,0.70],[16.2,7.8,0.78],[16.5,10.6,0.87],[16.8,13.6,0.94],[17,16,1]],
-        QB:[[20,-4,0],[20,-4,0.26],[20.2,-4.3,0.31],[20.8,-4.6,0.37],[22.5,-4.6,0.47],[25,-4.3,0.6],[27.5,-3.9,0.75],[29.5,-3.6,0.9],[30.5,-3.4,1]],
+        QB:[[20,-4,0],[20,-4,.26],[18.5,-4.4,.33],[16,-4.8,.42],[14,-5,.52],[13,-5,.62],[12.5,-4.8,.74],[12,-4.8,.9],[12,-4.8,1]],
         G:[[23,0,0],[23,0,0.26],[20.5,-1.5,0.38],[17,-3,0.5],[13.5,-4.2,0.64],[10.5,-4.8,0.8],[8.5,-5,1]],
         C:[[20,0,0],[20,0,0.26],[18.2,-0.4,0.36],[16.6,-1,0.45],[15.5,-1.5,0.52],[14.8,-1.9,0.62],[14.2,-2.2,0.75],[13.8,-2.4,0.88],[13.6,-2.5,1]],
-        RB:[[16,-5.5,0],[16,-5.5,0.26],[15.6,-5.3,0.31],[15,-5.1,0.37],[14,-5,0.45],[13,-4.9,0.54],[12.4,-4.9,0.63],[12,-4.9,0.75],[11.9,-4.9,0.9],[11.9,-4.9,1]],
+        RB:[[16,-5.5,0],[18,-5.3,.14],[20.5,-5,.26],[24.5,-4.5,.36],[27,-3.4,.46],[28.3,-2.2,.56],[28.9,-1.6,.64],[29.4,-1.6,.72],[29.9,-1.8,.8],[30.2,-1.9,.84],[32.2,-1.4,.92],[34.5,-1,1]],
         R4:[[36,0,0],[36,0,0.26],[36,6,0.5],[36,12,0.78],[36,16,1]],
         R3:[[29,-1,0],[29,-1,0.26],[28,5,0.5],[27,11,0.78],[26.5,15,1]]
       },
@@ -982,20 +982,20 @@ const PLAYS = [
         D4:[[35,7,0],[35,7,0.26],[35,11,0.5],[35,15,0.8],[35,17,1]],
         D3:[[28,6,0],[28,6,0.26],[27,10,0.5],[26,14,0.8],[25.5,16,1]]
       },
-      ball:[{kind:'snap',from:'C',to:'QB',t0:.26,t1:.31},{kind:'hand',from:'QB',to:'RB',t0:.31,t1:.37},{kind:'throw',from:'RB',to:'R2',t0:.6,t1:.72},{kind:'carry',who:'R2',t0:.72,t1:1}]
+      ball:[{kind:'snap',from:'C',to:'QB',t0:.26,t1:.31},{kind:'throw',from:'QB',to:'R2',t0:.6,t1:.72},{kind:'carry',who:'R2',t0:.72,t1:1}]
     },
     {
-      vid:'rb-runs', label:'RB runs',
-      key:'Nobody came out to the edge \u2192 keep it and run.',
-      result:'8+ yards, and it costs nothing. If both reads are covered this is always there.',
-      assign:{RB:'If R1 is covered in the middle and R2 is covered up the sideline, do not force either one. Tuck it away, keep running left, and the moment you see nobody has come out to take the edge, turn up at the numbers and go. Two hands on the ball.'},
+      vid:'qb-runs', label:'QB runs',
+      key:'Both covered \u2192 the QB keeps it and runs left.',
+      result:'8+ yards, and it costs nothing. If both reads are covered this is always there \u2014 and the motion has already pulled people the other way.',
+      assign:{QB:'If R1 is covered in the middle and R2 is covered up the sideline, do not force either one. Tuck it away, keep running left, and the moment you see nobody has come out to take the edge, turn up at the numbers and go. Two hands on the ball.'},
       off:{
         R2:[[11,-1,0],[11,-1,0.26],[8.5,0.5,0.34],[6,1.5,0.42],[3.5,3.5,0.52],[2.5,7,0.62],[2,11.5,0.74],[2,15,0.85],[2,18,0.95],[2,19,1]],
         R1:[[4,0,0],[4,0,0.26],[7,1.8,0.32],[10.5,3.4,0.39],[13.5,4.6,0.45],[15.4,5.3,0.50],[15.8,5.5,0.54],[15.8,5.5,0.70],[16.2,7.8,0.78],[16.5,10.6,0.87],[16.8,13.6,0.94],[17,16,1]],
-        QB:[[20,-4,0],[20,-4,0.26],[20.2,-4.3,0.31],[20.8,-4.6,0.37],[22.5,-4.6,0.47],[25,-4.3,0.6],[27.5,-3.9,0.75],[29.5,-3.6,0.9],[30.5,-3.4,1]],
+        QB:[[20,-4,0],[20,-4,.26],[18.5,-4.4,.33],[16,-4.8,.42],[14,-5,.52],[12.6,-4.5,.6],[11.3,-2.8,.68],[10.4,0,.76],[10,3.5,.86],[9.8,7,1]],
         G:[[23,0,0],[23,0,0.26],[20.5,-1.5,0.38],[17,-3,0.5],[13.5,-4.2,0.64],[10.5,-4.8,0.8],[8.5,-5,1]],
         C:[[20,0,0],[20,0,0.26],[18.2,-0.4,0.36],[16.6,-1,0.45],[15.5,-1.5,0.52],[14.8,-1.9,0.62],[14.2,-2.2,0.75],[13.8,-2.4,0.88],[13.6,-2.5,1]],
-        RB:[[16,-5.5,0],[16,-5.5,0.26],[15.6,-5.3,0.31],[15,-5.1,0.37],[14,-5,0.45],[12.8,-4.9,0.53],[11,-4.5,0.61],[9,-3.4,0.69],[7.8,-1.4,0.77],[7.4,1.5,0.85],[7.4,5,0.93],[7.6,8,1]],
+        RB:[[16,-5.5,0],[18,-5.3,.14],[20.5,-5,.26],[24.5,-4.5,.36],[27,-3.4,.46],[28.3,-2.2,.56],[28.9,-1.6,.64],[29.4,-1.6,.72],[29.9,-1.8,.8],[30.2,-1.9,.84],[32.2,-1.4,.92],[34.5,-1,1]],
         R4:[[36,0,0],[36,0,0.26],[36,6,0.5],[36,12,0.78],[36,16,1]],
         R3:[[29,-1,0],[29,-1,0.26],[28,5,0.5],[27,11,0.78],[26.5,15,1]]
       },
@@ -1009,7 +1009,7 @@ const PLAYS = [
         D4:[[35,7,0],[35,7,0.26],[35,11,0.5],[35,15,0.8],[35,17,1]],
         D3:[[28,6,0],[28,6,0.26],[27,10,0.5],[26,14,0.8],[25.5,16,1]]
       },
-      ball:[{kind:'snap',from:'C',to:'QB',t0:.26,t1:.31},{kind:'hand',from:'QB',to:'RB',t0:.31,t1:.37},{kind:'carry',who:'RB',t0:.37,t1:1}]
+      ball:[{kind:'snap',from:'C',to:'QB',t0:.26,t1:.31},{kind:'carry',who:'QB',t0:.31,t1:1}]
     }
   ]
 },
@@ -1590,7 +1590,7 @@ const POSINFO={
     ['QB','Quarterback','Every play starts in your hands. You run it, hand it, pitch it or throw it — and we only get one forward pass a play, so it has to leave your hand from behind the line.'],
     ['C','Center','Nothing in the playbook happens until you get the ball back to the QB. That makes the snap the most practiced thing we do, and it makes a bad one the only way a play dies before it starts.'],
     ['G','Guard','You build the left wall of the runner’s lane — arms at your sides, just be in the way.'],
-    ['RB','Running Back','On most plays you are the running back, but on a few plays, you may morph into the passer (so the Quarterback). The defense has to honor your motion every single snap, which is what leaves somebody else open.'],
+    ['RB','Running Back','On most plays you never touch the ball, and that is exactly the point. The defense has to honor your motion every single snap, which is what leaves somebody else open — never more than on SCISSORS LEFT, where you run right and the ball goes left.'],
     ['R1','Receiver 1 (far left)','Widest player on the left. You stretch them out: even when the ball is not coming to you, the defender who follows you is one less defender in the middle.'],
     ['R2','Receiver 2 (2nd from left)','The short, quick answer. You start closer to the ball than anybody wide, so when we need five yards right now, it usually comes to you.'],
     ['R3','Receiver 3 (2nd from right)','Mirror of R2 on the right — and the right is the side the motion runs toward, so a lot of what we do happens around you.'],
