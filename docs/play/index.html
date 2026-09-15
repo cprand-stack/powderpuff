@@ -247,6 +247,24 @@ if('serviceWorker' in navigator){
   .rcard:disabled b,.rcard:disabled span{color:var(--muted)}
   .rcard:disabled::after{color:var(--muted)}
   #lockmsg{max-width:1180px; margin:10px auto 0; padding:0 16px; font-size:13px; color:var(--muted)}
+  /* The role gate sits over everything until she picks - it is the first thing
+     she ever sees, so it has to explain itself in one line. */
+  #rolegate{position:fixed; inset:0; z-index:60; background:var(--page);
+    display:flex; align-items:center; justify-content:center; padding:24px 18px; overflow:auto}
+  #rolegate[hidden]{display:none!important}
+  .rgbox{width:100%; max-width:420px}
+  .rgbox h2{margin:0 0 6px; font-size:23px; letter-spacing:-.015em}
+  .rgbox>p{margin:0 0 18px; font-size:13.5px; color:var(--muted); line-height:1.5}
+  .rgbox button{display:flex; flex-direction:column; gap:3px; width:100%; text-align:left;
+    font:inherit; cursor:pointer; margin:0 0 9px;
+    background:#fdeff2; border:1.5px solid #f2d3da; border-radius:12px; padding:14px 16px;
+    -webkit-tap-highlight-color:transparent}
+  .rgbox button:hover{border-color:var(--red); background:#fbe2e8}
+  .rgbox button b{font-size:15px; font-weight:900; color:var(--ink)}
+  .rgbox button span{font-size:12.5px; color:var(--muted)}
+  #whoami{white-space:nowrap}
+  #whoamiChange{font:inherit; font-size:11px; font-weight:800; color:var(--red);
+    background:none; border:0; padding:0 0 0 4px; cursor:pointer; text-decoration:underline}
   #lockmsg b{color:var(--ink)}
   #rpicker{display:none; max-width:1180px; margin:0 auto; padding:12px 16px 0}
   #rBack{font:inherit; font-size:11.5px; font-weight:900; letter-spacing:.06em; text-transform:uppercase;
@@ -411,6 +429,18 @@ if('serviceWorker' in navigator){
   <button id="tabRes" role="tab" aria-selected="false">Resources</button>
 </div>
 
+
+<div id="rolegate" hidden>
+  <div class="rgbox">
+    <h2>Who is using this?</h2>
+    <p>So the app opens on your plays and nothing else. You can change it any time at the bottom of the page.</p>
+    <button data-role="coach"><b>Coach</b><span>Everything</span></button>
+    <button data-role="qbR"><b>Quarterback</b><span>right-handed</span></button>
+    <button data-role="qbL"><b>Quarterback</b><span>left-handed</span></button>
+    <button data-role="off"><b>Running back / Receiver</b><span>Offense and defense</span></button>
+    <button data-role="def"><b>Defense</b><span>Our defensive looks</span></button>
+  </div>
+</div>
 
 <p id="lockmsg" hidden><b>Start with Positions.</b> The plays open up after our first practice &mdash; learn where you stand first.</p>
 
@@ -601,12 +631,12 @@ if('serviceWorker' in navigator){
 
 </div>
 
-<footer>St. Cecilia Academy &middot; Freshman Powderpuff &middot; Coach Rand &middot; <span id="build"></span></footer>
+<footer>St. Cecilia Academy &middot; Freshman Powderpuff &middot; Coach Rand &middot; <span id="build"></span><span id="whoami" hidden> &middot; <span id="whoamiName"></span> <button id="whoamiChange">Not you?</button></span></footer>
 
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='1c50dfa9b6b1';
+const BUILD='a499e2902655';
 /* TEMPORARY, until the first practice. build.py flips this to true for the
    hosted PWA only, so the girls get Resources and nothing else while the
    Artifact build stays wide open for Coach Rand and me to keep working on the
@@ -1871,6 +1901,8 @@ function renderPicker(){
   const opt=pid=>{const pl=PLAYS.find(x=>x.id===pid);
     /* shelved plays stay visible but disabled, so we remember they exist */
     if(pl.shelved) return '<option value="" disabled>'+flipText(pl.name)+' \u2014 shelved</option>';
+    /* the other quarterback's play: visible, greyed, and it says why */
+    if(playHidden(pid)) return '<option value="" disabled>'+flipText(pl.name)+' \u2014 the other QB\u2019s play</option>';
     return '<option value="'+pid+'"'+(pid===base.id?' selected':'')+'>'+flipText(pl.name)+'</option>';};
   const onPlay=g.plays.some(pid=>pid===base.id);
   let html='<option value=""'+(onPlay?'':' selected')+'>'+g.label+'</option>'+g.plays.map(opt).join('');
@@ -2100,17 +2132,63 @@ document.querySelectorAll('.rcard').forEach(b=>b.onclick=()=>{ if(!b.disabled) s
 document.getElementById('rBack').onclick=()=>showResource('home');
 showResource('home');
 
-/* Locked build: Resources only, and say so rather than leaving dead controls. */
-if(LOCKED){
-  for(const id of ['tabOffense','tabDefense']){
-    const b=document.getElementById(id);
-    b.disabled=true; b.setAttribute('aria-disabled','true');
-    b.title='Opens after our first practice';
-  }
+/* ------------------------------------------------------------------
+   ROLES. Temporary, until everybody gets the whole book after Sunday.
+   LOCKED (flipped on by build.py for the hosted app only) turns the gate
+   on; the Artifact build has LOCKED=false and no gate at all.
+
+   This is an honest-effort gate, not security - a girl who picks "Coach"
+   sees everything. That is understood and the downside is small: she sees
+   plays a few days early. Worth far less than making her feel locked out.
+   ------------------------------------------------------------------ */
+const ROLES={
+  coach:{label:'Coach',                     off:true,  hide:[]},
+  qbR  :{label:'Quarterback (right-handed)',off:true,  hide:['scissors-left']},
+  qbL  :{label:'Quarterback (left-handed)', off:true,  hide:['scissors']},
+  off  :{label:'Running back / Receiver',   off:true,  hide:[]},
+  def  :{label:'Defense',                   off:false, hide:[]}
+};
+const ROLE_KEY='pp-role';
+let ROLE=null;
+const roleCan=()=>ROLE&&ROLES[ROLE] ? ROLES[ROLE] : {off:true,hide:[]};
+const playHidden=pid=>LOCKED && roleCan().hide.indexOf(pid)>=0;
+
+function applyRole(){
+  const r=roleCan();
+  const off=document.getElementById('tabOffense');
+  off.disabled = LOCKED && !r.off;
+  off.setAttribute('aria-disabled', off.disabled);
+  off.title = off.disabled ? 'Offense is for the offensive group' : '';
+  /* the wristband prints offensive plays, so it follows the same rule */
   const w=document.querySelector('.rcard[data-res="wrist"]');
-  w.disabled=true; w.setAttribute('aria-disabled','true');
-  w.querySelector('span').textContent='Opens after our first practice.';
-  document.getElementById('lockmsg').hidden=false;
+  w.disabled = off.disabled;
+  w.setAttribute('aria-disabled', w.disabled);
+  w.querySelector('span').textContent = w.disabled
+    ? 'This one is the offense\u2019s play card.'
+    : 'Every play on one page. Print it, cut it, tape it to a wrist.';
+  const msg=document.getElementById('lockmsg');
+  msg.hidden = !off.disabled;
+  if(off.disabled) msg.innerHTML='<b>Your looks are on the DEFENSE tab.</b> The plays belong to the offense \u2014 nothing for you to learn there.';
+  const who=document.getElementById('whoami');
+  who.hidden = !LOCKED || !ROLE;
+  if(ROLE) document.getElementById('whoamiName').textContent=ROLES[ROLE].label;
+  if(off.disabled && MODE==='offense') setView('resources');
+  if(BOOTED) renderPicker();
+}
+function setRole(r){
+  ROLE=r; try{ localStorage.setItem(ROLE_KEY,r); }catch(e){}
+  document.getElementById('rolegate').hidden=true;
+  applyRole();
+}
+function askRole(){ document.getElementById('rolegate').hidden=false; }
+document.querySelectorAll('#rolegate button').forEach(b=>b.onclick=()=>setRole(b.dataset.role));
+document.getElementById('whoamiChange').onclick=()=>{
+  try{ localStorage.removeItem(ROLE_KEY); }catch(e){}
+  ROLE=null; askRole();
+};
+if(LOCKED){
+  let saved=null; try{ saved=localStorage.getItem(ROLE_KEY); }catch(e){}
+  if(saved && ROLES[saved]) ROLE=saved; else askRole();
 }
 
 /* Watch the header itself, not the window: it changes height at the breakpoint
@@ -2128,7 +2206,8 @@ addEventListener('resize',setStick);
 addEventListener('orientationchange',setStick);
 renderWristband();
 select(PLAYS[0].id);
-if(LOCKED) setView('resources');
+applyRole();
+if(LOCKED && !ROLE) setView('resources');
 document.getElementById('build').textContent='v'+BUILD.slice(0,7);
 BOOTED=true;
 </script>
