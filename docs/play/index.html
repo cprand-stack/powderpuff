@@ -606,7 +606,7 @@ if('serviceWorker' in navigator){
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='9c0f75d401cd';
+const BUILD='e67e1e31a301';
 /* TEMPORARY, until the first practice. build.py flips this to true for the
    hosted PWA only, so the girls get Resources and nothing else while the
    Artifact build stays wide open for Coach Rand and me to keep working on the
@@ -844,27 +844,27 @@ const PLAYS = [
 {
   id:'scissors', core:true, name:'SCISSORS RIGHT', kind:'Pass', dur:5.2, snapAt:0.26,
   badges:['QB option','Rollout buys time','Crossers'],
-  summary:'R3 and R4 cross at the line — R3 outside and up the sideline, R4 inside and all the way across into the middle. The QB sprints right and lets it go early, hitting R4 in stride as she runs into the space the rush and the linebackers just left.',
+  summary:'R3 and R4 cross at the line — R3 outside and up the sideline, R4 inside and across into the middle, where she STOPS and shows her hands. A stopped receiver is a far easier target than a moving one, and R4 is standing in the space the rush and the linebackers just left.',
   read:'One defender decides it — the one covering R4. If she stays home and R4 crosses free into the middle, throw R4. If she runs across with R4, then R3 is behind her up the sideline.',
   coach:'The rollout IS the play. Standing still gives you two seconds; sprinting right gives you closer to three, because the rush has to change direction to find you. Never set your feet in the pocket on this one. And throw it EARLY — the ball should be gone before R4 reaches the middle. If you wait for her to stop and turn around, the rush has already found you.',
   assign:{
     R3:'Cross with R4 at the line — you go OUTSIDE her, she goes inside. Settle that in practice so you never run into each other. Get to the sideline and turn straight upfield. Run hard and look over your inside shoulder.',
-    R4:'Cross with R3 at the line — you go INSIDE her. Come all the way across at about five yards deep and look for the ball the WHOLE way — it should arrive just as you reach the middle. Catch it in stride and keep climbing. If it is late, plant and sit down in the open grass so she has a target.',
-    QB:'Sprint right the instant you have the ball — do not stand still, the rollout is what buys you the extra time. Find R4 crossing into the middle. If she is open, throw it. If somebody ran across with her, look up the sideline for R3. If both are covered, look for RB sliding out to the flat behind her block — she is late but she is there. If nobody is open, tuck it and run.',
+    R4:'Cross with R3 at the line — you go INSIDE her. <b>Five big strides across at about five yards deep, then STOP.</b> Turn to the quarterback and <b>put your hands out</b> so she can see exactly where to put it. If you cannot stop clean, slow right down — anything is better than running full speed across her. Stand there and be a target until it arrives, then turn and climb.',
+    QB:'Sprint right the instant you have the ball — do not stand still, the rollout is what buys you the extra time. Find R4 — she will be STOPPED in the middle with her hands out, not running. That is the easiest throw on this play, so take it. If she is open, throw it. If somebody ran across with her, look up the sideline for R3. If both are covered, look for RB sliding out to the flat behind her block — she is late but she is there. If nobody is open, tuck it and run.',
     G:'Release right and lead her. You are the only blocker out in front — get in the way of the first defender who comes at her.',
     C:'Snap, then work RIGHT and wall the rusher on that side — same as every rollout we run. She has the shortest path to the QB and you are the only one who can slow her down. Arms at your sides. You do not have to stop her, just make her go around you.',
     RB:'Jet motion right at full speed — but you do not run a route right away. Pull up about nine yards outside the ball and take on the rusher coming around the center: she is the one who reaches the QB, and you are the reason she does not. Once you have her turned or she has gone by you, slide back out toward the sideline, turn around and look. You are the last thing the QB looks at.',
     R1:'Clear out deep up the left sideline. Take your defender with you.',
-    R2:'Run straight up the field. Your job is to pull your defender out of the middle so R4 has somewhere to sit.'
+    R2:'Turn straight up the field and run. Your job is to pull your defender out of the middle so R4 has somewhere to stand — and if the whole thing breaks down, you are the long option.'
   },
   variants:[
     {
       vid:'z-sit', label:'R4 sits',
-      key:'R4 crosses free \u2192 hit her in stride at the middle.',
+      key:'R4 gets across free \u2192 she stops in the middle, hands out. Easy throw.',
       result:'14\u201318 yards. The rollout pulls the rush AND the linebackers, and R4 runs through the space behind them.',
       off:{
         R3:[[29,-1,0],[29,-1,.26],[31.5,.5,.34],[34,1.5,.42],[36.5,3.5,.52],[37.5,7,.62],[38,11.5,.74],[38,15,.85],[38,18,.95],[38,19,1]],
-        R4:[[36,0,0],[36,0,.26],[33.5,1.5,.34],[30,3,.43],[26.5,4.5,.53],[24,5.4,.61],[23.3,5.6,.66],[22.6,7.2,.74],[22.4,10,.83],[22.6,13,.92],[23,16,1]],
+        R4:[[36,0,0],[36,0,.26],[33,1.8,.32],[29.5,3.4,.39],[26.5,4.6,.45],[24.6,5.3,.50],[24.2,5.5,.54],[24.2,5.5,.64],[23.8,7.6,.72],[23.5,10.4,.82],[23.2,13.4,.91],[23,16,1]],
         QB:[[20,-4,0],[20,-4,.26],[21.5,-4.4,.33],[24,-4.8,.42],[26,-5,.52],[27,-5,.62],[27.5,-4.8,.74],[28,-4.8,.9],[28,-4.8,1]],
         G:[[17,0,0],[17,0,.26],[19.5,-1.5,.38],[23,-3,.5],[26.5,-4.2,.64],[29.5,-4.8,.8],[31.5,-5,1]],
         C:[[20,0,0],[20,0,.26],[21.8,-.4,.36],[23.4,-1,.45],[24.5,-1.5,.52],[25.2,-1.9,.62],[25.8,-2.2,.75],[26.2,-2.4,.88],[26.4,-2.5,1]],
@@ -890,7 +890,7 @@ const PLAYS = [
       result:'15\u201320 yards \u2014 but it is about a 19-yard throw while moving. Only take it if R3 is clearly alone.',
       off:{
         R3:[[29,-1,0],[29,-1,.26],[31.5,.5,.34],[34,1.5,.42],[36.5,3.5,.52],[37.5,7,.62],[38,11.5,.74],[38,15,.85],[38,18,.95],[38,19,1]],
-        R4:[[36,0,0],[36,0,.26],[33.5,1.5,.34],[30,3,.43],[26.5,4.5,.53],[24,5.4,.61],[23.3,5.6,.66],[22.6,7.2,.74],[22.4,10,.83],[22.6,13,.92],[23,16,1]],
+        R4:[[36,0,0],[36,0,.26],[33,1.8,.32],[29.5,3.4,.39],[26.5,4.6,.45],[24.6,5.3,.50],[24.2,5.5,.54],[24.2,5.5,.64],[23.8,7.6,.72],[23.5,10.4,.82],[23.2,13.4,.91],[23,16,1]],
         QB:[[20,-4,0],[20,-4,.26],[21.5,-4.4,.33],[24,-4.8,.42],[26,-5,.52],[27,-5,.62],[27.5,-4.8,.74],[28,-4.8,.9],[28,-4.8,1]],
         G:[[17,0,0],[17,0,.26],[19.5,-1.5,.38],[23,-3,.5],[26.5,-4.2,.64],[29.5,-4.8,.8],[31.5,-5,1]],
         C:[[20,0,0],[20,0,.26],[21.8,-.4,.36],[23.4,-1,.45],[24.5,-1.5,.52],[25.2,-1.9,.62],[25.8,-2.2,.75],[26.2,-2.4,.88],[26.4,-2.5,1]],
@@ -915,14 +915,14 @@ const PLAYS = [
 {
   id:'scissors-left', core:true, name:'SCISSORS LEFT', kind:'Pass', dur:5.2, snapAt:0.26,
   badges:['Lefty rollout','Three answers','One pitch'],
-  summary:'The mirror of SCISSORS RIGHT, thrown by our left-hander. RB stays home instead of motioning, takes a short pitch, and rolls LEFT \u2014 which gives her exactly the free throwing platform a right-handed QB gets rolling right. R1 and R2 cross: R2 up the sideline, R1 across into the middle.',
+  summary:'The mirror of SCISSORS RIGHT, thrown by our left-hander. RB stays home instead of motioning, takes a short pitch, and rolls LEFT \u2014 which gives her exactly the free throwing platform a right-handed QB gets rolling right. R1 and R2 cross: R2 up the sideline, R1 across into the middle, where she STOPS and shows her hands.',
   read:'Three answers, in order. Watch the defender over R1: if she stays home and R1 crosses free into the middle, throw R1. If she runs across with her, R2 is behind her up the sideline. And if both are covered and nobody has come out to take the edge \u2014 keep it and run.',
   coach:'This play exists for one reason: RB throws left-handed, and rolling to her throwing hand gives her the same easy platform the QB gets going right. Two things to know. The pitch is the only one in our whole offense \u2014 short, soft, underhand, and we drill it, because a ball on the ground is dead where it lands. And RB does NOT motion on this play, which is the only pre-snap tell we have all season. Never run it twice in a row.',
   assign:{
     RB:'Do not motion. Stay exactly where you line up, and the instant the ball is snapped slide left and look the pitch into your hands. Then keep rolling left and throw off your left foot \u2014 the same way the QB does going right.',
     QB:'Catch the snap and pitch it soft and low to RB. She is four yards away, so guide it, do not fire it. Then run RIGHT like you still have it \u2014 you will pull a rusher and a linebacker away from the whole play.',
-    R2:'Cross with R1 at the line \u2014 you go OUTSIDE her. Settle that in practice so you never run into each other. Get to the left sideline and turn straight up the field, looking over your inside shoulder.',
-    R1:'Cross with R2 at the line \u2014 you go INSIDE her. Come all the way across at about five yards deep and look for the ball the WHOLE way. Catch it in stride and keep climbing.',
+    R2:'Cross with R1 at the line \u2014 you go OUTSIDE her. Settle that in practice so you never run into each other. Get to the left sideline and turn straight up the field, looking over your inside shoulder. <b>You are the long option</b> if somebody chases R1.',
+    R1:'Cross with R2 at the line \u2014 you go INSIDE her. <b>Five big strides across at about five yards deep, then STOP.</b> Turn back to the thrower and <b>put your hands out</b> so she can see exactly where to put it. If you cannot stop clean, slow right down. Stand there and be a target until it arrives, then turn and climb.',
     C:'Snap, then work LEFT and wall the rusher on that side \u2014 same as every rollout we run, just the other direction.',
     G:'Release left and lead her. You are the only blocker out in front, so get in the way of the first defender who shows.',
     'R3 R4':'Backside. Clear out and take your defenders with you \u2014 you will not get the ball on this one.'
@@ -930,11 +930,11 @@ const PLAYS = [
   variants:[
     {
       vid:'r1-sit', label:'R1 sits',
-      key:'R1 crosses free \u2192 hit her in stride at the middle.',
+      key:'R1 gets across free \u2192 she stops in the middle, hands out. Easy throw.',
       result:'14\u201318 yards. Exactly the same play as SCISSORS RIGHT, thrown with the other hand.',
       off:{
         R2:[[11,-1,0],[11,-1,0.26],[8.5,0.5,0.34],[6,1.5,0.42],[3.5,3.5,0.52],[2.5,7,0.62],[2,11.5,0.74],[2,15,0.85],[2,18,0.95],[2,19,1]],
-        R1:[[4,0,0],[4,0,0.26],[6.5,1.5,0.34],[10,3,0.43],[13.5,4.5,0.53],[16,5.4,0.61],[16.7,5.6,0.66],[17.4,7.2,0.74],[17.6,10,0.83],[17.4,13,0.92],[17,16,1]],
+        R1:[[4,0,0],[4,0,0.26],[7,1.8,0.32],[10.5,3.4,0.39],[13.5,4.6,0.45],[15.4,5.3,0.50],[15.8,5.5,0.54],[15.8,5.5,0.70],[16.2,7.8,0.78],[16.5,10.6,0.87],[16.8,13.6,0.94],[17,16,1]],
         QB:[[20,-4,0],[20,-4,0.26],[20.2,-4.3,0.31],[20.8,-4.6,0.37],[22.5,-4.6,0.47],[25,-4.3,0.6],[27.5,-3.9,0.75],[29.5,-3.6,0.9],[30.5,-3.4,1]],
         G:[[23,0,0],[23,0,0.26],[20.5,-1.5,0.38],[17,-3,0.5],[13.5,-4.2,0.64],[10.5,-4.8,0.8],[8.5,-5,1]],
         C:[[20,0,0],[20,0,0.26],[18.2,-0.4,0.36],[16.6,-1,0.45],[15.5,-1.5,0.52],[14.8,-1.9,0.62],[14.2,-2.2,0.75],[13.8,-2.4,0.88],[13.6,-2.5,1]],
@@ -960,7 +960,7 @@ const PLAYS = [
       result:'15\u201320 yards \u2014 about a 19-yard throw on the move. Only if she is clearly alone.',
       off:{
         R2:[[11,-1,0],[11,-1,0.26],[8.5,0.5,0.34],[6,1.5,0.42],[3.5,3.5,0.52],[2.5,7,0.62],[2,11.5,0.74],[2,15,0.85],[2,18,0.95],[2,19,1]],
-        R1:[[4,0,0],[4,0,0.26],[6.5,1.5,0.34],[10,3,0.43],[13.5,4.5,0.53],[16,5.4,0.61],[16.7,5.6,0.66],[17.4,7.2,0.74],[17.6,10,0.83],[17.4,13,0.92],[17,16,1]],
+        R1:[[4,0,0],[4,0,0.26],[7,1.8,0.32],[10.5,3.4,0.39],[13.5,4.6,0.45],[15.4,5.3,0.50],[15.8,5.5,0.54],[15.8,5.5,0.70],[16.2,7.8,0.78],[16.5,10.6,0.87],[16.8,13.6,0.94],[17,16,1]],
         QB:[[20,-4,0],[20,-4,0.26],[20.2,-4.3,0.31],[20.8,-4.6,0.37],[22.5,-4.6,0.47],[25,-4.3,0.6],[27.5,-3.9,0.75],[29.5,-3.6,0.9],[30.5,-3.4,1]],
         G:[[23,0,0],[23,0,0.26],[20.5,-1.5,0.38],[17,-3,0.5],[13.5,-4.2,0.64],[10.5,-4.8,0.8],[8.5,-5,1]],
         C:[[20,0,0],[20,0,0.26],[18.2,-0.4,0.36],[16.6,-1,0.45],[15.5,-1.5,0.52],[14.8,-1.9,0.62],[14.2,-2.2,0.75],[13.8,-2.4,0.88],[13.6,-2.5,1]],
@@ -987,7 +987,7 @@ const PLAYS = [
       assign:{RB:'If R1 is covered in the middle and R2 is covered up the sideline, do not force either one. Tuck it away, keep running left, and the moment you see nobody has come out to take the edge, turn up at the numbers and go. Two hands on the ball.'},
       off:{
         R2:[[11,-1,0],[11,-1,0.26],[8.5,0.5,0.34],[6,1.5,0.42],[3.5,3.5,0.52],[2.5,7,0.62],[2,11.5,0.74],[2,15,0.85],[2,18,0.95],[2,19,1]],
-        R1:[[4,0,0],[4,0,0.26],[6.5,1.5,0.34],[10,3,0.43],[13.5,4.5,0.53],[16,5.4,0.61],[16.7,5.6,0.66],[17.4,7.2,0.74],[17.6,10,0.83],[17.4,13,0.92],[17,16,1]],
+        R1:[[4,0,0],[4,0,0.26],[7,1.8,0.32],[10.5,3.4,0.39],[13.5,4.6,0.45],[15.4,5.3,0.50],[15.8,5.5,0.54],[15.8,5.5,0.70],[16.2,7.8,0.78],[16.5,10.6,0.87],[16.8,13.6,0.94],[17,16,1]],
         QB:[[20,-4,0],[20,-4,0.26],[20.2,-4.3,0.31],[20.8,-4.6,0.37],[22.5,-4.6,0.47],[25,-4.3,0.6],[27.5,-3.9,0.75],[29.5,-3.6,0.9],[30.5,-3.4,1]],
         G:[[23,0,0],[23,0,0.26],[20.5,-1.5,0.38],[17,-3,0.5],[13.5,-4.2,0.64],[10.5,-4.8,0.8],[8.5,-5,1]],
         C:[[20,0,0],[20,0,0.26],[18.2,-0.4,0.36],[16.6,-1,0.45],[15.5,-1.5,0.52],[14.8,-1.9,0.62],[14.2,-2.2,0.75],[13.8,-2.4,0.88],[13.6,-2.5,1]],
