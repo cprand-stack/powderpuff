@@ -2109,7 +2109,11 @@ function showResource(which){
   window.scrollTo(0,0);
 }
 function setView(w){
-  if(LOCKED && w!=='resources') return;
+  /* Left over from the blanket lock, this used to block every view but
+     Resources. Roles decide now: you must have picked one, and Offense
+     needs the offence permission. */
+  if(LOCKED && !ROLE) { if(w!=='resources') return; }
+  if(LOCKED && w==='offense' && !roleCan().off) return;
   const tabs={offense:'tabOffense', defense:'tabDefense', resources:'tabRes'};
   for(const k in tabs) document.getElementById(tabs[k]).setAttribute('aria-selected', k===w);
   const onField = (w==='offense'||w==='defense');
