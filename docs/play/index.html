@@ -606,7 +606,7 @@ if('serviceWorker' in navigator){
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='9c7263ba0510';
+const BUILD='a8a3b74d774a';
 /* TEMPORARY, until the first practice. build.py flips this to true for the
    hosted PWA only, so the girls get Resources and nothing else while the
    Artifact build stays wide open for Coach Rand and me to keep working on the
@@ -954,8 +954,8 @@ const PLAYS = [
     QB:'Sprint LEFT the instant you have the ball \u2014 do not stand still, the rollout is what buys you the time. Find R1: she will be STOPPED in the middle with her hands out, not running. That is the easy throw, so take it. If somebody ran across with her, look up the left sideline for R2. If both are covered, tuck it and run \u2014 there is grass out there because everybody went right with the motion.',
     R2:'Cross with R1 at the line \u2014 you go OUTSIDE her. Settle that in practice so you never run into each other. Get to the left sideline and turn straight up the field, looking over your inside shoulder. <b>You are the long option</b> if somebody chases R1.',
     R1:'Cross with R2 at the line \u2014 you go INSIDE her. <b>Five big strides across at about five yards deep, then STOP.</b> Turn back to the thrower and <b>put your hands out</b> so she can see exactly where to put it. If you cannot stop clean, slow right down. Stand there and be a target until it arrives, then turn and climb.',
-    C:'Snap, then work LEFT and wall the rusher on that side \u2014 same as every rollout we run, just the other direction.',
-    G:'Release left and lead her. You are the only blocker out in front, so get in the way of the first defender who shows.',
+    C:'Snap, then work RIGHT and wall <b>B2</b> \u2014 exactly the same as every other play. G has B1 on the left, you have B2 on the right, and between you nobody gets to the quarterback. <b>You never have to turn a different way on this play.</b>',
+    G:'<b>Line up exactly where you always do</b> \u2014 just left of the Center. You have <b>B1</b>, the rusher on your side. Step left with her and stay between her and the quarterback the whole way. Arms at your sides. You are the one thing standing between B1 and a flag pull behind the line.',
     'R3 R4':'Backside. Clear out and take your defenders with you \u2014 you will not get the ball on this one.'
   },
   variants:[
@@ -967,8 +967,8 @@ const PLAYS = [
         R2:[[11,-1,0],[11,-1,0.26],[8.5,0.5,0.34],[6,1.5,0.42],[3.5,3.5,0.52],[2.5,7,0.62],[2,11.5,0.74],[2,15,0.85],[2,18,0.95],[2,19,1]],
         R1:[[4,0,0],[4,0,0.26],[7,1.8,0.32],[10.5,3.4,0.39],[13.5,4.6,0.45],[15.4,5.3,0.50],[15.8,5.5,0.54],[15.8,5.5,0.70],[16.2,7.8,0.78],[16.5,10.6,0.87],[16.8,13.6,0.94],[17,16,1]],
         QB:[[20,-4,0],[20,-4,.26],[18.5,-4.4,.33],[16,-4.8,.42],[14,-5,.52],[13,-5,.62],[12.5,-4.8,.74],[12,-4.8,.9],[12,-4.8,1]],
-        G:[[23,0,0],[23,0,0.26],[20.5,-1.5,0.38],[17,-3,0.5],[13.5,-4.2,0.64],[10.5,-4.8,0.8],[8.5,-5,1]],
-        C:[[20,0,0],[20,0,0.26],[18.2,-0.4,0.36],[16.6,-1,0.45],[15.5,-1.5,0.52],[14.8,-1.9,0.62],[14.2,-2.2,0.75],[13.8,-2.4,0.88],[13.6,-2.5,1]],
+        G:[[17,0,0],[17,0,.26],[15.8,-0.7,.36],[14.3,-1.7,.46],[12.3,-2.8,.58],[10.3,-3.5,.7],[8.6,-3.7,.84],[7.6,-3.3,1]],
+        C:[[20,0,0],[20,0,.26],[21,-0.8,.36],[21.8,-1.8,.46],[22.3,-2.8,.58],[21.7,-3.6,.7],[20.5,-4.2,.84],[19.2,-4.6,1]],
         RB:[[16,-5.5,0],[18,-5.3,.14],[20.5,-5,.26],[24.5,-4.5,.36],[27,-3.4,.46],[28.3,-2.2,.56],[28.9,-1.6,.64],[29.4,-1.6,.72],[29.9,-1.8,.8],[30.2,-1.9,.84],[32.2,-1.4,.92],[34.5,-1,1]],
         R4:[[36,0,0],[36,0,0.26],[36,6,0.5],[36,12,0.78],[36,16,1]],
         R3:[[29,-1,0],[29,-1,0.26],[28,5,0.5],[27,11,0.78],[26.5,15,1]]
@@ -993,8 +993,8 @@ const PLAYS = [
         R2:[[11,-1,0],[11,-1,0.26],[8.5,0.5,0.34],[6,1.5,0.42],[3.5,3.5,0.52],[2.5,7,0.62],[2,11.5,0.74],[2,15,0.85],[2,18,0.95],[2,19,1]],
         R1:[[4,0,0],[4,0,0.26],[7,1.8,0.32],[10.5,3.4,0.39],[13.5,4.6,0.45],[15.4,5.3,0.50],[15.8,5.5,0.54],[15.8,5.5,0.70],[16.2,7.8,0.78],[16.5,10.6,0.87],[16.8,13.6,0.94],[17,16,1]],
         QB:[[20,-4,0],[20,-4,.26],[18.5,-4.4,.33],[16,-4.8,.42],[14,-5,.52],[13,-5,.62],[12.5,-4.8,.74],[12,-4.8,.9],[12,-4.8,1]],
-        G:[[23,0,0],[23,0,0.26],[20.5,-1.5,0.38],[17,-3,0.5],[13.5,-4.2,0.64],[10.5,-4.8,0.8],[8.5,-5,1]],
-        C:[[20,0,0],[20,0,0.26],[18.2,-0.4,0.36],[16.6,-1,0.45],[15.5,-1.5,0.52],[14.8,-1.9,0.62],[14.2,-2.2,0.75],[13.8,-2.4,0.88],[13.6,-2.5,1]],
+        G:[[17,0,0],[17,0,.26],[15.8,-0.7,.36],[14.3,-1.7,.46],[12.3,-2.8,.58],[10.3,-3.5,.7],[8.6,-3.7,.84],[7.6,-3.3,1]],
+        C:[[20,0,0],[20,0,.26],[21,-0.8,.36],[21.8,-1.8,.46],[22.3,-2.8,.58],[21.7,-3.6,.7],[20.5,-4.2,.84],[19.2,-4.6,1]],
         RB:[[16,-5.5,0],[18,-5.3,.14],[20.5,-5,.26],[24.5,-4.5,.36],[27,-3.4,.46],[28.3,-2.2,.56],[28.9,-1.6,.64],[29.4,-1.6,.72],[29.9,-1.8,.8],[30.2,-1.9,.84],[32.2,-1.4,.92],[34.5,-1,1]],
         R4:[[36,0,0],[36,0,0.26],[36,6,0.5],[36,12,0.78],[36,16,1]],
         R3:[[29,-1,0],[29,-1,0.26],[28,5,0.5],[27,11,0.78],[26.5,15,1]]
@@ -1020,8 +1020,8 @@ const PLAYS = [
         R2:[[11,-1,0],[11,-1,0.26],[8.5,0.5,0.34],[6,1.5,0.42],[3.5,3.5,0.52],[2.5,7,0.62],[2,11.5,0.74],[2,15,0.85],[2,18,0.95],[2,19,1]],
         R1:[[4,0,0],[4,0,0.26],[7,1.8,0.32],[10.5,3.4,0.39],[13.5,4.6,0.45],[15.4,5.3,0.50],[15.8,5.5,0.54],[15.8,5.5,0.70],[16.2,7.8,0.78],[16.5,10.6,0.87],[16.8,13.6,0.94],[17,16,1]],
         QB:[[20,-4,0],[20,-4,.26],[17,-4.6,.32],[13.5,-5,.40],[10,-5.2,.48],[7,-5,.55],[5.8,-3.5,.62],[5.2,-1,.68],[5,2,.75],[5,5.5,.84],[5.2,9,.92],[5.5,12,1]],
-        G:[[23,0,0],[23,0,0.26],[20.5,-1.5,0.38],[17,-3,0.5],[13.5,-4.2,0.64],[10.5,-4.8,0.8],[8.5,-5,1]],
-        C:[[20,0,0],[20,0,0.26],[18.2,-0.4,0.36],[16.6,-1,0.45],[15.5,-1.5,0.52],[14.8,-1.9,0.62],[14.2,-2.2,0.75],[13.8,-2.4,0.88],[13.6,-2.5,1]],
+        G:[[17,0,0],[17,0,.26],[15.8,-0.7,.36],[14.3,-1.7,.46],[12.3,-2.8,.58],[10.3,-3.5,.7],[8.6,-3.7,.84],[7.6,-3.3,1]],
+        C:[[20,0,0],[20,0,.26],[21,-0.8,.36],[21.8,-1.8,.46],[22.3,-2.8,.58],[21.7,-3.6,.7],[20.5,-4.2,.84],[19.2,-4.6,1]],
         RB:[[16,-5.5,0],[18,-5.3,.14],[20.5,-5,.26],[24.5,-4.5,.36],[27,-3.4,.46],[28.3,-2.2,.56],[28.9,-1.6,.64],[29.4,-1.6,.72],[29.9,-1.8,.8],[30.2,-1.9,.84],[32.2,-1.4,.92],[34.5,-1,1]],
         R4:[[36,0,0],[36,0,0.26],[36,6,0.5],[36,12,0.78],[36,16,1]],
         R3:[[29,-1,0],[29,-1,0.26],[28,5,0.5],[27,11,0.78],[26.5,15,1]]
