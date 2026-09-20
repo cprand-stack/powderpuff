@@ -858,7 +858,7 @@ const PLAYS = [
   ball:[{kind:'snap',from:'C',to:'QB',t0:.28,t1:.33},{kind:'hand',from:'QB',to:'RB',t0:.35,t1:.39},{kind:'carry',who:'RB',t0:.39,t1:1}]
 },
 {
-  id:'motion', core:true, name:'MOTION', kind:'Run', dur:6.8, snapAt:0.34,
+  id:'motion', core:true, name:'MOTION RIGHT', kind:'Run', dur:6.8, snapAt:0.34,
   badges:['Shift + motion','Attacks the empty spot','QB blocks after the pitch'],
   summary:'We move two people before the snap. RB slides over behind the QB as a lead blocker, and R3 motions all the way in and sets up behind her as the new ball carrier. Their defender follows R3 inside \u2014 and the spot she just left is exactly where we run.',
   read:'Watch whether their defender chases R3 across. If she does, R3\u2019s old spot is empty and this is free yards. If she stays out there instead, the motion did not work \u2014 take whatever the lead blocker gives you and get down.',
@@ -897,6 +897,44 @@ const PLAYS = [
   ball:[{kind:'snap',from:'C',to:'QB',t0:.34,t1:.39},{kind:'hand',from:'QB',to:'R3',t0:.41,t1:.47},{kind:'carry',who:'R3',t0:.47,t1:1}]
 },
 {
+  id:'motion-left', core:true, name:'MOTION LEFT', kind:'Run', dur:6.8, snapAt:0.34,
+  badges:['Lefty pitch','Shift + motion','QB keeps the fake'],
+  summary:'The exact mirror of MOTION RIGHT, run by a left-handed quarterback. RB slides over behind the QB as the lead blocker, and R2 motions all the way in and stacks up behind her as the new ball carrier. Her defender follows her inside \u2014 and the spot she just left is exactly where we run.',
+  read:'Watch whether their defender chases R2 across. If she does, R2\u2019s old spot is empty and this is free yards. If she stays out there instead, the motion did not work \u2014 take whatever the lead blocker gives you and get down.',
+  coach:'Same play as MOTION RIGHT with the ball going the other way, so if they know one they know both. <b>One real difference:</b> on MOTION RIGHT the Guard pulls and the QB cleans up behind her; here the Guard stays home on B1 and the QB keeps the fake instead. It exists because the pitch is a <b>backward, left-handed flip</b> \u2014 natural for a lefty, awkward for a righty. Line all three of you up straight behind the ball; stacked like that, nothing about where we stand tells them which way we are going. Take your time with the shift and the motion \u2014 there is no clock pressure and no penalty for it. And the pitch is short and BACKWARD: if it hits the ground it is dead right where it lands.',
+  assign:{
+    R2:'Start out wide where you always line up. On the signal, motion all the way in and set up straight behind RB, so the QB, RB and you are stacked in one line. At the snap take the pitch and follow her \u2014 and do not cut up early. Keep bouncing out toward the left sideline. Your defender came inside with you and R1 has taken the deep one away, so that whole side of the field is empty. Run to the empty part, not into the crowd.',
+    RB:'On the signal, shift over and line up straight behind the QB \u2014 <b>exactly the same shift you make on MOTION RIGHT.</b> Nothing about it tells them which way this is going. <b>You are the only lead blocker out in front</b>, so this one is on you. At the snap sprint LEFT and stay ahead of R2 the whole way, taking the first defender who shows. Do not look for the ball \u2014 your only job is to clear her path to the sideline.',
+    QB:'Catch the snap and pitch it back and to your LEFT, out in front of R2 so she runs onto it. Soft and low, never forward \u2014 it is the natural flip for your left hand. <b>Then run RIGHT like you kept it.</b> Unlike MOTION RIGHT you do not block on this one: G and C both have their rusher, and the fake is worth more. Sell it \u2014 tuck your arm and go, and every defender who looks at you is one who is not chasing R2.',
+    G:'<b>Line up exactly where you always do</b>, just left of the Center, and take <b>B1</b> \u2014 your rusher on every single play. <b>Do not pull on this one.</b> B1 is the one defender with a straight line to R2, so stay with her and keep her behind you all the way. Arms at your sides, feet moving.',
+    C:'Snap, then <b>turn RIGHT and wall B2</b> \u2014 exactly the same turn you make on every other play. <b>You never pull on this one.</b> B2 is the one who chases the play down from behind, and staying right puts you directly in her way. Ride her and keep her behind you. Arms at your sides.',
+    R1:'Deep post. Drive straight at your defender, then break inside and keep going deep. You will not get the ball \u2014 your job is to take her as far out of this play as she will go.',
+    'R3 R4':'Backside. Run straight downfield and take your defenders with you.'
+  },
+  key:'Motion empties the inside, the post empties the edge \u2014 bounce all the way out.',
+  result:'8+ yards without anybody laying a hand on her. Both defenders on that side were removed before the ball was snapped.',
+  off:{
+    R2:[[11,-1,0],[11,-1,.14],[14,-3.5,.2],[17,-6.2,.26],[19.4,-8.1,.31],[20,-8.5,.34],[19,-8.3,.41],[17.7,-8,.47],[15.5,-7.6,.55],[13,-6.8,.63],[10,-6,.69],[7,-5.4,.76],[4.5,-4.2,.82],[2.5,-2.4,.88],[1.8,.5,.93],[1.7,3.5,.97],[1.7,7,1]],
+    RB:[[16,-5.5,0],[16,-5.5,.04],[17.8,-6,.1],[19.4,-6.4,.16],[20,-6.5,.2],[20,-6.5,.34],[18,-6.2,.42],[15,-5.6,.52],[12,-5,.6],[9.5,-4.2,.68],[7.5,-3.4,.74],[5.5,-2.4,.84],[4.2,-1.4,.94],[3.6,-.6,1]],
+    QB:[[20,-4,0],[20,-4,.34],[20.4,-4.6,.42],[21.5,-5,.52],[23.5,-5.4,.66],[25.5,-5.6,.82],[26.5,-5.7,1]],
+    G:[[17,0,0],[17,0,.34],[16.2,-.6,.44],[14.6,-1.9,.54],[12.7,-2.6,.64],[10.7,-2.7,.72],[9.1,-2.2,.78],[7.2,-1.5,.88],[5.6,-.7,1]],
+    C:[[20,0,0],[20,0,.34],[21,-.8,.42],[21.6,-1.6,.5],[21,-2.6,.6],[19.4,-3.6,.72],[17,-4.4,.86],[14.8,-4.9,1]],
+    R1:[[4,0,0],[4,0,.34],[4,4,.46],[5,9,.58],[8,14,.72],[12,17.5,.88],[14.5,19,1]],
+    R4:[[36,0,0],[36,0,.34],[36,6,.55],[36,12,.8],[36,15,1]],
+    R3:[[29,-1,0],[29,-1,.34],[29,5,.55],[29,11,.8],[29,14,1]]
+  },
+  def:{
+    D2:[[12,6,0],[12,6,.14],[15,5.4,.22],[18,5,.3],[19.2,4.8,.34],[19.5,3.6,.48],[18.5,2.4,.6],[17,1.8,.74],[15.2,1.6,.88],[14,1.6,1]],
+    D1:[[5,7,0],[5,7,.34],[5,10,.46],[5.8,14,.58],[8.5,17.5,.75],[11.5,19.5,.9],[13,20,1]],
+    B1:[[17.5,1.5,0],[17.5,1.5,.34],[16.5,-.5,.44],[14.5,-1.6,.54],[12.5,-2.2,.64],[10.4,-2.2,.72],[8.8,-1.6,.78],[6.8,-.8,.88],[5.2,0,1]],
+    B2:[[22.5,1.5,0],[22.5,1.5,.34],[22.2,.2,.42],[21.8,-1,.5],[20.5,-2.6,.6],[18.5,-4,.72],[15.5,-4.8,.86],[13,-5.2,1]],
+    L1:[[16,6,0],[16,6,.34],[13.5,5.4,.46],[10,5,.58],[7,5,.7],[5,5.4,.8],[3.6,6.2,.9],[2.2,7.2,1]],
+    L2:[[24,6,0],[24,6,.34],[22,5.5,.48],[19,5,.62],[16,5,.78],[13.5,5.2,.92],[12,5.4,1]],
+    D4:[[35,7,0],[35,7,.34],[35,11,.55],[35,15,.8],[35,17,1]],
+    D3:[[28,6,0],[28,6,.34],[28,10,.55],[28,14,.8],[28,16,1]]
+  },
+  ball:[{kind:'snap',from:'C',to:'QB',t0:.34,t1:.39},{kind:'hand',from:'QB',to:'R2',t0:.41,t1:.47},{kind:'carry',who:'R2',t0:.47,t1:1}]
+},{
   id:'scissors', core:true, name:'SCISSORS RIGHT', kind:'Pass', dur:5.2, snapAt:0.26,
   badges:['QB option','Rollout buys time','Crossers'],
   summary:'R3 and R4 cross at the line — R3 outside and up the sideline, R4 inside and across into the middle, where she STOPS and shows her hands. A stopped receiver is a far easier target than a moving one, and R4 is standing in the space the rush and the linebackers just left.',
@@ -1501,7 +1539,7 @@ DPLAYS.forEach(p=>{p.off=p.us; p.def=p.them; delete p.us; delete p.them;});
    ============================================================ */
 const FORMATION_PLAY='the-look';
 const GROUPS={
-  core:   {label:'Plays',   plays:['qb-run','jet-right','motion','scissors','scissors-left','bubble-left']},
+  core:   {label:'Plays',   plays:['qb-run','jet-right','motion','motion-left','scissors','scissors-left','bubble-left']},
   special:{label:'Special', plays:['sideline','moonshot'], locked:true}
 };
 
@@ -2176,8 +2214,8 @@ showResource('home');
    ------------------------------------------------------------------ */
 const ROLES={
   coach :{label:'Coach',                     off:true,  hide:[], pos:null},
-  qbR   :{label:'Quarterback (right-handed)',off:true,  hide:['scissors-left'], pos:['QB']},
-  qbL   :{label:'Quarterback (left-handed)', off:true,  hide:['scissors'],      pos:['QB']},
+  qbR   :{label:'Quarterback (right-handed)',off:true,  hide:['scissors-left','motion-left'], pos:['QB']},
+  qbL   :{label:'Quarterback (left-handed)', off:true,  hide:['scissors','motion'],           pos:['QB']},
   center:{label:'Center',                    off:true,  hide:[], pos:['C','G']},
   off   :{label:'Running back / Receiver',   off:true,  hide:[], pos:['RB','R1','R2','R3','R4']},
   def   :{label:'Defense',                   off:false, hide:[], pos:[]}
