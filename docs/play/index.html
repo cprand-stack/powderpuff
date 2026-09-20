@@ -656,7 +656,7 @@ if('serviceWorker' in navigator){
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='7544e4055cd9';
+const BUILD='491754e166c3';
 /* TEMPORARY, until the first practice. build.py flips this to true for the
    hosted PWA only, so the girls get Resources and nothing else while the
    Artifact build stays wide open for Coach Rand and me to keep working on the
@@ -1070,7 +1070,7 @@ const PLAYS = [
   ]
 },
 {
-  id:'bubble-left', core:true, name:'BUBBLE', kind:'Pass', dur:4.6, snapAt:0.28,
+  id:'bubble-left', core:true, later:true, name:'BUBBLE', kind:'Pass', dur:4.6, snapAt:0.28,
   badges:['Ball out in 1 sec','Beats the rush'],
   key:'Jet fake right, ball goes left. R2 catches it standing up.',
   summary:'R2 bellies back behind the line and catches it standing still while R1 walls off the corner. The jet fake goes right, the ball goes left. The rush never matters.',
@@ -1901,6 +1901,8 @@ function renderPicker(){
   const opt=pid=>{const pl=PLAYS.find(x=>x.id===pid);
     /* shelved plays stay visible but disabled, so we remember they exist */
     if(pl.shelved) return '<option value="" disabled>'+flipText(pl.name)+' \u2014 shelved</option>';
+    /* not cut, just not taught yet - same treatment the Special group gets */
+    if(pl.later) return '<option value="" disabled>'+flipText(pl.name)+' \u2014 coming later</option>';
     /* the other quarterback's play: visible, greyed, and it says why */
     if(playHidden(pid)) return '<option value="" disabled>'+flipText(pl.name)+' \u2014 the other QB\u2019s play</option>';
     return '<option value="'+pid+'"'+(pid===base.id?' selected':'')+'>'+flipText(pl.name)+'</option>';};
@@ -2067,7 +2069,7 @@ function renderWristband(){
   const g=document.getElementById('wgrid');g.innerHTML='';
   const cards=[];
   PLAYS.forEach(p=>{
-    if(p.shelved) return;                       /* not on the call sheet while shelved */
+    if(p.shelved||p.later) return;              /* not on the call sheet while shelved or not yet taught */
     if(p.variants) p.variants.forEach((v,i)=>cards.push({p:effPlay(p,i),uid:p.id+'-'+v.vid,tag:v.label}));
     else cards.push({p:p,uid:p.id,tag:null});
   });
