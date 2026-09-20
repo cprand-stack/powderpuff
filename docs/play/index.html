@@ -77,16 +77,22 @@ if('serviceWorker' in navigator){
   /* Solid red bar so the three views read as the app's top-level navigation.
      The unselected tabs are white held back a little; the live one is full
      white with a white underline under it. */
-  #viewtabs{display:flex; gap:0; background:var(--red); padding:0 16px}
+  /* Pills in the red band, shaped like START in the picker below. The one you
+     are on is white; the other two are the same light red as the Resources
+     cards, with black text. */
+  #viewtabs{display:flex; gap:8px; background:var(--red); padding:9px 16px}
   #viewtabs button{
-    border:0; background:transparent; border-radius:0; padding:12px 4px; margin-right:22px;
-    font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
-    color:rgba(255,255,255,.62); border-bottom:4px solid transparent;
-    -webkit-tap-highlight-color:transparent;
+    flex:0 1 auto; min-width:0;
+    font:inherit; font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--ink); background-color:#f7c8d2; border:1.5px solid #f0b3c0; border-radius:9px;
+    padding:11px 13px; cursor:pointer; white-space:nowrap;
+    -webkit-tap-highlight-color:transparent; transition:.12s;
   }
-  #viewtabs button:hover{color:rgba(255,255,255,.85)}
-  #viewtabs button[aria-selected="true"]{color:var(--white); font-weight:900; border-bottom-color:var(--white)}
-  #viewtabs button:focus-visible{outline:2px solid var(--white); outline-offset:-3px}
+  #viewtabs button:hover{background-color:#fff; border-color:#fff}
+  #viewtabs button[aria-selected="true"]{
+    background-color:var(--white); border-color:var(--white); color:var(--ink); font-weight:900;
+    box-shadow:0 1px 3px rgba(0,0,0,.22)}
+  #viewtabs button:focus-visible{outline:2px solid var(--white); outline-offset:2px}
 
   /* ---------- formation bundles ---------- */
   /* ---------- picker: Start | Plays | Special ---------- */
@@ -246,7 +252,8 @@ if('serviceWorker' in navigator){
   /* RESOURCES: one picker, three pages, only one shown at a time. */
   /* Locked controls read as deliberately not-yet, not as broken. */
   #viewtabs button:disabled,#viewtabs button:disabled:hover{
-    color:rgba(255,255,255,.4); cursor:default}
+    background-color:rgba(255,255,255,.13); border-color:rgba(255,255,255,.42);
+    border-style:dashed; color:rgba(255,255,255,.8); cursor:default; box-shadow:none}
   .rcard:disabled{background:#f4f2f0; border-style:dashed; border-color:var(--line); cursor:default}
   .rcard:disabled b,.rcard:disabled span{color:var(--muted)}
   .rcard:disabled::after{color:var(--muted)}
@@ -650,7 +657,7 @@ if('serviceWorker' in navigator){
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='9dadaa49bcab';
+const BUILD='fd9c122ff2ae';
 /* TEMPORARY, until the first practice. build.py flips this to true for the
    hosted PWA only, so the girls get Resources and nothing else while the
    Artifact build stays wide open for Coach Rand and me to keep working on the
