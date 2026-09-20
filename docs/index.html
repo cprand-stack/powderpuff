@@ -139,6 +139,14 @@ document.getElementById('add').onclick=async()=>{
   steps('<li>In Chrome or Edge, click the <b>install</b> icon in the address bar.</li>'+
         '<li>On a phone, open this page in Safari or Chrome and tap <b>Add to my phone</b> again.</li>');
 };
+
+/* The app links back here as ?add=1 when it is running in a browser tab, so the
+   girl lands straight on the instructions instead of hunting for the button. */
+if(new URLSearchParams(location.search).has('add')){
+  const b=document.getElementById('add');
+  b.click();
+  b.scrollIntoView({block:'center'});
+}
 </script>
 </body>
 </html>

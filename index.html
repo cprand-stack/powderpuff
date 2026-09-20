@@ -56,6 +56,10 @@ if('serviceWorker' in navigator){
     display:flex; align-items:center; gap:14px;
     padding:12px 16px; background:var(--white);
     border-bottom:3px solid var(--red); position:sticky; top:0; z-index:30;
+    /* Installed to the home screen the page runs under the status bar, because
+       the viewport is viewport-fit=cover. Without this the logo and the title
+       sit behind the clock. Zero in a normal browser tab. */
+    padding-top:calc(12px + env(safe-area-inset-top));
   }
   #logo{height:34px; width:auto; flex:0 0 auto}
   #mascot{height:46px; width:auto; flex:0 0 auto; margin-left:auto}
@@ -250,7 +254,8 @@ if('serviceWorker' in navigator){
   /* The role gate sits over everything until she picks - it is the first thing
      she ever sees, so it has to explain itself in one line. */
   #rolegate{position:fixed; inset:0; z-index:60; background:var(--page);
-    display:flex; align-items:center; justify-content:center; padding:24px 18px; overflow:auto}
+    display:flex; align-items:center; justify-content:center; overflow:auto;
+    padding:calc(24px + env(safe-area-inset-top)) 18px calc(24px + env(safe-area-inset-bottom))}
   #rolegate[hidden]{display:none!important}
   .rgbox{width:100%; max-width:420px}
   .rgbox h2{margin:0 0 6px; font-size:23px; letter-spacing:-.015em}
@@ -263,6 +268,11 @@ if('serviceWorker' in navigator){
   .rgbox button b{font-size:15px; font-weight:900; color:var(--ink)}
   .rgbox button span{font-size:12.5px; color:var(--muted)}
   #whoami{white-space:nowrap}
+  /* Only ever shown when the page is NOT running from the home screen. */
+  .a2hs{margin:16px 0 0; padding:12px 14px; border:1.5px dashed #f2d3da; border-radius:12px;
+    background:#fff; font-size:12.5px; line-height:1.5; color:var(--muted)}
+  .a2hs b{color:var(--ink)}
+  .a2hs a{color:var(--red); font-weight:800}
   #whoamiChange{font:inherit; font-size:11px; font-weight:800; color:var(--red);
     background:none; border:0; padding:0 0 0 4px; cursor:pointer; text-decoration:underline}
   #lockmsg b{color:var(--ink)}
@@ -385,7 +395,7 @@ if('serviceWorker' in navigator){
     #legend{padding:5px 9px}
     .v3d, #legend #btnPlay{width:80px; height:24px; padding:0 8px; font-size:11px; gap:5px}
     .v3d input{width:12px; height:12px}
-    header{gap:10px; padding:10px 14px}
+    header{gap:10px; padding:10px 14px; padding-top:calc(10px + env(safe-area-inset-top))}
     #logo{height:26px}
     #mascot{height:34px}
     header h1{font-size:14px}
@@ -440,6 +450,7 @@ if('serviceWorker' in navigator){
     <button data-role="center"><b>Center</b><span>Center or Guard</span></button>
     <button data-role="off"><b>Running back / Receiver</b><span>Offense and defense</span></button>
     <button data-role="def"><b>Defense</b><span>Our defensive looks</span></button>
+    <p class="a2hs" id="a2hsGate" hidden><b>Put this on your home screen.</b> It opens full screen and still works on the field with no signal. <a href="../?add=1">Show me how &rsaquo;</a></p>
   </div>
 </div>
 
@@ -633,7 +644,7 @@ if('serviceWorker' in navigator){
 
 </div>
 
-<footer>St. Cecilia Academy &middot; Freshman Powderpuff &middot; Coach Rand &middot; <span id="build"></span><span id="whoami" hidden> &middot; <span id="whoamiName"></span> <button id="whoamiChange">Not you?</button></span></footer>
+<footer><span id="a2hsFoot" hidden><a href="../?add=1">Add to home screen</a> &middot; </span>St. Cecilia Academy &middot; Freshman Powderpuff &middot; Coach Rand &middot; <span id="build"></span><span id="whoami" hidden> &middot; <span id="whoamiName"></span> <button id="whoamiChange">Not you?</button></span></footer>
 
 
 <script>
@@ -2203,9 +2214,16 @@ function setRole(r){
   applyRole();
 }
 function askRole(){ document.getElementById('rolegate').hidden=false; }
-document.querySelectorAll('#rolegate button').forEach(b=>b.onclick=()=>setRole(b.dataset.role));
+document.querySelectorAll('#rolegate button[data-role]').forEach(b=>b.onclick=()=>setRole(b.dataset.role));
 function resetRole(){ try{ localStorage.removeItem(ROLE_KEY); }catch(e){} ROLE=null; applyRole(); askRole(); }
 document.getElementById('whoamiChange').onclick=resetRole;
+
+/* The install prompt lives on the landing page. Girls who open /play/ directly
+   never see it, so point them back - but only if they are still in a browser. */
+if(!(matchMedia('(display-mode: standalone)').matches||navigator.standalone===true)){
+  document.getElementById('a2hsGate').hidden=false;
+  document.getElementById('a2hsFoot').hidden=false;
+}
 if(LOCKED){
   let saved=null; try{ saved=localStorage.getItem(ROLE_KEY); }catch(e){}
   if(saved && ROLES[saved]) ROLE=saved; else askRole();
