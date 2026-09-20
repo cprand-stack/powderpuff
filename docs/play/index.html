@@ -650,7 +650,7 @@ if('serviceWorker' in navigator){
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='7a819c5b156f';
+const BUILD='d96d192d18ad';
 /* TEMPORARY, until the first practice. build.py flips this to true for the
    hosted PWA only, so the girls get Resources and nothing else while the
    Artifact build stays wide open for Coach Rand and me to keep working on the
@@ -852,14 +852,14 @@ const PLAYS = [
 },
 {
   id:'motion', core:true, name:'MOTION', kind:'Run', dur:6.8, snapAt:0.34,
-  badges:['Shift + motion','Attacks the empty spot','One pitch'],
+  badges:['Shift + motion','Attacks the empty spot','QB blocks after the pitch'],
   summary:'We move two people before the snap. RB slides over behind the QB as a lead blocker, and R3 motions all the way in and sets up behind her as the new ball carrier. Their defender follows R3 inside \u2014 and the spot she just left is exactly where we run.',
   read:'Watch whether their defender chases R3 across. If she does, R3\u2019s old spot is empty and this is free yards. If she stays out there instead, the motion did not work \u2014 take whatever the lead blocker gives you and get down.',
   coach:'The whole play happens before the snap. We are not tricking anybody afterwards \u2014 we are walking a defender out of the spot we want and then running to that spot. Line all three of you up straight behind the ball \u2014 stacked like that, nothing about where we stand tells them which way we are going. And take your time with the shift and the motion; there is no clock pressure and no penalty for it. And the pitch is short and BACKWARD, same as SCISSORS LEFT: if it hits the ground it is dead right where it lands.',
   assign:{
     R3:'Start out wide where you always line up. On the signal, motion all the way in and set up straight behind RB, so the QB, RB and you are stacked in one line. At the snap take the pitch and follow her \u2014 and do not cut up early. Keep bouncing out toward the sideline. Your defender came inside with you and R4 has taken the deep one away, so that whole side of the field is empty. Run to the empty part, not into the crowd.',
     RB:'On the signal, shift over and line up straight behind the QB. You are the lead blocker on this one. At the snap sprint right and take the first defender who shows. Do not look for the ball \u2014 R3 is behind you and your only job is to clear her path.',
-    QB:'Catch the snap and pitch it back and to your right, out in front of R3 so she runs onto it. Soft and low, never forward. Then run LEFT like you kept it and take somebody with you.',
+    QB:'Catch the snap and pitch it back and to your right, out in front of R3 so she runs onto it. Soft and low, never forward. <b>Then turn and go block B1</b> \u2014 the rusher who came through on G\u2019s side. G bumps her at the line and then climbs to the linebacker, so B1 is the one still chasing R3 from behind and nobody else has her. Get in front of her and stay in front of her all the way to the sideline. Arms at your sides, feet moving \u2014 you do not have to knock her down, just be in the way.',
     C:'Snap it, then sprint RIGHT. Get a hit on the rusher in front of you as you go past her, then keep running and find their linebacker on that side. Do not stop at the line \u2014 R3 is going all the way to the sideline and you are going with her.',
     G:'Sprint RIGHT with C. Bump the rusher on your side as you release, then climb up and take the inside linebacker. Two of you out in front of her is what makes this play work.',
     R4:'Deep post. Drive straight at your defender, then break inside and keep going deep. You will not get the ball \u2014 your job is to take her as far out of this play as she will go.',
@@ -870,7 +870,7 @@ const PLAYS = [
   off:{
     R3:[[29,-1,0],[29,-1,.14],[26,-3.5,.2],[23,-6.2,.26],[20.6,-8.1,.31],[20,-8.5,.34],[21,-8.3,.41],[22.3,-8,.47],[24.5,-7.6,.55],[27,-6.8,.63],[30,-6,.69],[33,-5.4,.76],[35.5,-4.2,.82],[37.5,-2.4,.88],[38.2,.5,.93],[38.3,3.5,.97],[38.3,7,1]],
     RB:[[16,-5.5,0],[16,-5.5,.04],[17.8,-6,.1],[19.4,-6.4,.16],[20,-6.5,.2],[20,-6.5,.34],[22,-6.2,.42],[25,-5,.52],[27.5,-3.8,.6],[29.5,-2.8,.68],[31,-2,.74],[33,-1.2,.84],[34.5,-.2,.94],[35.2,.8,1]],
-    QB:[[20,-4,0],[20,-4,.34],[19.6,-4.6,.42],[18.5,-5,.52],[16.5,-5.4,.66],[14.5,-5.6,.82],[13.5,-5.7,1]],
+    QB:[[20,-4,0],[20,-4,.34],[20,-4,.47],[19.6,-3.2,.54],[19.6,-2.4,.6],[21,-3.4,.7],[22.6,-4,.78],[24.5,-4.4,.88],[26,-4.7,1]],
     C:[[20,0,0],[20,0,.34],[21.6,.1,.4],[23.5,-.4,.46],[26,.6,.55],[29.5,2.2,.65],[32.5,3.6,.74],[34.8,4.8,.84],[36,5.8,.92],[36.8,6.6,1]],
     G:[[17,0,0],[17,0,.34],[17.9,.5,.42],[18.8,.6,.48],[20.5,1.6,.56],[23,3,.66],[25.2,4.2,.76],[26.6,4.8,.87],[27.6,5.2,1]],
     R4:[[36,0,0],[36,0,.34],[36,4,.46],[35,9,.58],[32,14,.72],[28,17.5,.88],[25.5,19,1]],
