@@ -656,7 +656,7 @@ if('serviceWorker' in navigator){
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='491754e166c3';
+const BUILD='1723818be8e2';
 /* TEMPORARY, until the first practice. build.py flips this to true for the
    hosted PWA only, so the girls get Resources and nothing else while the
    Artifact build stays wide open for Coach Rand and me to keep working on the
@@ -1902,7 +1902,7 @@ function renderPicker(){
     /* shelved plays stay visible but disabled, so we remember they exist */
     if(pl.shelved) return '<option value="" disabled>'+flipText(pl.name)+' \u2014 shelved</option>';
     /* not cut, just not taught yet - same treatment the Special group gets */
-    if(pl.later) return '<option value="" disabled>'+flipText(pl.name)+' \u2014 coming later</option>';
+    if(laterHidden(pl)) return '<option value="" disabled>'+flipText(pl.name)+' \u2014 coming later</option>';
     /* the other quarterback's play: visible, greyed, and it says why */
     if(playHidden(pid)) return '<option value="" disabled>'+flipText(pl.name)+' \u2014 the other QB\u2019s play</option>';
     return '<option value="'+pid+'"'+(pid===base.id?' selected':'')+'>'+flipText(pl.name)+'</option>';};
@@ -2069,7 +2069,7 @@ function renderWristband(){
   const g=document.getElementById('wgrid');g.innerHTML='';
   const cards=[];
   PLAYS.forEach(p=>{
-    if(p.shelved||p.later) return;              /* not on the call sheet while shelved or not yet taught */
+    if(p.shelved||laterHidden(p)) return;       /* off the call sheet while shelved, or not yet taught unless you are staff */
     if(p.variants) p.variants.forEach((v,i)=>cards.push({p:effPlay(p,i),uid:p.id+'-'+v.vid,tag:v.label}));
     else cards.push({p:p,uid:p.id,tag:null});
   });
@@ -2157,7 +2157,7 @@ showResource('home');
    plays a few days early. Worth far less than making her feel locked out.
    ------------------------------------------------------------------ */
 const ROLES={
-  coach :{label:'Coach',                     off:true,  hide:[], pos:null},
+  coach :{label:'Coach',                     off:true,  hide:[], pos:null, staff:true},
   qbR   :{label:'Quarterback (right-handed)',off:true,  hide:['scissors-left','motion-left'], pos:['QB']},
   qbL   :{label:'Quarterback (left-handed)', off:true,  hide:['scissors','motion'],           pos:['QB']},
   center:{label:'Center',                    off:true,  hide:[], pos:['C','G']},
@@ -2171,7 +2171,15 @@ const dposAllowed=()=>!LOCKED;
 const ROLE_KEY='pp-role';
 let ROLE=null;
 const roleCan=()=>ROLE&&ROLES[ROLE] ? ROLES[ROLE] : {off:true,hide:[]};
-const playHidden=pid=>LOCKED && roleCan().hide.indexOf(pid)>=0;
+/* Coaches see the whole book. In the artifact build nothing is locked, so it
+   counts as staff too - that is the copy Coach Rand works from. */
+const isStaff=()=>!LOCKED || roleCan().staff===true;
+const laterHidden=pl=>!!(pl&&pl.later)&&!isStaff();
+const playHidden=pid=>{
+  if(!LOCKED) return false;
+  if(laterHidden(PLAYS.find(x=>x.id===pid))) return true;
+  return roleCan().hide.indexOf(pid)>=0;
+};
 
 function applyRole(){
   const r=roleCan();
@@ -2195,7 +2203,7 @@ function applyRole(){
   if(off.disabled && MODE==='offense') setView('resources');
   /* switching roles while looking at a play the new role does not get */
   if(BOOTED && playHidden(base.id)) select(GROUPS.core.plays[0]);
-  if(BOOTED){ renderPicker(); renderDPicker(); }
+  if(BOOTED){ renderPicker(); renderDPicker(); renderWristband(); }
 }
 function setRole(r){
   ROLE=r; try{ localStorage.setItem(ROLE_KEY,r); }catch(e){}
