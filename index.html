@@ -2119,7 +2119,7 @@ function setView(w){
      Resources. Roles decide now: you must have picked one, and Offense
      needs the offence permission. */
   if(LOCKED && !ROLE) { if(w!=='resources') return; }
-  if(LOCKED && w==='offense' && !roleCan().off) return;
+  if(LOCKED && w==='offense' && !canOffense()) return;
   const tabs={offense:'tabOffense', defense:'tabDefense', resources:'tabRes'};
   for(const k in tabs) document.getElementById(tabs[k]).setAttribute('aria-selected', k===w);
   const onField = (w==='offense'||w==='defense');
@@ -2159,6 +2159,10 @@ const ROLE_KEY='pp-who';
 let ROLE=null;
 const whoEntry=()=> ROLE==='coach' ? COACH : SQUAD.find(p=>p.id===ROLE);
 const roleCan=()=>{ const e=whoEntry(); return e ? e : {off:true,pos:null,plays:null}; };
+/* Only a defence-only row sets off:false. Anything else - undefined included -
+   means she gets the Offense tab. Both the tab and setView read THIS, never
+   the raw property, so they cannot disagree again. */
+const canOffense=()=>roleCan().off!==false;
 /* Coaches see the whole book. In the artifact build nothing is locked, so it
    counts as staff too - that is the copy Coach Rand works from. */
 const isStaff=()=>!LOCKED || roleCan().staff===true;
@@ -2166,6 +2170,9 @@ const laterHidden=pl=>!!(pl&&pl.later)&&!isStaff();
 const playHidden=pid=>{
   if(!LOCKED) return false;
   if(laterHidden(PLAYS.find(x=>x.id===pid))) return true;
+  /* THE LOOK is the formation, not a play. Everybody learns where to stand,
+     including the two girls on a short list. */
+  if(pid===FORMATION_PLAY) return false;
   const allow=roleCan().plays;                 /* her own short list, if she has one */
   return !!allow && allow.indexOf(pid)<0;
 };
@@ -2173,7 +2180,7 @@ const playHidden=pid=>{
 function applyRole(){
   const r=roleCan();
   const off=document.getElementById('tabOffense');
-  off.disabled = LOCKED && r.off===false;
+  off.disabled = LOCKED && !canOffense();
   off.setAttribute('aria-disabled', off.disabled);
   off.title = off.disabled ? 'Offense is for the offensive group' : '';
   /* the wristband prints offensive plays, so it follows the same rule */
@@ -2190,8 +2197,14 @@ function applyRole(){
   who.hidden = !LOCKED || !ROLE;
   if(ROLE) document.getElementById('whoamiName').textContent=whoName(roleCan());
   if(off.disabled && MODE==='offense') setView('resources');
-  /* switching roles while looking at a play the new role does not get */
-  if(BOOTED && playHidden(base.id)) select(GROUPS.core.plays[0]);
+  /* Switching identity while looking at a play the new girl does not get.
+     Only on the offense side: select() resolves against whichever list the
+     current tab is showing, so asking for an offensive play while Defense is
+     up finds nothing. And land on a play she can actually open, not just the
+     first one in the group - MID is hidden from Kate. */
+  if(BOOTED && MODE!=='defense' && playHidden(base.id)){
+    select(GROUPS.core.plays.find(pid=>!playHidden(pid)) || FORMATION_PLAY);
+  }
   if(BOOTED){ renderPicker(); renderDPicker(); renderWristband(); renderRoster(); }
 }
 function setRole(r){
