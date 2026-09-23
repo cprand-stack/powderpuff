@@ -80,7 +80,7 @@ if('serviceWorker' in navigator){
   /* Pills in the red band, shaped like START in the picker below. The one you
      are on is white; the other two are the same light red as the Resources
      cards, with black text. */
-  #viewtabs{display:flex; align-items:center; gap:5px; background:var(--red); padding:9px 12px}
+  #viewtabs{display:flex; align-items:center; gap:10px; background:var(--red); padding:9px 12px}
   #viewtabs button{
     flex:0 1 auto; min-width:0;
     font:inherit; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase;
@@ -91,8 +91,8 @@ if('serviceWorker' in navigator){
   /* Her name rides the same bar - white on the red, no pill, so it never
      reads as a fourth tab. It takes the leftover space and truncates rather
      than shoving the tabs off a narrow phone. */
-  #tabWho{margin-left:auto; min-width:0; padding-left:6px; color:var(--white);
-    font-size:12px; font-weight:800; letter-spacing:.01em;
+  #tabWho{margin-left:auto; min-width:0; padding-left:8px; color:var(--white);
+    font-size:15px; font-weight:800; letter-spacing:.01em;
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
   #viewtabs button:hover{background-color:#fff; border-color:#fff}
   #viewtabs button[aria-selected="true"]{
@@ -438,9 +438,9 @@ if('serviceWorker' in navigator){
     /* On a phone the bar carries four things, and the longest name on the
        roster is 'Jacqueline D.' Sized so that one fits at 375px with room
        to spare rather than landing exactly on the edge. */
-    #viewtabs{gap:4px; padding:9px 10px}
-    #viewtabs button{font-size:10.5px; letter-spacing:.03em; padding:10px 8px}
-    #tabWho{font-size:11.5px; letter-spacing:0; padding-left:5px}
+    #viewtabs{gap:9px; padding:9px 9px}
+    #viewtabs button{font-size:10px; letter-spacing:.02em; padding:10px 7px}
+    #tabWho{font-size:13.5px; letter-spacing:0; padding-left:6px}
     #logo{height:26px}
     #mascot{height:34px}
     header h1{font-size:14px}
@@ -699,7 +699,7 @@ if('serviceWorker' in navigator){
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='619bfa485d98';
+const BUILD='3f574b2457d5';
 /* TEMPORARY, until the first practice. build.py flips this to true for the
    hosted PWA only, so the girls get Resources and nothing else while the
    Artifact build stays wide open for Coach Rand and me to keep working on the
