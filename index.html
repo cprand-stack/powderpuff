@@ -305,8 +305,15 @@ if('serviceWorker' in navigator){
     background:#fff; font-size:12.5px; line-height:1.5; color:var(--muted)}
   .a2hs b{color:var(--ink)}
   .a2hs a{color:var(--red); font-weight:800}
-  #whoamiChange{font:inherit; font-size:11px; font-weight:800; color:var(--red);
-    background:none; border:0; padding:0 0 0 4px; cursor:pointer; text-decoration:underline}
+  /* This is how a girl hands her phone to a team mate, and as plain
+     underlined text nobody ever found it. Gold pill, black text - the only
+     thing in the app wearing that colour. */
+  #whoami{display:inline-flex; align-items:center; flex-wrap:wrap; justify-content:center; gap:4px}
+  #whoamiChange{font:inherit; font-size:12px; font-weight:900; letter-spacing:.05em;
+    text-transform:uppercase; color:#231F20; background:#F5C518; border:1.5px solid #D9A900;
+    border-radius:999px; padding:9px 15px; margin-left:6px; cursor:pointer;
+    -webkit-tap-highlight-color:transparent; transition:.12s}
+  #whoamiChange:hover{background:#FFD642; border-color:#C99A00}
   #lockmsg b{color:var(--ink)}
   #rpicker{display:none; max-width:1180px; margin:0 auto; padding:12px 16px 0}
   #rBack{font:inherit; font-size:11.5px; font-weight:900; letter-spacing:.06em; text-transform:uppercase;
@@ -539,12 +546,12 @@ if('serviceWorker' in navigator){
   <h2 class="rtitle">Resources</h2>
   <p class="rnote">Everything that is not a play. Pick one.</p>
   <div class="rgrid">
-    <button class="rcard" data-res="pos"><b>Positions</b><span>Every spot on offense and defense, what it is called and what it does. Start here.</span></button>
+    <button class="rcard" data-res="roster"><b>Roster</b><span>Who is playing where. Offense is assigned; defense is still to come.</span></button>
+    <button class="rcard" data-res="sched"><b>Schedule</b><span>Every practice through game day, fall break included.</span></button>
+    <button class="rcard" data-res="pos"><b>Positions</b><span>Every spot on offense and defense, what it is called and what it does.</span></button>
     <button class="rcard" data-res="rules"><b>Powderpuff Rules</b><span>Word for word from the sheet the school handed out &mdash; what the referee is going by.</span></button>
     <button class="rcard" data-res="defense"><b>Defense Concepts</b><span>Six things, every snap. Contain, inside leverage, and play the ball.</span></button>
     <button class="rcard" data-res="wrist"><b>Offense Plays <i>(printable)</i></b><span>Every play on one page. Print it, cut it, tape it to a wrist.</span></button>
-    <button class="rcard" data-res="roster"><b>Roster</b><span>Who is playing where. Offense is assigned; defense is still to come.</span></button>
-    <button class="rcard" data-res="sched"><b>Schedule</b><span>Every practice through game day, fall break included.</span></button>
   </div>
 </div>
 
@@ -795,7 +802,7 @@ const PLAYS = [
     QB:'Catch the snap and take two easy steps back like you are throwing. Let the rush run past you. Then read the middle and go — straight if it is open, right around C and RB if it is not. Two hands on the ball the whole way.',
     C:'Snap it, then get in the way of the rusher to your right — and keep working right, staying in front of her. If the QB bounces, you are the INSIDE wall of her alley.',
     G:'Get in the way of the rusher to your left. Arms at your sides. You are building the left wall of her lane.',
-    RB:'Full-speed jet motion right and run right through the QB\u2019s hip like you are taking the handoff. You will not get it. Then square up on the rusher coming off their right side and stay in her way. Same job every single time \u2014 you cannot know which way the QB is going, so you never have to guess.',
+    RB:'Full-speed jet motion right and run through the QB\u2019s extended hands like you are taking the handoff \u2014 cradle and all. You will not get it. Then square up on the rusher coming off their right side and stay in her way. Same job every single time \u2014 you cannot know which way the QB is going, so you never have to guess.',
     'R1 R2 R3 R4':'Sprint straight downfield 12+ yards and take your defender with you. <b>The moment she figures out it is a run and turns back toward the ball, get in her way.</b> Put yourself between her and the runner and stay there \u2014 <b>arms at your sides</b>, feet moving. You are screening her, not pushing her: hands or arms on her is a five-yard penalty.'
   },
   variants:[
@@ -835,14 +842,14 @@ const PLAYS = [
 {
   id:'jet-right', core:true, name:'JET', kind:'Run', dur:4.6, snapAt:0.28,
   badges:['One handoff','Edge'],
-  key:'RB at FULL speed. Two hands. Get to the sideline, then turn up.',
-  summary:'RB is at full speed as the ball is snapped, takes it through the QB’s hip, and gets to the sideline. Our only handoff play in the entire offense.',
+  key:'RB at FULL speed. Cradle up. Get to the sideline, then turn up.',
+  summary:'RB is at full speed as the ball is snapped, takes it from the QB’s extended hands, and gets to the sideline. Our only handoff play in the entire offense.',
   result:'12–15 yards if the edge gets sealed.',
   read:'If the outside defender lines up inside of R3, the sideline is open — keep running. If she is wide and deep, cut it up early inside of her.',
-  coach:'This is the only exchange we have. If the ball hits the ground the play is dead where it fell. 25 handoff reps every single practice.',
+  coach:'This is the only exchange we have, and it is two jobs happening at once. <b>The QB presents the ball with both hands</b>, arms extended, and holds it still — she does not chase the RB with it. <b>The RB makes a cradle</b> and runs through it. Neither girl reaches for the other. If the ball hits the ground the play is dead where it fell. 25 handoff reps every single practice.',
   assign:{
-    RB:'Start left. On the signal, jet motion right — be at FULL SPEED as the ball is snapped. Run through the QB’s hip, inside elbow up, two hands on the ball. Get to the sideline, then turn it up.',
-    QB:'Catch the snap and extend the ball out for her — do not reach toward her, let her run through it. Then carry out the fake to your left.',
+    RB:'Start left. On the signal, jet motion right — be at FULL SPEED as the ball is snapped. <b>Make your cradle before you get there:</b> inside elbow up across your chest, outside arm underneath, palms open — a basket she can lay the ball into. Run through her extended hands and let the ball arrive. <b>Do not reach for it and do not look down.</b> Clamp both arms the instant you feel it, then get to the sideline and turn it up.',
+    QB:'Catch the snap and <b>present the ball with both hands</b>, arms extended out into her path, nose of the ball pointed at her cradle. <b>Hold it still and let her run through it</b> — do not reach toward her, do not follow her with it, do not slap it in. She takes it out of your hands. Then carry out the fake to your left.',
     C:'Snap, then screen right. Get in the first defender’s path.',
     G:'Release right and lead her. Arms at your sides — get in the way of whoever shows up first.',
     R3:'You are the most important blocker on the play. Step at the outside defender, then get in her way and stay in it.',
@@ -1647,10 +1654,10 @@ const DPOS=['LL','RL','D1','D2','D3','D4','LS','RS'];
    two can never drift apart. */
 const POSINFO={
   off:[
-    ['QB','Quarterback','Every play starts in your hands. You run it, hand it, pitch it or throw it — and we only get one forward pass a play, so it has to leave your hand from behind the line.'],
+    ['QB','Quarterback','Every play starts in your hands. You run it, hand it, pitch it or throw it — and we only get one forward pass a play, so it has to leave your hand from behind the line. On a handoff, <b>present the ball with both hands and hold it still</b> so she can run through and take it.'],
     ['C','Center','Nothing in the playbook happens until you get the ball back to the QB. That makes the snap the most practiced thing we do, and it makes a bad one the only way a play dies before it starts.'],
     ['G','Guard','You build the left wall of the runner’s lane — arms at your sides, just be in the way.'],
-    ['RB','Running Back','On most plays you never touch the ball, and that is exactly the point. The defense has to honor your motion every single snap, which is what leaves somebody else open — never more than on SCISSORS LEFT, where you run right and the ball goes left.'],
+    ['RB','Running Back','When you do get the ball it is a handoff, so <b>your hands make a cradle</b> — inside elbow up, outside arm under, and you run through her extended hands without reaching for it. On most plays you never touch the ball, and that is exactly the point. The defense has to honor your motion every single snap, which is what leaves somebody else open — never more than on SCISSORS LEFT, where you run right and the ball goes left.'],
     ['R1','Receiver 1 (far left)','Widest player on the left. You stretch them out: even when the ball is not coming to you, the defender who follows you is one less defender in the middle.'],
     ['R2','Receiver 2 (2nd from left)','The short, quick answer. You start closer to the ball than anybody wide, so when we need five yards right now, it usually comes to you.'],
     ['R3','Receiver 3 (2nd from right)','Mirror of R2 on the right — and the right is the side the motion runs toward, so a lot of what we do happens around you.'],
