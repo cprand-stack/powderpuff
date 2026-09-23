@@ -2193,6 +2193,11 @@ showResource('home');
    until they are assigned - the tab is still open, just not personalised. */
 const posAllowed=q=>{ if(!LOCKED) return true; const p=roleCan().pos; return p===null||p===undefined||p.indexOf(q)>=0; };
 const dposAllowed=()=>!LOCKED;
+/* The browser restores the old scroll position on reload, which for an
+   installed app means she reopens it halfway down yesterday's page. We always
+   want the tab bar in view, so take that over. */
+try{ if('scrollRestoration' in history) history.scrollRestoration='manual'; }catch(e){}
+const toTop=()=>{ try{ window.scrollTo(0,0); }catch(e){ document.documentElement.scrollTop=0; } };
 const ROLE_KEY='pp-who';
 let ROLE=null;
 const whoEntry=()=> ROLE==='coach' ? COACH : SQUAD.find(p=>p.id===ROLE);
@@ -2252,8 +2257,9 @@ function setRole(r){
   ROLE=r; try{ localStorage.setItem(ROLE_KEY,r); }catch(e){}
   document.getElementById('rolegate').hidden=true;
   applyRole();
+  toTop();          /* she comes out of the gate at the top of the page */
 }
-function askRole(){ document.getElementById('rolegate').hidden=false; }
+function askRole(){ document.getElementById('rolegate').hidden=false; toTop(); }
 /* The picker is built from the roster so adding a girl is a one-line edit. */
 (function buildWhoPick(){
   const sel=document.getElementById('whoPick'), go=document.getElementById('whoGo');
@@ -2298,6 +2304,7 @@ applyRole();
 if(LOCKED && !ROLE) setView('resources');
 document.getElementById('build').textContent='v'+BUILD.slice(0,7);
 BOOTED=true;
+toTop();          /* however we got here, open at the top */
 </script>
 </body>
 </html>
