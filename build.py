@@ -17,8 +17,9 @@ site, play = ROOT/'docs', ROOT/'docs'/'play'   # GitHub Pages serves /docs
 play.mkdir(parents=True, exist_ok=True)
 
 # ---- the app itself -------------------------------------------------------
-# TEMPORARY: the hosted PWA is locked to Resources until the first practice.
-# The Artifact build keeps every tab, so work on the plays continues there.
+# Both builds are locked, so the Artifact behaves exactly like the hosted PWA:
+# same name gate, same badge in the red bar, same 'Not you?'. The source keeps
+# LOCKED=false purely so the file opens unlocked straight off disk.
 (play/'index.html').write_text(
     app.replace("const BUILD='dev'", "const BUILD='%s'" % ver)
        .replace('const LOCKED=false;', 'const LOCKED=true;'))
@@ -88,7 +89,8 @@ self.addEventListener('fetch', e => {
 # never hijack the capture - which is exactly what happened once.
 style = re.search(r'(?m)^<style>$\n(.*?)^</style>$', app, re.S).group(1)
 body  = re.search(r'(?m)^<body>$\n(.*?)^</body>$',  app, re.S).group(1)
-art = '<title>Freshman Powderpuff Playbook</title>\n<style>'+style+'</style>\n'+body.strip()+'\n'
+art = ('<title>Freshman Powderpuff Playbook</title>\n<style>'+style+'</style>\n'
+       +body.strip().replace('const LOCKED=false;', 'const LOCKED=true;')+'\n')
 (ROOT/'artifact.html').write_text(art)
 
 # ---- checks ---------------------------------------------------------------
@@ -97,8 +99,9 @@ assert js.count('{') == js.count('}'), 'unbalanced braces in artifact script'
 assert 'serviceWorker' not in art, 'SW registration leaked into the artifact'
 assert "const BUILD='%s'" % ver in (play/'index.html').read_text(), 'build id not stamped'
 assert "cache: 'reload'" in (play/'sw.js').read_text(), 'sw is not bypassing the http cache'
-assert 'const LOCKED=true;'  in (play/'index.html').read_text(), 'hosted build is not locked'
-assert 'const LOCKED=false;' in art, 'artifact build must stay unlocked'
+assert 'const LOCKED=true;' in (play/'index.html').read_text(), 'hosted build is not locked'
+assert 'const LOCKED=true;' in art, 'artifact build is not locked'
+assert 'const LOCKED=false;' not in art, 'artifact still carries the unlocked flag'
 # BUILD and LOCKED must live in the BODY script: the artifact is style+body
 # only, and a head-only declaration leaves it referencing an undefined name.
 assert "const BUILD='dev';" in art, 'artifact has no BUILD definition'
