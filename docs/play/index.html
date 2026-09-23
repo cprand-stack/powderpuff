@@ -699,7 +699,7 @@ if('serviceWorker' in navigator){
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='3f574b2457d5';
+const BUILD='9db0f19958b0';
 /* TEMPORARY, until the first practice. build.py flips this to true for the
    hosted PWA only, so the girls get Resources and nothing else while the
    Artifact build stays wide open for Coach Rand and me to keep working on the
@@ -2220,8 +2220,20 @@ const playHidden=pid=>{
   return !!allow && allow.indexOf(pid)<0;
 };
 
+/* One position on the roster means the app can just open on it. Two - or the
+   coaches' everything - stays on 'My position' so the choice is deliberate. */
+function autoFocus(){
+  const p=roleCan().pos;
+  /* Assign, never merge: whoever was here before must not leave her position
+     behind for the next girl. One spot on the roster opens on it; two spots,
+     or a coach with all of them, starts on 'My position'. */
+  FOCUS.offense = (Array.isArray(p) && p.length===1) ? p[0] : '';
+  document.getElementById('field').classList.toggle('focusing', !!focused());
+}
+
 function applyRole(){
   const r=roleCan();
+  autoFocus();
   const off=document.getElementById('tabOffense');
   off.disabled = LOCKED && !canOffense();
   off.setAttribute('aria-disabled', off.disabled);
@@ -2251,7 +2263,8 @@ function applyRole(){
   if(BOOTED && MODE!=='defense' && playHidden(base.id)){
     select(GROUPS.core.plays.find(pid=>!playHidden(pid)) || FORMATION_PLAY);
   }
-  if(BOOTED){ renderPicker(); renderDPicker(); renderWristband(); renderRoster(); }
+  if(BOOTED){ renderPicker(); renderDPicker(); renderWristband(); renderRoster();
+               renderDetail(); drawRoutes(); render(); }
 }
 function setRole(r){
   ROLE=r; try{ localStorage.setItem(ROLE_KEY,r); }catch(e){}
@@ -2301,6 +2314,8 @@ renderWristband();
 renderRoster();
 select(PLAYS[0].id);
 applyRole();
+/* applyRole may have just chosen her position; select() drew before that. */
+if(focused()){ renderPicker(); renderDetail(); drawRoutes(); render(); }
 if(LOCKED && !ROLE) setView('resources');
 document.getElementById('build').textContent='v'+BUILD.slice(0,7);
 BOOTED=true;
