@@ -117,8 +117,13 @@ if('serviceWorker' in navigator){
   #picker select.on,#dpicker select.on{background-color:var(--red); border-color:var(--red); color:var(--white);
     background-image:linear-gradient(45deg,transparent 50%,#fff 50%),linear-gradient(135deg,#fff 50%,transparent 50%)}
   #picker select#pCore.on,#dpicker select#dPlays.on{background-color:var(--black); border-color:var(--black)}
-  #picker select option,#dpicker select option{color:var(--ink); background:var(--white); text-transform:none; letter-spacing:0}
-  #picker select option:disabled{color:var(--muted); font-style:italic}
+  /* What she can open is heavy and black; what she cannot is light grey and
+     italic. Note that iOS renders a select's options in a native wheel that
+     ignores most of this - the optgroup split below is what carries the
+     distinction on a phone. */
+  #picker select option,#dpicker select option{color:var(--ink); background:var(--white);
+    text-transform:none; letter-spacing:0; font-weight:800}
+  #picker select option:disabled,#dpicker select option:disabled{color:#bdb7b3; font-weight:400; font-style:italic}
   #picker select optgroup{color:var(--muted); font-style:italic; font-weight:900; text-transform:none; letter-spacing:0}
   /* A locked group stays on screen so the girls know it is coming, but it
      cannot be opened. No arrow, because there is nothing to drop down. */
@@ -673,7 +678,7 @@ if('serviceWorker' in navigator){
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='c5b55bd8fa95';
+const BUILD='139b57ecf39a';
 /* TEMPORARY, until the first practice. build.py flips this to true for the
    hosted PWA only, so the girls get Resources and nothing else while the
    Artifact build stays wide open for Coach Rand and me to keep working on the
@@ -1889,10 +1894,19 @@ function renderPicker(){
     /* not cut, just not taught yet - same treatment the Special group gets */
     if(laterHidden(pl)) return '<option value="" disabled>'+flipText(pl.name)+' \u2014 coming later</option>';
     /* the other quarterback's play: visible, greyed, and it says why */
-    if(playHidden(pid)) return '<option value="" disabled>'+flipText(pl.name)+' \u2014 not one of yours</option>';
+    /* no per-option suffix: the group it sits in already says it */
+    if(playHidden(pid)) return '<option value="" disabled>'+flipText(pl.name)+'</option>';
     return '<option value="'+pid+'"'+(pid===base.id?' selected':'')+'>'+flipText(pl.name)+'</option>';};
   const onPlay=g.plays.some(pid=>pid===base.id);
-  let html='<option value=""'+(onPlay?'':' selected')+'>'+g.label+'</option>'+g.plays.map(opt).join('');
+  /* A girl on a short list gets two labelled groups instead of one list with
+     some entries faintly greyed - the only thing that reads clearly inside
+     iOS's native picker, which throws away option colours. */
+  const mine=g.plays.filter(pid=>!playHidden(pid)), notMine=g.plays.filter(pid=>playHidden(pid));
+  let html='<option value=""'+(onPlay?'':' selected')+'>'+g.label+'</option>';
+  html += notMine.length
+    ? '<optgroup label="Your plays">'+mine.map(opt).join('')+'</optgroup>'+
+      '<optgroup label="Not yours yet" disabled>'+notMine.map(opt).join('')+'</optgroup>'
+    : g.plays.map(opt).join('');
   /* SPECIAL lives inside this menu now, as a group the girls can see but not
      open yet. Deleting `locked` turns it into a normal section. */
   html+='<optgroup label="'+sp.label+(sp.locked?' \u2014 coming later':'')+'"'+(sp.locked?' disabled':'')+'>'+
@@ -1905,10 +1919,13 @@ function renderPicker(){
   /* a position she does not play stays visible but greyed */
   if(FOCUS.offense && !posAllowed(FOCUS.offense)) FOCUS.offense='';
   const ps=document.getElementById('oPos'), F=FOCUS.offense;
+  const myPos=OPOS.filter(posAllowed), otherPos=OPOS.filter(q=>!posAllowed(q));
+  const optP=q=>'<option value="'+q+'"'+(q===F?' selected':'')+'>'+q+'</option>';
   ps.innerHTML='<option value="">My position</option>'+
-    OPOS.map(q=>posAllowed(q)
-      ? '<option value="'+q+'"'+(q===F?' selected':'')+'>'+q+'</option>'
-      : '<option value="" disabled>'+q+'</option>').join('');
+    (otherPos.length
+      ? '<optgroup label="'+(myPos.length>1?'Your positions':'Your position')+'">'+myPos.map(optP).join('')+'</optgroup>'+
+        '<optgroup label="Everyone else" disabled>'+otherPos.map(q=>'<option value="" disabled>'+q+'</option>').join('')+'</optgroup>'
+      : OPOS.map(optP).join(''));
   ps.classList.toggle('on', !!F);
 }
 
