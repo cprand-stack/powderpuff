@@ -80,14 +80,20 @@ if('serviceWorker' in navigator){
   /* Pills in the red band, shaped like START in the picker below. The one you
      are on is white; the other two are the same light red as the Resources
      cards, with black text. */
-  #viewtabs{display:flex; gap:8px; background:var(--red); padding:9px 16px}
+  #viewtabs{display:flex; align-items:center; gap:5px; background:var(--red); padding:9px 12px}
   #viewtabs button{
     flex:0 1 auto; min-width:0;
-    font:inherit; font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase;
+    font:inherit; font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase;
     color:var(--ink); background-color:#f7c8d2; border:1.5px solid #f0b3c0; border-radius:9px;
-    padding:11px 13px; cursor:pointer; white-space:nowrap;
+    padding:10px 9px; cursor:pointer; white-space:nowrap;
     -webkit-tap-highlight-color:transparent; transition:.12s;
   }
+  /* Her name rides the same bar - white on the red, no pill, so it never
+     reads as a fourth tab. It takes the leftover space and truncates rather
+     than shoving the tabs off a narrow phone. */
+  #tabWho{margin-left:auto; min-width:0; padding-left:6px; color:var(--white);
+    font-size:12px; font-weight:800; letter-spacing:.01em;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
   #viewtabs button:hover{background-color:#fff; border-color:#fff}
   #viewtabs button[aria-selected="true"]{
     background-color:var(--white); border-color:var(--white); color:var(--ink); font-weight:900;
@@ -96,10 +102,11 @@ if('serviceWorker' in navigator){
 
   /* ---------- formation bundles ---------- */
   /* ---------- picker: Start | Plays | Special ---------- */
-  /* START needs far less room than the other two; MY POSITION needs the most,
-     and it now sits in the middle. */
-  /* PLAYS carries the full play name now, so it needs the widest track. */
-  #picker,#dpicker{display:grid; grid-template-columns:0.57fr 1.09fr 1.34fr; gap:8px; max-width:1180px; margin:0 auto; padding:12px 16px 0}
+  /* Reads left to right the way she actually works: pick your position,
+     watch the Start look, then pick a play. START needs far less room than
+     the two menus either side of it; PLAYS carries a full play name, so it
+     gets the widest track. */
+  #picker,#dpicker{display:grid; grid-template-columns:1.09fr 0.57fr 1.34fr; gap:8px; max-width:1180px; margin:0 auto; padding:12px 16px 0}
   /* The controls ride under the header; the animation then stacks under them. */
   #controlbar{position:sticky; top:var(--stick,60px); z-index:6; background:var(--page); padding-bottom:10px}
   #picker button,#picker select,#dpicker button,#dpicker select{
@@ -421,6 +428,12 @@ if('serviceWorker' in navigator){
     .v3d, #legend #btnPlay{width:80px; height:24px; padding:0 8px; font-size:11px; gap:5px}
     .v3d input{width:12px; height:12px}
     header{gap:10px; padding:10px 14px; padding-top:calc(10px + env(safe-area-inset-top))}
+    /* On a phone the bar carries four things, and the longest name on the
+       roster is 'Jacqueline D.' Sized so that one fits at 375px with room
+       to spare rather than landing exactly on the edge. */
+    #viewtabs{gap:4px; padding:9px 10px}
+    #viewtabs button{font-size:10.5px; letter-spacing:.03em; padding:10px 8px}
+    #tabWho{font-size:11.5px; letter-spacing:0; padding-left:5px}
     #logo{height:26px}
     #mascot{height:34px}
     header h1{font-size:14px}
@@ -462,6 +475,7 @@ if('serviceWorker' in navigator){
   <button id="tabOffense" role="tab" aria-selected="true">Offense</button>
   <button id="tabDefense" role="tab" aria-selected="false">Defense</button>
   <button id="tabRes" role="tab" aria-selected="false">Resources</button>
+  <span id="tabWho" hidden></span>
 </div>
 
 
@@ -479,13 +493,13 @@ if('serviceWorker' in navigator){
 
 <div id="controlbar">
 <div id="picker">
-  <button id="pFormation" aria-pressed="true">Start</button>
   <select id="oPos" aria-label="My position"></select>
+  <button id="pFormation" aria-pressed="true">Start</button>
   <select id="pCore" aria-label="Plays"></select>
 </div>
 <div id="dpicker">
-  <button id="dBase" aria-pressed="true">Start</button>
   <select id="dPos" aria-label="My position"></select>
+  <button id="dBase" aria-pressed="true">Start</button>
   <select id="dPlays" aria-label="Plays"></select>
 </div>
 
@@ -678,7 +692,7 @@ if('serviceWorker' in navigator){
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='139b57ecf39a';
+const BUILD='8f6063a11742';
 /* TEMPORARY, until the first practice. build.py flips this to true for the
    hosted PWA only, so the girls get Resources and nothing else while the
    Artifact build stays wide open for Coach Rand and me to keep working on the
@@ -2210,6 +2224,9 @@ function applyRole(){
   const msg=document.getElementById('lockmsg');
   msg.hidden = !off.disabled;
   if(off.disabled) msg.innerHTML='<b>Your looks are on the DEFENSE tab.</b> The plays belong to the offense \u2014 nothing for you to learn there.';
+  const tw=document.getElementById('tabWho');
+  tw.hidden = !LOCKED || !ROLE;
+  tw.textContent = ROLE ? whoName(roleCan()) : '';
   const who=document.getElementById('whoami');
   who.hidden = !LOCKED || !ROLE;
   if(ROLE) document.getElementById('whoamiName').textContent=whoName(roleCan());
