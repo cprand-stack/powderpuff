@@ -712,7 +712,7 @@ if('serviceWorker' in navigator){
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='fecc9c030461';
+const BUILD='48f66be46b89';
 /* TEMPORARY, until the first practice. build.py flips this to true for the
    hosted PWA only, so the girls get Resources and nothing else while the
    Artifact build stays wide open for Coach Rand and me to keep working on the
@@ -1496,7 +1496,7 @@ const DPLAYS = [
   ball:[{kind:'snap',from:'C',to:'QB',t0:.24,t1:.29},{kind:'carry',who:'QB',t0:.29,t1:1}]
 },
 {
-  id:'d-run-left', deadAt:0.86, deadLabel:'●  STOPPED — 2 YARDS', name:'RUN LEFT', kind:'Run', dur:4.6, snapAt:0.24,
+  id:'d-run-left', shelved:true, deadAt:0.86, deadLabel:'●  STOPPED — 2 YARDS', name:'RUN LEFT', kind:'Run', dur:4.6, snapAt:0.24,
   badges:['Contain','Squeeze'],
   summary:'Anything on the ground to your left. LL takes away the outside, D1 takes away the cutback, and everybody else runs to the ball from the inside out.',
   key:'LL outside her. D1 inside her. Nowhere to go.',
@@ -1536,7 +1536,7 @@ const DPLAYS = [
   ball:[{kind:'snap',from:'C',to:'QB',t0:.24,t1:.29},{kind:'pitch',from:'QB',to:'RB',t0:.33,t1:.40},{kind:'carry',who:'RB',t0:.40,t1:.86}]
 },
 {
-  id:'d-run-right', deadAt:0.86, deadLabel:'●  STOPPED — 2 YARDS', name:'RUN RIGHT', kind:'Run', dur:4.6, snapAt:0.24,
+  id:'d-run-right', shelved:true, deadAt:0.86, deadLabel:'●  STOPPED — 2 YARDS', name:'RUN RIGHT', kind:'Run', dur:4.6, snapAt:0.24,
   badges:['Contain','Squeeze'],
   summary:'The same play the other way. RL takes away the outside, D4 takes away the cutback, and RS is already on this side so she gets there first.',
   key:'RL outside her. D4 inside her. Nowhere to go.',
@@ -1576,7 +1576,7 @@ const DPLAYS = [
   ball:[{kind:'snap',from:'C',to:'QB',t0:.24,t1:.29},{kind:'pitch',from:'QB',to:'RB',t0:.33,t1:.40},{kind:'carry',who:'RB',t0:.40,t1:.86}]
 },
 {
-  id:'d-pass-left', deadAt:0.74, deadLabel:'●  KNOCKED DOWN — INCOMPLETE', name:'PASS LEFT', kind:'Pass', dur:4.6, snapAt:0.24,
+  id:'d-pass-left', shelved:true, deadAt:0.74, deadLabel:'●  KNOCKED DOWN — INCOMPLETE', name:'PASS LEFT', kind:'Pass', dur:4.6, snapAt:0.24,
   badges:['Inside leverage','Make it long'],
   summary:'A short quick throw — the kind we run, and the kind they will run. All four of our defenders are inside their receiver, so a 5-yard route has nowhere to break except toward the sideline. That is what makes it hard: the same 5-yard route costs them a 16-yard throw across the field instead of a 12-yard one.',
   key:'Inside her. Push her out. Add four yards to every throw.',
@@ -1616,7 +1616,7 @@ const DPLAYS = [
   ball:[{kind:'snap',from:'C',to:'QB',t0:.24,t1:.29},{kind:'throw',from:'QB',to:'R3',t0:.50,t1:.74},{kind:'incomplete',at:'R3',t0:.74,t1:1,dx:-1.8,dy:-1.5}]
 },
 {
-  id:'d-pass-right', deadAt:0.74, deadLabel:'●  KNOCKED DOWN — INCOMPLETE', name:'PASS RIGHT', kind:'Pass', dur:4.6, snapAt:0.24,
+  id:'d-pass-right', shelved:true, deadAt:0.74, deadLabel:'●  KNOCKED DOWN — INCOMPLETE', name:'PASS RIGHT', kind:'Pass', dur:4.6, snapAt:0.24,
   badges:['Inside leverage','Make it long'],
   summary:'The mirror image. Short routes, inside leverage everywhere, everybody ridden toward the sideline — and a quick throw that has to travel a lot further than they wanted it to.',
   key:'Inside her. Push her out. Add four yards to every throw.',
@@ -2214,15 +2214,17 @@ function renderDPicker(){
   sel.classList.toggle('on', !!FOCUS.defense);
   /* Mirrors the offense picker exactly: the chosen look is genuinely selected,
      so the closed control carries its name. */
-  const pl=document.getElementById('dPlays'), vs=DPLAYS.filter(p=>!p.base);
+  const pl=document.getElementById('dPlays'), vs=DPLAYS.filter(p=>!p.base&&!p.shelved);
   const onPlay=vs.some(p=>p.id===base.id);
-  /* Two different axes - the call we make, and the thing they do about it -
-     so they get two labelled groups rather than one list of eight. */
+  /* Grouped only if there is more than one kind on the menu; right now the
+     four calls are the whole defense, so it stays a flat list. */
   const opt=p=>'<option value="'+p.id+'"'+(p.id===base.id?' selected':'')+'>'+p.name+'</option>';
   const calls=vs.filter(p=>p.call), sits=vs.filter(p=>!p.call);
   pl.innerHTML='<option value=""'+(onPlay?'':' selected')+'>Plays</option>'+
-    '<optgroup label="Our calls">'+calls.map(opt).join('')+'</optgroup>'+
-    '<optgroup label="What they do">'+sits.map(opt).join('')+'</optgroup>';
+    (sits.length
+      ? '<optgroup label="Our calls">'+calls.map(opt).join('')+'</optgroup>'+
+        '<optgroup label="What they do">'+sits.map(opt).join('')+'</optgroup>'
+      : vs.map(opt).join(''));
   pl.classList.toggle('on', onPlay);
 }
 
