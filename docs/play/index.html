@@ -563,7 +563,21 @@ if('serviceWorker' in navigator){
 
 <div id="resDef" class="respage">
   <h2 class="rtitle">Defense Concepts</h2>
-  <p class="rnote">Six things, every snap. These do not change with whatever they call &mdash; learn them once and you are ready for all four looks.</p>
+  <p class="rnote">One alignment, four calls, six habits. <b>Learn the alignment and the six habits and you are already most of the way there.</b></p>
+
+  <h3>The four calls</h3>
+  <p>We line up the same way every single snap: <b>two linemen on the ball, four corners, two safeties behind them.</b> The two linemen rush every time, no matter what. The only thing that changes from call to call is <b>who else is coming and who covers for them.</b></p>
+  <p><b>Coach holds up a movie poster.</b> No shouting, no running a play in from the sideline, no huddle. All eight of you can read it from anywhere on the field &mdash; and the offense sees a picture of an actor and learns nothing.</p>
+  <table class="sched">
+    <tr><td class="sday"><b>FERRELL</b></td><td class="stime">Girl-to-girl</td><td class="swhere"><b>Nobody extra comes.</b> Everybody has her girl. This is the one we live in.</td></tr>
+    <tr><td class="sday"><b>EFRON</b></td><td class="stime">Inside corners</td><td class="swhere">The two <b>inside</b> corners blitz. Both safeties come down and take the slots they left. Outside corners do not move.</td></tr>
+    <tr><td class="sday"><b>REYNOLDS</b></td><td class="stime">Outside corners</td><td class="swhere">The two <b>outside</b> corners blitz off the edges. The safeties go take the sideline girls. Inside corners do not move.</td></tr>
+    <tr><td class="sday"><b>GOSLING</b></td><td class="stime">One safety</td><td class="swhere"><b>One safety comes</b> and nobody else changes a thing. The other safety slides into the middle.</td></tr>
+  </table>
+  <p class="rnote">Will Ferrell means cover. Zac Efron means the inside is coming. Ryan Reynolds means the edges are coming. Ryan Gosling means a safety is coming. <b>Watch all four run on the DEFENSE tab</b> &mdash; same offense every time, so the only thing moving differently is us.</p>
+
+  <h3>Six things, every snap</h3>
+  <p class="rnote">These do not change with the call. Learn them once and you are ready for all four.</p>
   <p class="dmath"><b>They need 10 yards in 4 downs.</b> Hold them to 2 a play and they never convert. There are no fumbles in this rulebook, so we will not strip the ball loose &mdash; <b>our takeaway is the fourth-down stop.</b> Four small wins, not one big one. <b>We do not know what they run, and we do not need to.</b> Every play they own is a run to one side or a throw to one side, and we line up the same way for all four.</p>
   <h3>1 &middot; Contain first</h3>
   <p>Left Line (LL) and Right Line (RL) &mdash; your job is not to get her, it is to make sure she cannot get outside you. The second a ball carrier turns the corner, everything behind you is chasing.</p>
@@ -698,7 +712,7 @@ if('serviceWorker' in navigator){
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='b6a5471058ba';
+const BUILD='fecc9c030461';
 /* TEMPORARY, until the first practice. build.py flips this to true for the
    hosted PWA only, so the girls get Resources and nothing else while the
    Artifact build stays wide open for Coach Rand and me to keep working on the
@@ -1322,6 +1336,166 @@ const DPLAYS = [
   ball:[]
 },
 {
+  id:'d-ferrell', call:true, name:'FERRELL', kind:'Girl-to-girl', dur:4.6, snapAt:0.24,
+  badges:['Base coverage','Everybody has her girl'],
+  key:'Everybody has her girl. Nobody is coming but the two linemen.',
+  summary:'Straight girl-to-girl. The two linemen rush, the four corners cover the four receivers, and both safeties stay home. No gimmick \u2014 this is the one we live in, and the other three calls are this one with somebody sent.',
+  read:'You do not read anything. You find your girl before the snap and you stay on her inside shoulder until the ball is in somebody\u2019s hands.',
+  coach:'If we only ever ran FERRELL we would be fine. The blitzes exist to steal a down, not to fix a problem \u2014 so when in doubt, hold up Will Ferrell and let them earn it. Everybody is covered, nobody is guessing, and the only way they beat us is by making four good plays in a row.',
+  result:'The quarterback holds it. Nobody is open early, and every extra second is a second the two linemen are getting closer.',
+  assign:{
+    LL:'Rush. Contain on your side \u2014 she does not get outside you, ever.',
+    RL:'Rush. Contain on your side. Between the two of you she throws it from where she stands.',
+    D1:'<b>Outside corner.</b> You have the receiver on your sideline. Inside shoulder, run with her, she can have the boundary.',
+    D2:'<b>Inside corner.</b> You have the slot on your side. Inside shoulder the whole way.',
+    D3:'<b>Inside corner.</b> You have the slot on your side. Inside shoulder the whole way.',
+    D4:'<b>Outside corner.</b> You have the receiver on your sideline. Same rule as D1.',
+    LS:'Stay home and own the short middle. Nobody told you to go anywhere on this call.',
+    RS:'Stay deep. Nobody gets behind you. You are the reason the long one is a bad idea.'
+  },
+  us:{
+    LL:[[14.5,1,0],[14.5,1,.24],[16.2,-2,.42],[17.4,-4,.62],[18,-5,.8],[18.2,-5.3,1]],
+    RL:[[23,1,0],[23,1,.24],[23,-2,.42],[22,-4,.62],[21.6,-5,.8],[21.4,-5.3,1]],
+    D1:[[6.2,5,0],[6.2,5,.24],[5.8,6.5,.45],[5.3,8.5,.7],[5,9.4,1]],
+    D2:[[12.8,5,0],[12.8,5,.24],[12.4,6.2,.42],[12,7.4,.62],[11.4,8.2,.8],[11.2,8.6,1]],
+    D3:[[27.2,5,0],[27.2,5,.24],[27.6,6.2,.42],[28,7.4,.62],[28.6,8.2,.8],[28.8,8.6,1]],
+    D4:[[33.8,5,0],[33.8,5,.24],[34.3,6.5,.45],[34.8,8.5,.7],[35,9.4,1]],
+    LS:[[18.5,7,0],[18.5,7,.24],[19,6.6,.45],[19.6,6.4,.7],[20,6.4,1]],
+    RS:[[23,11,0],[23,11,.24],[22,11.6,.45],[21,12.4,.7],[20.6,13,1]]
+  },
+  them:{
+    QB:[[20,-4,0],[20,-4,.24],[20,-5.4,.36],[20,-5.6,.5],[20,-5.6,1]],
+    C:[[20,0,0],[20,0,.24],[20.4,-.8,.45],[20.6,-1.2,1]],
+    G:[[17,0,0],[17,0,.24],[17.6,-1,.45],[17.8,-1.4,1]],
+    RB:[[16,-5.5,0],[16,-5.5,.24],[17.4,-5,.4],[18.4,-4.6,.7],[18.8,-4.4,1]],
+    R1:[[36,0,0],[36,0,.24],[36.4,3,.45],[36.8,6.2,.7],[37,7.4,1]],
+    R2:[[29,-1,0],[29,-1,.24],[29.2,2,.42],[29.6,4.8,.62],[30.4,6,.8],[30.8,6.4,1]],
+    R3:[[11,-1,0],[11,-1,.24],[10.8,2,.42],[10.4,4.8,.62],[9.6,6,.8],[9.2,6.4,1]],
+    R4:[[4,0,0],[4,0,.24],[3.6,3,.45],[3.2,6.4,.7],[3,7.6,1]]
+  },
+  ball:[{kind:'snap',from:'C',to:'QB',t0:.24,t1:.29},{kind:'carry',who:'QB',t0:.29,t1:1}]
+},
+{
+  id:'d-efron', call:true, name:'EFRON', kind:'Inside blitz', dur:4.6, snapAt:0.24,
+  badges:['Inside corners come','Safeties rotate down'],
+  key:'Both inside corners blitz. The safeties come down and take their girls.',
+  summary:'The two inside corners come straight up the middle. The safeties rotate down to pick up the slots they just left, and the outside corners do not move off their girls. Four rushers instead of two, from the shortest distance on the field.',
+  read:'Nothing to read. If you see Zac Efron, inside corners are coming and safeties are coming down.',
+  coach:'This is our fastest pressure \u2014 the inside corners have the shortest run to the quarterback of anybody. <b>The trade is that nobody is left deep.</b> If they get the ball out over our heads it is a long one, so we call this when we want them off schedule, not when they are about to score. Inside corners: go straight at her, do not loop.',
+  result:'Two extra rushers in her face before she has set her feet. She throws it early or she does not throw it at all.',
+  assign:{
+    LL:'Rush as always. Stay outside \u2014 the blitz is coming inside you and she cannot be allowed to escape around the edge.',
+    RL:'Rush as always. Stay outside. You two are the walls; the blitz is the hammer.',
+    D1:'<b>Outside corner \u2014 you do NOT blitz.</b> Stay on your girl exactly like FERRELL. If you leave, the throw she makes under pressure is a touchdown.',
+    D2:'<b>Inside corner \u2014 GO.</b> Straight at the quarterback the second the ball moves. Shortest path, no loop, hands up when you get there.',
+    D3:'<b>Inside corner \u2014 GO.</b> Same thing from your side. You and D2 arrive together.',
+    D4:'<b>Outside corner \u2014 you do NOT blitz.</b> Stay on your girl. Same as FERRELL.',
+    LS:'<b>Come down and take the slot on the left</b> \u2014 D2\u2019s girl. She is yours the moment the ball is snapped, so start moving on the snap, not after you see it.',
+    RS:'<b>Come down and take the slot on the right</b> \u2014 D3\u2019s girl. Same thing, and it means you are no longer deep. Get there fast.'
+  },
+  us:{
+    LL:[[14.5,1,0],[14.5,1,.24],[15.2,-2,.42],[15.8,-4,.62],[16.2,-5,.8],[16.4,-5.3,1]],
+    RL:[[23,1,0],[23,1,.24],[23.6,-2,.42],[23.8,-4,.62],[23.8,-5,.8],[23.8,-5.3,1]],
+    D1:[[6.2,5,0],[6.2,5,.24],[5.8,6.5,.45],[5.3,8.5,.7],[5,9.4,1]],
+    D2:[[12.8,5,0],[12.8,5,.24],[14.2,2,.38],[16,-1,.52],[17.6,-3.4,.68],[18.8,-4.6,.86],[19.2,-5.2,1]],
+    D3:[[27.2,5,0],[27.2,5,.24],[25.8,2,.38],[24,-1,.52],[22.4,-3.4,.68],[21.2,-4.6,.86],[20.8,-5.2,1]],
+    D4:[[33.8,5,0],[33.8,5,.24],[34.3,6.5,.45],[34.8,8.5,.7],[35,9.4,1]],
+    LS:[[18.5,7,0],[18.5,7,.24],[16,6.8,.4],[13.4,7,.6],[11.8,7.6,.8],[11.2,8.2,1]],
+    RS:[[23,11,0],[23,11,.24],[25.4,10,.4],[27.6,9.2,.6],[28.8,8.6,.8],[29,8.4,1]]
+  },
+  them:{
+    QB:[[20,-4,0],[20,-4,.24],[20,-5.4,.36],[20,-5.6,.5],[20,-5.6,1]],
+    C:[[20,0,0],[20,0,.24],[20.4,-.8,.45],[20.6,-1.2,1]],
+    G:[[17,0,0],[17,0,.24],[17.6,-1,.45],[17.8,-1.4,1]],
+    RB:[[16,-5.5,0],[16,-5.5,.24],[17.4,-5,.4],[18.4,-4.6,.7],[18.8,-4.4,1]],
+    R1:[[36,0,0],[36,0,.24],[36.4,3,.45],[36.8,6.2,.7],[37,7.4,1]],
+    R2:[[29,-1,0],[29,-1,.24],[29.2,2,.42],[29.6,4.8,.62],[30.4,6,.8],[30.8,6.4,1]],
+    R3:[[11,-1,0],[11,-1,.24],[10.8,2,.42],[10.4,4.8,.62],[9.6,6,.8],[9.2,6.4,1]],
+    R4:[[4,0,0],[4,0,.24],[3.6,3,.45],[3.2,6.4,.7],[3,7.6,1]]
+  },
+  ball:[{kind:'snap',from:'C',to:'QB',t0:.24,t1:.29},{kind:'carry',who:'QB',t0:.29,t1:1}]
+},
+{
+  id:'d-reynolds', call:true, name:'REYNOLDS', kind:'Outside blitz', dur:4.6, snapAt:0.24,
+  badges:['Outside corners come','Safeties take the sidelines'],
+  key:'Both outside corners blitz off the edge. The safeties take the sideline girls.',
+  summary:'The two outside corners come off the edges. The safeties go out and pick up the receivers on the sidelines, and the inside corners stay exactly where they were on their slots.',
+  read:'Nothing to read. Ryan Reynolds means the edges are coming.',
+  coach:'This one comes from further away than EFRON, so it arrives a beat later \u2014 but it arrives from <b>outside</b>, which is where a quarterback runs when she is flushed. It is our answer to a quarterback who keeps escaping. <b>Be honest about the cost:</b> the safeties have a long way to go to reach the sideline girls, so this is the call that asks the most of them. If their outside receivers are fast, use EFRON instead.',
+  result:'She steps up to escape the edge and runs straight into the two linemen.',
+  assign:{
+    LL:'Rush as always \u2014 and now you matter twice as much. The blitz is coming from outside you, so she will try to step UP. You are standing there.',
+    RL:'Rush as always. Same thing: she is getting squeezed from the edges, so she climbs into you.',
+    D1:'<b>Outside corner \u2014 GO.</b> Off the edge at the quarterback. Come from outside and work in; do not let her get around you to the sideline.',
+    D2:'<b>Inside corner \u2014 you do NOT blitz.</b> Stay on your slot exactly like FERRELL. Nothing about your job changes on this call.',
+    D3:'<b>Inside corner \u2014 you do NOT blitz.</b> Same. Stay on your slot.',
+    D4:'<b>Outside corner \u2014 GO.</b> Off your edge. Same rule as D1 from the other side.',
+    LS:'<b>Take the receiver on the left sideline</b> \u2014 D1\u2019s girl. That is a long way from where you stand, so <b>leave on the snap</b> and run, do not drift.',
+    RS:'<b>Take the receiver on the right sideline</b> \u2014 D4\u2019s girl. Same \u2014 you are deeper than LS, so you have further to go. Go now.'
+  },
+  us:{
+    LL:[[14.5,1,0],[14.5,1,.24],[16.2,-2,.42],[17.4,-4,.62],[18,-5,.8],[18.2,-5.3,1]],
+    RL:[[23,1,0],[23,1,.24],[23,-2,.42],[22,-4,.62],[21.6,-5,.8],[21.4,-5.3,1]],
+    D1:[[6.2,5,0],[6.2,5,.24],[7.6,2.4,.38],[9.8,-.8,.54],[12.4,-3.2,.7],[14.6,-4.8,.88],[15.6,-5.4,1]],
+    D2:[[12.8,5,0],[12.8,5,.24],[12.4,6.2,.42],[12,7.4,.62],[11.4,8.2,.8],[11.2,8.6,1]],
+    D3:[[27.2,5,0],[27.2,5,.24],[27.6,6.2,.42],[28,7.4,.62],[28.6,8.2,.8],[28.8,8.6,1]],
+    D4:[[33.8,5,0],[33.8,5,.24],[32.4,2.4,.38],[30.2,-.8,.54],[27.6,-3.2,.7],[25.4,-4.8,.88],[24.4,-5.4,1]],
+    LS:[[18.5,7,0],[18.5,7,.24],[15,8.6,.4],[11,10.2,.62],[7,9.4,.84],[5.2,8.6,1]],
+    RS:[[23,11,0],[23,11,.24],[27,11,.4],[31,10.8,.62],[34.6,9.8,.84],[35.9,9.2,1]]
+  },
+  them:{
+    QB:[[20,-4,0],[20,-4,.24],[20,-5.4,.36],[20,-5.6,.5],[20,-5.6,1]],
+    C:[[20,0,0],[20,0,.24],[20.4,-.8,.45],[20.6,-1.2,1]],
+    G:[[17,0,0],[17,0,.24],[17.6,-1,.45],[17.8,-1.4,1]],
+    RB:[[16,-5.5,0],[16,-5.5,.24],[17.4,-5,.4],[18.4,-4.6,.7],[18.8,-4.4,1]],
+    R1:[[36,0,0],[36,0,.24],[36.4,3,.45],[36.8,6.2,.7],[37,7.4,1]],
+    R2:[[29,-1,0],[29,-1,.24],[29.2,2,.42],[29.6,4.8,.62],[30.4,6,.8],[30.8,6.4,1]],
+    R3:[[11,-1,0],[11,-1,.24],[10.8,2,.42],[10.4,4.8,.62],[9.6,6,.8],[9.2,6.4,1]],
+    R4:[[4,0,0],[4,0,.24],[3.6,3,.45],[3.2,6.4,.7],[3,7.6,1]]
+  },
+  ball:[{kind:'snap',from:'C',to:'QB',t0:.24,t1:.29},{kind:'carry',who:'QB',t0:.29,t1:1}]
+},
+{
+  id:'d-gosling', call:true, name:'GOSLING', kind:'Safety blitz', dur:4.6, snapAt:0.24,
+  badges:['One safety comes','Everyone else holds'],
+  key:'One safety blitzes. Everybody else plays FERRELL.',
+  summary:'The simplest change we have: one safety comes, and nothing else moves. All four corners stay girl-to-girl exactly as they were, and the other safety slides over to cover the middle the blitzer just left.',
+  read:'Nothing to read. Ryan Gosling means one safety is coming and your job did not change.',
+  coach:'<b>Which safety comes is still open</b> \u2014 we will settle it once we see who we have and who is comfortable running downhill. The version drawn here sends the LEFT safety, because she is the shallower of the two and gets there quickest, with the right safety sliding into the middle behind her. If we flip it, only those two girls learn anything new. <b>That is the whole appeal of this call:</b> six of the eight do not change a thing.',
+  result:'A fifth rusher she did not account for, from a place she was not looking.',
+  assign:{
+    LL:'Rush as always. No change.',
+    RL:'Rush as always. No change.',
+    D1:'<b>No change.</b> Girl-to-girl, inside shoulder, exactly like FERRELL.',
+    D2:'<b>No change.</b> Exactly like FERRELL.',
+    D3:'<b>No change.</b> Exactly like FERRELL.',
+    D4:'<b>No change.</b> Exactly like FERRELL.',
+    LS:'<b>GO.</b> Straight downhill at the quarterback on the snap. You are coming from the one place she is not looking, so do not drift sideways and do not announce it early \u2014 stand where you always stand until the ball moves.',
+    RS:'<b>Slide into the middle</b> and take the ground LS just left. You are the only safety left, so the deep ball is gone \u2014 but so is the short middle if you get there.'
+  },
+  us:{
+    LL:[[14.5,1,0],[14.5,1,.24],[16.2,-2,.42],[17.4,-4,.62],[18,-5,.8],[18.2,-5.3,1]],
+    RL:[[23,1,0],[23,1,.24],[23,-2,.42],[22,-4,.62],[21.6,-5,.8],[21.4,-5.3,1]],
+    D1:[[6.2,5,0],[6.2,5,.24],[5.8,6.5,.45],[5.3,8.5,.7],[5,9.4,1]],
+    D2:[[12.8,5,0],[12.8,5,.24],[12.4,6.2,.42],[12,7.4,.62],[11.4,8.2,.8],[11.2,8.6,1]],
+    D3:[[27.2,5,0],[27.2,5,.24],[27.6,6.2,.42],[28,7.4,.62],[28.6,8.2,.8],[28.8,8.6,1]],
+    D4:[[33.8,5,0],[33.8,5,.24],[34.3,6.5,.45],[34.8,8.5,.7],[35,9.4,1]],
+    LS:[[18.5,7,0],[18.5,7,.24],[18.8,4,.4],[19.2,1,.56],[19.5,-1.6,.72],[19.7,-3.6,.88],[19.8,-4.2,1]],
+    RS:[[23,11,0],[23,11,.24],[22.2,9.4,.42],[21.2,8,.62],[20.6,7,.82],[20.4,6.6,1]]
+  },
+  them:{
+    QB:[[20,-4,0],[20,-4,.24],[20,-5.4,.36],[20,-5.6,.5],[20,-5.6,1]],
+    C:[[20,0,0],[20,0,.24],[20.4,-.8,.45],[20.6,-1.2,1]],
+    G:[[17,0,0],[17,0,.24],[17.6,-1,.45],[17.8,-1.4,1]],
+    RB:[[16,-5.5,0],[16,-5.5,.24],[17.4,-5,.4],[18.4,-4.6,.7],[18.8,-4.4,1]],
+    R1:[[36,0,0],[36,0,.24],[36.4,3,.45],[36.8,6.2,.7],[37,7.4,1]],
+    R2:[[29,-1,0],[29,-1,.24],[29.2,2,.42],[29.6,4.8,.62],[30.4,6,.8],[30.8,6.4,1]],
+    R3:[[11,-1,0],[11,-1,.24],[10.8,2,.42],[10.4,4.8,.62],[9.6,6,.8],[9.2,6.4,1]],
+    R4:[[4,0,0],[4,0,.24],[3.6,3,.45],[3.2,6.4,.7],[3,7.6,1]]
+  },
+  ball:[{kind:'snap',from:'C',to:'QB',t0:.24,t1:.29},{kind:'carry',who:'QB',t0:.29,t1:1}]
+},
+{
   id:'d-run-left', deadAt:0.86, deadLabel:'●  STOPPED — 2 YARDS', name:'RUN LEFT', kind:'Run', dur:4.6, snapAt:0.24,
   badges:['Contain','Squeeze'],
   summary:'Anything on the ground to your left. LL takes away the outside, D1 takes away the cutback, and everybody else runs to the ball from the inside out.',
@@ -1665,12 +1839,12 @@ const POSINFO={
   def:[
     ['LL','Left Line','Contain. You are not trying to chase her down — you are the wall that makes her cut back inside to everybody else. The second a runner gets around your outside shoulder, the whole defense is behind the play.'],
     ['RL','Right Line','The same job as LL, mirrored. Between the two of you nothing gets outside — and that is what turns their run into our tackle.'],
-    ['D1','Defender 1 (far left)','You take the middle away and hand her the sideline. That is not giving something up: every yard she gets pushed toward the boundary makes the throw longer, and long throws get caught less often.'],
-    ['D2','Defender 2 (2nd from left)','The same rule as D1, on the left slot. You start nearer the middle than anybody out wide, so the ground you protect is the most expensive ground on the field.'],
-    ['D3','Defender 3 (2nd from right)','Mirror of D2 on the right — and the right is the side their motion usually runs toward, so you will see traffic first.'],
-    ['D4','Defender 4 (far right)','Mirror of D1, on the right sideline.'],
-    ['LS','Left Safety','Everybody else pushes the ball toward the sidelines, which leaves exactly one door open — and you are standing in it. The short easy throw inside is the only thing that really beats this defense.'],
-    ['RS','Right Safety','You are our insurance. Nobody gets behind you, and you do not commit until you can see where the ball is actually going — guessing early is how a 5-yard play becomes a touchdown.']
+    ['D1','Outside corner (far left)','<b>You are an outside corner</b> \u2014 on REYNOLDS you are one of the two who blitz. The rest of the time you take the middle away and hand her the sideline. That is not giving something up: every yard she gets pushed toward the boundary makes the throw longer, and long throws get caught less often.'],
+    ['D2','Inside corner (left slot)','<b>You are an inside corner</b> \u2014 on EFRON you are one of the two who blitz. Otherwise the same rule as D1, on the left slot. You start nearer the middle than anybody out wide, so the ground you protect is the most expensive ground on the field.'],
+    ['D3','Inside corner (right slot)','<b>You are an inside corner</b> \u2014 on EFRON you blitz with D2. Otherwise a mirror of D2 on the right — and the right is the side their motion usually runs toward, so you will see traffic first.'],
+    ['D4','Outside corner (far right)','<b>You are an outside corner</b> \u2014 on REYNOLDS you blitz with D1. Otherwise a mirror of D1, on the right sideline.'],
+    ['LS','Left Safety','On GOSLING you are the one who comes (for now \u2014 Coach is still deciding). On EFRON and REYNOLDS you rotate down and take a corner\u2019s girl. On FERRELL you stay home: everybody else pushes the ball toward the sidelines, which leaves exactly one door open — and you are standing in it. The short easy throw inside is the only thing that really beats this defense.'],
+    ['RS','Right Safety','On EFRON and REYNOLDS you rotate down and take a corner\u2019s girl; on GOSLING you slide into the middle. On FERRELL you are our insurance. Nobody gets behind you, and you do not commit until you can see where the ball is actually going — guessing early is how a 5-yard play becomes a touchdown.']
   ]
 };
 /* A still of THE LOOK, drawn from the same START table the animation uses.
@@ -2042,8 +2216,13 @@ function renderDPicker(){
      so the closed control carries its name. */
   const pl=document.getElementById('dPlays'), vs=DPLAYS.filter(p=>!p.base);
   const onPlay=vs.some(p=>p.id===base.id);
+  /* Two different axes - the call we make, and the thing they do about it -
+     so they get two labelled groups rather than one list of eight. */
+  const opt=p=>'<option value="'+p.id+'"'+(p.id===base.id?' selected':'')+'>'+p.name+'</option>';
+  const calls=vs.filter(p=>p.call), sits=vs.filter(p=>!p.call);
   pl.innerHTML='<option value=""'+(onPlay?'':' selected')+'>Plays</option>'+
-    vs.map(p=>'<option value="'+p.id+'"'+(p.id===base.id?' selected':'')+'>'+p.name+'</option>').join('');
+    '<optgroup label="Our calls">'+calls.map(opt).join('')+'</optgroup>'+
+    '<optgroup label="What they do">'+sits.map(opt).join('')+'</optgroup>';
   pl.classList.toggle('on', onPlay);
 }
 
