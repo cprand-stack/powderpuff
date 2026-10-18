@@ -712,7 +712,7 @@ if('serviceWorker' in navigator){
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='48f66be46b89';
+const BUILD='14760ec41a53';
 /* TEMPORARY, until the first practice. build.py flips this to true for the
    hosted PWA only, so the girls get Resources and nothing else while the
    Artifact build stays wide open for Coach Rand and me to keep working on the
@@ -855,35 +855,35 @@ const PLAYS = [
 {
   id:'jet-right', core:true, name:'JET', kind:'Run', dur:4.6, snapAt:0.28,
   badges:['One handoff','Edge'],
-  key:'RB at FULL speed. Cradle up. Get to the sideline, then turn up.',
+  key:'RB at FULL speed. Cradle up. Beat B2 to the corner, then turn up.',
   summary:'RB is at full speed as the ball is snapped, takes it from the QB’s extended hands, and gets to the sideline. Our only handoff play in the entire offense.',
   result:'12–15 yards if the edge gets sealed.',
-  read:'If the outside defender lines up inside of R3, the sideline is open — keep running. If she is wide and deep, cut it up early inside of her.',
+  read:'<b>It is a race to the corner between you and B2</b>, and C has already chipped her to slow her down. If you are in front of her, keep going and turn up the sideline. If she somehow beat you out there, cut it up inside of her — R3 has walled off everything in the middle.',
   coach:'This is the only exchange we have, and it is two jobs happening at once. <b>The QB presents the ball with both hands</b>, arms extended, and holds it still — she does not chase the RB with it. <b>The RB makes a cradle</b> and runs through it. Neither girl reaches for the other. If the ball hits the ground the play is dead where it fell. 25 handoff reps every single practice.',
   assign:{
-    RB:'Start left. On the signal, jet motion right — be at FULL SPEED as the ball is snapped. <b>Make your cradle before you get there:</b> inside elbow up across your chest, outside arm underneath, palms open — a basket she can lay the ball into. Run through her extended hands and let the ball arrive. <b>Do not reach for it and do not look down.</b> Clamp both arms the instant you feel it, then get to the sideline and turn it up.',
+    RB:'<b>Your only race is with B2 to the corner.</b> Start left. On the signal, jet motion right — be at FULL SPEED as the ball is snapped. <b>Make your cradle before you get there:</b> inside elbow up across your chest, outside arm underneath, palms open — a basket she can lay the ball into. Run through her extended hands and let the ball arrive. <b>Do not reach for it and do not look down.</b> Clamp both arms the instant you feel it, then get to the sideline and turn it up.',
     QB:'Catch the snap and <b>present the ball with both hands</b>, arms extended out into her path, nose of the ball pointed at her cradle. <b>Hold it still and let her run through it</b> — do not reach toward her, do not follow her with it, do not slap it in. She takes it out of your hands. Then carry out the fake to your left.',
-    C:'Snap, then screen right. Get in the first defender’s path.',
+    C:'Snap, then <b>get a piece of B2</b> — the rusher just outside you on the right. You are not going to block her for the whole play and you are not supposed to. <b>Chip her:</b> step right on the snap, hit her as she crosses your face, knock her off her line, then let her go and release upfield. One good bump is the difference between RB beating her to the corner and getting caught at it.',
     G:'Release right and lead her. Arms at your sides — get in the way of whoever shows up first.',
-    R3:'You are the most important blocker on the play. Step at the outside defender, then get in her way and stay in it.',
+    R3:'<b>Block INSIDE.</b> Do not go out to the sideline — turn in and take <b>L2</b>, the linebacker coming across from the middle. She is the one who runs RB down from behind if nobody touches her. Get on her and stay on her, arms at your sides, all the way to the sideline. <b>Walling her off is what lets RB bounce outside.</b>',
     R4:'Stalk the outside defender. Keep her outside — never let her come underneath you.',
     'R1 R2':'Backside. Run off and clear out. If it breaks back, be an outlet.'
   },
   off:{
     RB:[[16,-5.5,0],[18,-5.3,.16],[20.5,-5,.28],[23,-4.6,.35],[28,-3.6,.48],[32.5,-2,.6],[35.5,1.5,.72],[36.5,7,.85],[37,13,1]],
-    QB:[[20,-4,0],[20,-4,.28],[21.5,-4.3,.34],[22.5,-4.4,.4],[19,-5.5,.55],[14,-6.5,.75],[11,-7,1]],
-    C:[[20,0,0],[20,0,.28],[22,1,.42],[24.5,1.6,.62],[26,2,1]],
+    QB:[[20,-4,0],[20,-4,.28],[21.5,-4.3,.34],[22.5,-4.4,.4],[19,-4.8,.55],[15,-4.6,.75],[12,-4.6,1]],
+    C:[[20,0,0],[20,0,.28],[21.5,.3,.32],[22.6,-.2,.36],[23.2,-.4,.41],[24,-.6,.47],[24.8,.2,.56],[25.8,1.2,.72],[26.6,1.9,.9],[27,2.4,1]],
     G:[[17,0,0],[17,0,.28],[21,.8,.42],[26,1.6,.6],[30,2.2,.8],[33,3,1]],
-    R3:[[29,-1,0],[29,-1,.28],[30,1.5,.4],[31.5,3,.55],[33,3.5,.75],[34,4,1]],
-    R4:[[36,0,0],[36,0,.28],[36.5,2.5,.42],[36,4,.6],[35.5,5.5,1]],
+    R3:[[29,-1,0],[29,-1,.28],[28.8,1.6,.4],[29,3.4,.5],[29.8,4.1,.58],[30.6,4.3,.7],[31.6,4.4,.85],[31.7,5.8,1]],
+    R4:[[36,0,0],[36,0,.28],[35.8,2.4,.42],[35,3.6,.58],[34.6,5.2,.75],[34.6,7,.9],[34.8,8.6,1]],
     R1:[[4,0,0],[4,0,.28],[5,6,.55],[6,11,1]],
     R2:[[11,-1,0],[11,-1,.28],[12,4,.55],[13,8,1]]
   },
   def:{
     B1:[[17.5,1.5,0],[17.5,1.5,.28],[15.5,-3.5,.45],[17,-6,.65],[22,-7,.85],[26,-7,1]],
-    B2:[[22.5,1.5,0],[22.5,1.5,.28],[24,-2.5,.42],[26,-4.5,.58],[29,-5,.75],[32,-4.5,1]],
+    B2:[[22.5,1.5,0],[22.5,1.5,.28],[23.2,-.2,.36],[23.6,-1.2,.44],[24.2,-2.4,.54],[26,-4.2,.66],[29,-5,.8],[32,-4.5,1]],
     L1:[[16,6,0],[16,6,.28],[19,5,.45],[24,4,.65],[29,3.5,.85],[32,4.5,1]],
-    L2:[[24,6,0],[24,6,.28],[27,5,.45],[31,4.5,.65],[33.5,5.5,.85],[35,8,1]],
+    L2:[[24,6,0],[24,6,.28],[27,5,.45],[30.2,4.6,.65],[31.6,4.8,.85],[32.2,5.2,1]],
     D3:[[28,6,0],[28,6,.28],[30,5,.4],[32,4.5,.6],[32.5,4.2,.75],[33,4.5,1]],
     D4:[[35,7,0],[35,7,.28],[36,5.5,.42],[34.5,3.5,.6],[34,6,.8],[34.5,11,1]],
     D1:[[5,7,0],[5,7,.28],[6,10,.5],[8,14,1]],
