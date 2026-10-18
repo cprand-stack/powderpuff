@@ -546,6 +546,7 @@ if('serviceWorker' in navigator){
   <h2 class="rtitle">Resources</h2>
   <p class="rnote">Everything that is not a play. Pick one.</p>
   <div class="rgrid">
+    <button class="rcard" data-res="start"><b>Starting the Game</b><span>The coin flip, our first three plays, and what the defense opens with.</span></button>
     <button class="rcard" data-res="roster"><b>Roster</b><span>Who is playing where. Offense is assigned; defense is still to come.</span></button>
     <button class="rcard" data-res="sched"><b>Schedule</b><span>Every practice through game day, fall break included.</span></button>
     <button class="rcard" data-res="pos"><b>Positions</b><span>Every spot on offense and defense, what it is called and what it does.</span></button>
@@ -667,6 +668,27 @@ if('serviceWorker' in navigator){
 
   <h3>Unsportsmanlike Conduct</h3>
   <p>Disrespectful behavior towards a referee or coach/adult can result in a 15-yard penalty for the offending team. The offending player may also be ejected for the rest of the game.</p>
+</div>
+
+<div id="resStart" class="respage">
+  <h2 class="rtitle">Starting the Game</h2>
+  <p class="rnote">Three things to know before the first snap. <b>Read this one on the bus.</b></p>
+
+  <h3>1 &middot; The coin flip</h3>
+  <p><b>If we win the toss, we take the ball.</b> We want to start on offense and we want to <b>take our time</b> &mdash; use the whole play clock, line up without rushing, and make them stand there. Managing the clock is part of the game plan, not a thing we do only when we are ahead.</p>
+  <p class="rnote">If we lose the toss, nothing changes about your job. Defense goes out, we get the ball soon enough.</p>
+
+  <h3>2 &middot; Offense &mdash; our first three plays</h3>
+  <p>These are the three we open with, so these are the three to have cold:</p>
+  <table class="sched">
+    <tr><td class="sday"><b>JET</b></td><td class="stime">Run</td><td class="swhere">RB at full speed, cradle up, beat B2 to the corner.</td></tr>
+    <tr><td class="sday"><b>MID</b></td><td class="stime">Run</td><td class="swhere">QB reads the middle. G widens B1 left, RB blocks B2.</td></tr>
+    <tr><td class="sday"><b>MOTION R</b></td><td class="stime">Run</td><td class="swhere">R3 motions in and takes the pitch. RB gets B2, R3 cuts up.</td></tr>
+  </table>
+  <p class="rnote">Notice all three are runs. <b>That is on purpose</b> &mdash; they are the plays that work without anything having to go right in the air, and they are how we take our time.</p>
+
+  <h3>3 &middot; Defense &mdash; what we open with</h3>
+  <p><b>Coaches to update.</b> The call will be one of the four posters &mdash; FERRELL, EFRON, REYNOLDS or GOSLING &mdash; and you will see it on the sideline before the snap. Until then, know your alignment: <b>two linemen on the ball, four corners, two safeties.</b></p>
 </div>
 
 <div id="resRoster" class="respage">
@@ -813,9 +835,9 @@ const PLAYS = [
   coach:'We do not call middle or bounce from the sideline — the QB decides after the snap. That is the whole point of this play. And if a team keeps over-chasing the jet, the LEFT side will be wide open: that is when we hit Flip and run this the other way.',
   assign:{
     QB:'Catch the snap and take two easy steps back like you are throwing. Let the rush run past you. Then read the middle and go — straight if it is open, right around C and RB if it is not. Two hands on the ball the whole way.',
-    C:'Snap it, then get in the way of the rusher to your right — and keep working right, staying in front of her. If the QB bounces, you are the INSIDE wall of her alley.',
-    G:'Get in the way of the rusher to your left. Arms at your sides. You are building the left wall of her lane.',
-    RB:'Full-speed jet motion right and run through the QB\u2019s extended hands like you are taking the handoff \u2014 cradle and all. You will not get it. Then square up on the rusher coming off their right side and stay in her way. Same job every single time \u2014 you cannot know which way the QB is going, so you never have to guess.',
+    C:'Snap it, then <b>chip B2</b>, the rusher to your right — one good bump as she crosses your face to knock her off her line. <b>You are not her real block; RB is.</b> After the chip, work right and stay in front: if the QB bounces, you are the INSIDE wall of her alley.',
+    G:'<b>Block B1, the rusher to your left, and drive her LEFT.</b> Get on her and stay on her — every step she ends up further left is another foot of hole for the QB to run through. Arms at your sides. You are building the left wall of her lane.',
+    RB:'Full-speed jet motion right and run through the QB\u2019s extended hands like you are taking the handoff \u2014 cradle and all. You will not get it. <b>Then block B2, the rusher coming off their right side — you are her real block.</b> C only gets a chip on her; you are the one who has to stay in her way. Same job every single time \u2014 you cannot know which way the QB is going, so you never have to guess.',
     'R1 R2 R3 R4':'Sprint straight downfield 12+ yards and take your defender with you. <b>The moment she figures out it is a run and turns back toward the ball, get in her way.</b> Put yourself between her and the runner and stay there \u2014 <b>arms at your sides</b>, feet moving. You are screening her, not pushing her: hands or arms on her is a five-yard penalty.'
   },
   variants:[
@@ -825,13 +847,13 @@ const PLAYS = [
       result:'8–12 yards. Our best short-yardage play.',
       assign:{
         QB:'Both rushers came upfield past you and the middle is empty. Go straight — right between C and G — and do not stop until somebody touches your flag.',
-        G:'Your girl is on your left. <b>Work her toward the LEFT sideline.</b> Keep your body between her and the middle and keep taking a step that way — every step she ends up further left is another foot of daylight for the QB. <b>Arms at your sides</b>, feet moving: screening is legal, pushing is a five-yard penalty.',
-        C:'Snap it, then take the rusher on your right and <b>work her toward the RIGHT sideline</b> — the mirror of what G is doing. <b>Arms at your sides</b>, just keep taking the space she wants. Between the two of you, you are widening the gap the QB runs straight through.'
+        G:'<b>B1 is yours, and she is the hole.</b> Get on her and work her toward the LEFT sideline. Keep your body between her and the middle and keep taking a step that way — every step she ends up further left is another foot of daylight for the QB. <b>Arms at your sides</b>, feet moving: screening is legal, pushing is a five-yard penalty.',
+        C:'Snap it and <b>chip B2</b> on your way past — a bump to slow her, nothing more. <b>RB is her real block.</b> Then work right and stay in front, so if the QB has to bounce she has a wall on that side. <b>Arms at your sides</b> the whole time.'
       },
       off:{
         QB:[[20,-4,0],[20,-4,.28],[19.6,-5.2,.37],[19.8,-5.4,.45],[20,-2,.56],[20.4,2,.66],[21,6.5,.79],[21.7,10,.92],[21.8,11.5,1]],
-        C:[[20,0,0],[20,0,.28],[21.5,.6,.42],[23,1.2,.62],[23.5,1.4,1]],
-        G:[[17,0,0],[17,0,.28],[16,.6,.42],[15,1.2,.62],[14.5,1.4,1]],
+        C:[[20,0,0],[20,0,.28],[21.4,.3,.32],[22.5,0,.36],[23.2,-.5,.41],[23.6,-.2,.48],[23.8,.4,.6],[24,1.1,.8],[24.1,1.6,1]],
+        G:[[17,0,0],[17,0,.28],[16.9,-.3,.35],[16,-2.7,.45],[14.7,-5.2,.6],[12.9,-6.3,.8],[13.8,-3.9,1]],
         RB:[[16,-5.5,0],[18,-5.3,.16],[20.5,-5.2,.28],[21.5,-5.1,.33],[22.8,-4.6,.4],[23.8,-3.6,.48],[24.4,-3,.56],[24.8,-3.3,.66],[25.5,-3.8,.78],[26.4,-4,.9],[27,-4,1]],
         R1:[[4,0,0],[4,0,.28],[3.5,6,.5],[3,12,.75],[3,16,1]],
         R2:[[11,-1,0],[11,-1,.28],[10.5,5,.5],[10,11,.75],[10,14,1]],
@@ -898,22 +920,22 @@ const PLAYS = [
   read:'Watch whether their defender chases R3 across. If she does, R3\u2019s old spot is empty and this is free yards. If she stays out there instead, the motion did not work \u2014 take whatever the lead blocker gives you and get down.',
   coach:'The whole play happens before the snap. We are not tricking anybody afterwards \u2014 we are walking a defender out of the spot we want and then running to that spot. Line all three of you up straight behind the ball \u2014 stacked like that, nothing about where we stand tells them which way we are going. And take your time with the shift and the motion; there is no clock pressure and no penalty for it. And the pitch is short and BACKWARD, same as SCISSORS LEFT: if it hits the ground it is dead right where it lands.',
   assign:{
-    R3:'Start out wide where you always line up. On the signal, motion all the way in and set up straight behind RB, so the QB, RB and you are stacked in one line. At the snap take the pitch and follow her \u2014 and do not cut up early. Keep bouncing out toward the sideline. Your defender came inside with you and R4 has taken the deep one away, so that whole side of the field is empty. Run to the empty part, not into the crowd.',
-    RB:'On the signal, shift over and line up straight behind the QB. You are the lead blocker on this one. At the snap sprint right and take the first defender who shows. Do not look for the ball \u2014 R3 is behind you and your only job is to clear her path.',
+    R3:'Start out wide where you always line up. On the signal, motion all the way in and set up behind RB. At the snap take the pitch and follow her. <b>Watch her block on B2 \u2014 the moment she has her, cut UP.</b> You no longer have to run all the way to the sideline: once your blocker owns the edge defender, turning upfield early is faster and gets you more. Your defender came inside with you and R4 has taken the deep one away, so that side is empty.',
+    RB:'On the signal, shift over onto the QB\u2019s <b>RIGHT HIP</b> \u2014 beside her and half a step back, not straight behind her. That is the angle that gets you out in front fast. At the snap sprint right and <b>get on B2 early</b>: she is the one who can beat R3 to the corner, and the sooner you have her the sooner R3 can cut up. Do not look for the ball \u2014 your only job is to clear the path.',
     QB:'Catch the snap and pitch it back and to your right, out in front of R3 so she runs onto it. Soft and low, never forward. <b>Then turn and go block B1</b> \u2014 the rusher who came through on G\u2019s side. G bumps her at the line and then climbs to the linebacker, so B1 is the one still chasing R3 from behind and nobody else has her. Get in front of her and stay in front of her all the way to the sideline. Arms at your sides, feet moving \u2014 you do not have to knock her down, just be in the way.',
     C:'Snap it, then sprint RIGHT. Get a hit on the rusher in front of you as you go past her, then keep running and find their linebacker on that side. Do not stop at the line \u2014 R3 is going all the way to the sideline and you are going with her.',
     G:'Sprint RIGHT with C. Bump the rusher on your side as you release, then climb up and take the inside linebacker. Two of you out in front of her is what makes this play work.',
     R4:'Deep post. Drive straight at your defender, then break inside and keep going deep. You will not get the ball \u2014 your job is to take her as far out of this play as she will go.',
     'R1 R2':'Backside. Run straight downfield and take your defenders with you.'
   },
-  key:'Motion empties the inside, the post empties the edge \u2014 bounce all the way out.',
+  key:'Motion empties the inside. RB gets B2, and R3 cuts up the second she does.',
   result:'8+ yards without anybody laying a hand on her. Both defenders on that side were removed before the ball was snapped.',
   off:{
-    R3:[[29,-1,0],[29,-1,.14],[26,-3.5,.2],[23,-6.2,.26],[20.6,-8.1,.31],[20,-8.5,.34],[21,-8.3,.41],[22.3,-8,.47],[24.5,-7.6,.55],[27,-6.8,.63],[30,-6,.69],[33,-5.4,.76],[35.5,-4.2,.82],[37.5,-2.4,.88],[38.2,.5,.93],[38.3,3.5,.97],[38.3,7,1]],
-    RB:[[16,-5.5,0],[16,-5.5,.04],[17.8,-6,.1],[19.4,-6.4,.16],[20,-6.5,.2],[20,-6.5,.34],[22,-6.2,.42],[25,-5,.52],[27.5,-3.8,.6],[29.5,-2.8,.68],[31,-2,.74],[33,-1.2,.84],[34.5,-.2,.94],[35.2,.8,1]],
+    R3:[[29,-1,0],[29,-1,.14],[26,-3.5,.2],[23.8,-6.2,.26],[21.9,-8.1,.31],[21.4,-8.4,.34],[22.2,-8.2,.41],[23.4,-7.8,.47],[25.4,-7.2,.55],[27.6,-6.4,.63],[30,-5.6,.69],[32.4,-4.4,.75],[34,-2.4,.81],[34.8,.2,.87],[35.2,3.2,.92],[35.4,6.2,.96],[35.6,9.5,1]],
+    RB:[[16,-5.5,0],[16,-5.5,.04],[17.8,-6,.1],[19.6,-5.8,.16],[21.6,-5.2,.24],[21.6,-5.2,.34],[23,-4.6,.42],[24.8,-3.4,.5],[26,-2.4,.58],[27.6,-2.2,.66],[29.4,-2.3,.74],[31,-2,.82],[32.4,-1.6,.91],[33.2,-1.2,1]],
     QB:[[20,-4,0],[20,-4,.34],[20,-4,.47],[19.6,-3.2,.54],[19.6,-2.4,.6],[21,-3.4,.7],[22.6,-4,.78],[24.5,-4.4,.88],[26,-4.7,1]],
-    C:[[20,0,0],[20,0,.34],[21.6,.1,.4],[23.5,-.4,.46],[26,.6,.55],[29.5,2.2,.65],[32.5,3.6,.74],[34.8,4.8,.84],[36,5.8,.92],[36.8,6.6,1]],
-    G:[[17,0,0],[17,0,.34],[17.9,.5,.42],[18.8,.6,.48],[20.5,1.6,.56],[23,3,.66],[25.2,4.2,.76],[26.6,4.8,.87],[27.6,5.2,1]],
+    C:[[20,0,0],[20,0,.34],[21.6,.1,.4],[23.5,-.4,.46],[26,.6,.55],[29.5,2.2,.65],[32.5,3.6,.74],[34.8,4.8,.84],[36.4,5.6,.92],[37.4,6.2,1]],
+    G:[[17,0,0],[17,0,.34],[18.1,.2,.42],[19.4,.5,.48],[21.5,1.2,.56],[24,2.6,.66],[25.8,4,.76],[27,4.8,.87],[27.8,5.2,1]],
     R4:[[36,0,0],[36,0,.34],[36,4,.46],[35,9,.58],[32,14,.72],[28,17.5,.88],[25.5,19,1]],
     R1:[[4,0,0],[4,0,.34],[4,6,.55],[4,12,.8],[4,15,1]],
     R2:[[11,-1,0],[11,-1,.34],[11,5,.55],[11,11,.8],[11,14,1]]
@@ -935,12 +957,12 @@ const PLAYS = [
   badges:['Lefty pitch','Shift + motion','QB keeps the fake'],
   summary:'The exact mirror of MOTION RIGHT, run by a left-handed quarterback. RB slides over behind the QB as the lead blocker, and R2 motions all the way in and stacks up behind her as the new ball carrier. Her defender follows her inside \u2014 and the spot she just left is exactly where we run.',
   read:'Watch whether their defender chases R2 across. If she does, R2\u2019s old spot is empty and this is free yards. If she stays out there instead, the motion did not work \u2014 take whatever the lead blocker gives you and get down.',
-  coach:'Same play as MOTION RIGHT with the ball going the other way, so if they know one they know both. <b>One real difference:</b> on MOTION RIGHT the Guard pulls and the QB cleans up behind her; here the Guard stays home on B1 and the QB keeps the fake instead. It exists because the pitch is a <b>backward, left-handed flip</b> \u2014 natural for a lefty, awkward for a righty. Line all three of you up straight behind the ball; stacked like that, nothing about where we stand tells them which way we are going. Take your time with the shift and the motion \u2014 there is no clock pressure and no penalty for it. And the pitch is short and BACKWARD: if it hits the ground it is dead right where it lands.',
+  coach:'Same play as MOTION RIGHT with the ball going the other way, so if they know one they know both. <b>Same blocking idea both ways:</b> the lineman on the play side chips the rusher, RB makes the real block on her, and the ball carrier cuts up the moment that block lands. The one difference is the QB \u2014 on MOTION RIGHT she blocks B1, here she keeps the fake to the right instead. It exists because the pitch is a <b>backward, left-handed flip</b> \u2014 natural for a lefty, awkward for a righty. Line all three of you up straight behind the ball; stacked like that, nothing about where we stand tells them which way we are going. Take your time with the shift and the motion \u2014 there is no clock pressure and no penalty for it. And the pitch is short and BACKWARD: if it hits the ground it is dead right where it lands.',
   assign:{
-    R2:'Start out wide where you always line up. On the signal, motion all the way in and set up straight behind RB, so the QB, RB and you are stacked in one line. At the snap take the pitch and follow her \u2014 and do not cut up early. Keep bouncing out toward the left sideline. Your defender came inside with you and R1 has taken the deep one away, so that whole side of the field is empty. Run to the empty part, not into the crowd.',
-    RB:'On the signal, shift over and line up straight behind the QB \u2014 <b>exactly the same shift you make on MOTION RIGHT.</b> Nothing about it tells them which way this is going. <b>You are the only lead blocker out in front</b>, so this one is on you. At the snap sprint LEFT and stay ahead of R2 the whole way, taking the first defender who shows. Do not look for the ball \u2014 your only job is to clear her path to the sideline.',
+    R2:'Start out wide where you always line up. On the signal, motion all the way in and set up behind RB. At the snap take the pitch and follow her. <b>The moment she has somebody blocked in front of you, cut UP.</b> You do not have to run all the way to the sideline: turning upfield early is faster and gets you more. Your defender came inside with you and R1 has taken the deep one away, so that side is empty.',
+    RB:'On the signal, shift over onto the QB\u2019s <b>LEFT HIP</b> \u2014 beside her and half a step back, the mirror of what you do on MOTION RIGHT. At the snap sprint LEFT and <b>get on B1 early</b>: G chips her, but you are her real block, and she is the one who can beat R2 to the corner. The sooner you have her the sooner R2 can cut up. Do not look for the ball \u2014 your only job is to clear the path.',
     QB:'Catch the snap and pitch it back and to your LEFT, out in front of R2 so she runs onto it. Soft and low, never forward \u2014 it is the natural flip for your left hand. <b>Then run RIGHT like you kept it.</b> Unlike MOTION RIGHT you do not block on this one: G and C both have their rusher, and the fake is worth more. Sell it \u2014 tuck your arm and go, and every defender who looks at you is one who is not chasing R2.',
-    G:'<b>Line up exactly where you always do</b>, just left of the Center, and take <b>B1</b> \u2014 your rusher on every single play. <b>Do not pull on this one.</b> B1 is the one defender with a straight line to R2, so stay with her and keep her behind you all the way. Arms at your sides, feet moving.',
+    G:'<b>Line up exactly where you always do</b>, just left of the Center. <b>Chip B1</b> on your way past \u2014 one bump to knock her off her line \u2014 then <b>climb to L2</b>, the linebacker coming across from the middle. <b>RB is B1\u2019s real block;</b> you are the bump plus the next body downfield. Arms at your sides.',
     C:'Snap, then <b>turn RIGHT and wall B2</b> \u2014 exactly the same turn you make on every other play. <b>You never pull on this one.</b> B2 is the one who chases the play down from behind, and staying right puts you directly in her way. Ride her and keep her behind you. Arms at your sides.',
     R1:'Deep post. Drive straight at your defender, then break inside and keep going deep. You will not get the ball \u2014 your job is to take her as far out of this play as she will go.',
     'R3 R4':'Backside. Run straight downfield and take your defenders with you.'
@@ -948,10 +970,10 @@ const PLAYS = [
   key:'Motion empties the inside, the post empties the edge \u2014 bounce all the way out.',
   result:'8+ yards without anybody laying a hand on her. Both defenders on that side were removed before the ball was snapped.',
   off:{
-    R2:[[11,-1,0],[11,-1,.14],[14,-3.5,.2],[17,-6.2,.26],[19.4,-8.1,.31],[20,-8.5,.34],[19,-8.3,.41],[17.7,-8,.47],[15.5,-7.6,.55],[13,-6.8,.63],[10,-6,.69],[7,-5.4,.76],[4.5,-4.2,.82],[2.5,-2.4,.88],[1.8,.5,.93],[1.7,3.5,.97],[1.7,7,1]],
-    RB:[[16,-5.5,0],[16,-5.5,.04],[17.8,-6,.1],[19.4,-6.4,.16],[20,-6.5,.2],[20,-6.5,.34],[18,-6.2,.42],[15,-5.6,.52],[12,-5,.6],[9.5,-4.2,.68],[7.5,-3.4,.74],[5.5,-2.4,.84],[4.2,-1.4,.94],[3.6,-.6,1]],
+    R2:[[11,-1,0],[11,-1,.14],[14,-3.5,.2],[16.2,-6.2,.26],[18.1,-8.1,.31],[18.6,-8.4,.34],[17.8,-8.2,.41],[16.6,-7.8,.47],[14.6,-7.2,.55],[12.4,-6.4,.63],[10,-5.6,.69],[7.6,-4.4,.75],[6,-2.4,.81],[5.2,.2,.87],[4.8,3.2,.92],[4.6,6.2,.96],[4.4,9.5,1]],
+    RB:[[16,-5.5,0],[16,-5.5,.04],[17,-5.8,.1],[18,-5.6,.16],[18.4,-5.2,.24],[18.4,-5.2,.34],[16.8,-4.4,.42],[15,-3.4,.52],[13.6,-2.5,.6],[11.8,-2.3,.68],[10,-2.4,.76],[8.4,-2,.85],[7,-1.6,.94],[6.2,-1.2,1]],
     QB:[[20,-4,0],[20,-4,.34],[20.4,-4.6,.42],[21.5,-5,.52],[23.5,-5.4,.66],[25.5,-5.6,.82],[26.5,-5.7,1]],
-    G:[[17,0,0],[17,0,.34],[16.2,-.6,.44],[14.6,-1.9,.54],[12.7,-2.6,.64],[10.7,-2.7,.72],[9.1,-2.2,.78],[7.2,-1.5,.88],[5.6,-.7,1]],
+    G:[[17,0,0],[17,0,.34],[17.2,.4,.4],[16.6,1.4,.5],[16,3,.6],[15.4,4.6,.72],[14.6,5.4,.85],[13.6,5.6,1]],
     C:[[20,0,0],[20,0,.34],[21,-.8,.42],[21.6,-1.6,.5],[21,-2.6,.6],[19.4,-3.6,.72],[17,-4.4,.86],[14.8,-4.9,1]],
     R1:[[4,0,0],[4,0,.34],[4,4,.46],[5,9,.58],[8,14,.72],[12,17.5,.88],[14.5,19,1]],
     R4:[[36,0,0],[36,0,.34],[36,6,.55],[36,12,.8],[36,15,1]],
@@ -2325,7 +2347,7 @@ document.getElementById('pCore').onchange=e=>{ if(e.target.value) select(e.targe
 document.getElementById('btnPlay').onclick=()=>{if(t>=1){t=0;holdUntil=0;}playing=!playing;setBtn();};
 document.getElementById('scrub').oninput=e=>{t=e.target.value/1000;holdUntil=0;playing=false;setBtn();render();};
 
-const RESPAGES={home:'resHome', pos:'resPos', rules:'resRules', defense:'resDef', wrist:'wristband', sched:'resSched', roster:'resRoster'};
+const RESPAGES={home:'resHome', pos:'resPos', rules:'resRules', defense:'resDef', wrist:'wristband', sched:'resSched', roster:'resRoster', start:'resStart'};
 function showResource(which){
   for(const k in RESPAGES) document.getElementById(RESPAGES[k]).classList.toggle('on', k===which);
   /* the back button only exists once you are inside a page */
