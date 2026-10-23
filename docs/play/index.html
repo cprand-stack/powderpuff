@@ -734,7 +734,7 @@ if('serviceWorker' in navigator){
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='085a5eb24ae4';
+const BUILD='a5fc5ef1e209';
 /* TEMPORARY, until the first practice. build.py flips this to true for the
    hosted PWA only, so the girls get Resources and nothing else while the
    Artifact build stays wide open for Coach Rand and me to keep working on the
@@ -749,26 +749,23 @@ const LOCKED=true;
    plays : the only plays she may open. null = everything she is otherwise
            allowed - which is all of them right now.                        */
 const SQUAD=[
-  {id:'ava-h',       first:'Ava',       li:'H', posLabel:'QB (left) &middot; R3', pos:['QB','R3'],
+  {id:'ava-h',       first:'Ava',       li:'H', posLabel:'QB (left) &middot; R3 &middot; G', pos:['QB','R3','G'],
    plays:['qb-run','jet-right','motion-left','scissors-left'], why:'SCISSORS LEFT and the running plays'},
-  {id:'mollie-d',    first:'Mollie',    li:'D', posLabel:'QB', pos:['QB'], plays:null},
-  {id:'finley-r',    first:'Finley',    li:'R', posLabel:'QB', pos:['QB'], plays:null},
-  {id:'kate-g',      first:'Kate',      li:'G', posLabel:'QB', pos:['QB'],
+  {id:'mollie-d',    first:'Mollie',    li:'D', posLabel:'QB &middot; G', pos:['QB','G'], plays:null},
+  {id:'finley-r',    first:'Finley',    li:'R', posLabel:'QB &middot; G', pos:['QB','G'], plays:null},
+  {id:'kate-g',      first:'Kate',      li:'G', posLabel:'QB &middot; G', pos:['QB','G'],
    plays:['scissors','bubble-left'], why:'SCISSORS RIGHT and BUBBLE'},
   {id:'jameson-r',   first:'Jameson',   li:'R', posLabel:'C',  pos:['C'],  plays:null},
   {id:'jacqueline-d',first:'Jacqueline',li:'D', posLabel:'RB', pos:['RB'], plays:null},
   {id:'lucy-w',      first:'Lucy',      li:'W', posLabel:'RB', pos:['RB'], plays:null},
   {id:'catherine-m', first:'Catherine', li:'M', posLabel:'RB', pos:['RB'], plays:null},
   {id:'emme-h',      first:'Emme',      li:'H', posLabel:'R1', pos:['R1'], plays:null},
+  {id:'miriam-l',    first:'Miriam',    li:'L', posLabel:'R1', pos:['R1'], plays:null},
   {id:'rachel-w',    first:'Rachel',    li:'W', posLabel:'R1', pos:['R1'], plays:null},
-  {id:'jennine-q',   first:'Jennine',   li:'Q', posLabel:'R1', pos:['R1'], plays:null},
   {id:'adelina-m',   first:'Adelina',   li:'M', posLabel:'R2', pos:['R2'], plays:null},
-  {id:'lexi-e',      first:'Lexi',      li:'E', posLabel:'R2', pos:['R2'], plays:null},
   {id:'lucy-a',      first:'Lucy',      li:'A', posLabel:'R2', pos:['R2'], plays:null},
   {id:'izzy-l',      first:'Izzy',      li:'L', posLabel:'R3', pos:['R3'], plays:null},
-  {id:'avery-n',     first:'Avery',     li:'N', posLabel:'R3', pos:['R3'], plays:null},
   {id:'kate-r',      first:'Kate',      li:'R', posLabel:'R4', pos:['R4'], plays:null},
-  {id:'miriam-l',    first:'Miriam',    li:'L', posLabel:'R4', pos:['R4'], plays:null},
   {id:'lizzie-f',    first:'Lizzie',    li:'F', posLabel:'R4', pos:['R4'], plays:null},
   {id:'stella-m',    first:'Stella',    li:'M', posLabel:'Defense', pos:[], plays:null, off:false, def:true}
 ];
@@ -2298,7 +2295,7 @@ function renderRoster(){
       '<td class="stime">'+e.posLabel+'</td>'+
       '<td class="swhere">'+(e.def?'<b>Defense</b>':'TBD')+'</td></tr>').join('');
   document.getElementById('rosterNote').innerHTML =
-    '<b>Nobody is on Guard (G) yet.</b> It is a real job on every play we run &mdash; Coach Rand will either move somebody there or ask a lineman to learn both.';
+    '<b>Guard is covered by the quarterbacks.</b> Whichever of the four is not taking the snap lines up at G, so if QB is one of your spots, <b>learn the Guard job too</b> &mdash; it is a real assignment on every play we run.';
 }
 function renderWristband(){
   const g=document.getElementById('wgrid');g.innerHTML='';
