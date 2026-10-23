@@ -734,7 +734,7 @@ if('serviceWorker' in navigator){
 <script>
 /* Build id, stamped by build.py. Shown in the footer so we can always tell
    which version a phone is actually running. */
-const BUILD='a5fc5ef1e209';
+const BUILD='8ba85f079aa0';
 /* TEMPORARY, until the first practice. build.py flips this to true for the
    hosted PWA only, so the girls get Resources and nothing else while the
    Artifact build stays wide open for Coach Rand and me to keep working on the
@@ -749,8 +749,7 @@ const LOCKED=true;
    plays : the only plays she may open. null = everything she is otherwise
            allowed - which is all of them right now.                        */
 const SQUAD=[
-  {id:'ava-h',       first:'Ava',       li:'H', posLabel:'QB (left) &middot; R3 &middot; G', pos:['QB','R3','G'],
-   plays:['qb-run','jet-right','motion-left','scissors-left'], why:'SCISSORS LEFT and the running plays'},
+  {id:'ava-h',       first:'Ava',       li:'H', posLabel:'QB (left) &middot; R3 &middot; G', pos:['QB','R3','G'], plays:null},
   {id:'mollie-d',    first:'Mollie',    li:'D', posLabel:'QB &middot; G', pos:['QB','G'], plays:null},
   {id:'finley-r',    first:'Finley',    li:'R', posLabel:'QB &middot; G', pos:['QB','G'], plays:null},
   {id:'kate-g',      first:'Kate',      li:'G', posLabel:'QB &middot; G', pos:['QB','G'],
